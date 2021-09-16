@@ -3,7 +3,7 @@ import { color, font } from "../../constants/style";
 
 export const FormWrapper = styled.div`
   max-width: 750px;
-  margin: 40px auto;
+  margin: 40px auto 0;
   box-shadow: 7px 7px 38px rgba(0, 0, 0, 0.25);
   border-radius: 18px;
   padding: 48px 32px;
@@ -22,7 +22,9 @@ export const FormTitle = styled.h1`
   font-size: ${font.h1};
   margin-bottom: 50px;
 `;
-export const FormInfo = styled.div``;
+export const FormInfo = styled.div`
+  width: 100%;
+`;
 
 export const FormInput = styled.input`
   width: 100%;

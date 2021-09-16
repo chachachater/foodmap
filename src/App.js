@@ -1,13 +1,19 @@
 import "./App.css";
-import GlobalStyle from "./constants/globalStyle";
+import { GlobalStyle, Wrapper } from "./constants/globalStyle";
+import Footer from "./components/Footer";
 import RegisterPage from "./pages/user/RegisterPage";
+import LoginPage from "./pages/user/LoginPage";
+import { SendEmailPage, ResetPasswordPage } from "./pages/user/PasswordPage";
 
 function App() {
   return (
-    <div>
-      <GlobalStyle />
-      <RegisterPage />
-    </div>
+    <>
+      <Wrapper>
+        <GlobalStyle />
+        <RegisterPage />
+      </Wrapper>
+      <Footer />
+    </>    
   );
 }
 

@@ -1,8 +1,14 @@
 import { createGlobalStyle } from "styled-components";
+import styled from "styled-components";
 
 const GlobalStyle = createGlobalStyle`
   html {
     scroll-behavior: smooth;
+    height: 100%;
+  }
+
+  body {
+    height: 100%;
   }
 
   * {
@@ -52,4 +58,8 @@ const GlobalStyle = createGlobalStyle`
   }
 `;
 
-export default GlobalStyle;
+const Wrapper = styled.div`
+  min-height: calc(100vh - 160px);
+`
+
+export { GlobalStyle, Wrapper};
