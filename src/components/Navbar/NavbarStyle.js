@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { color, font } from "../../constants/style";
+import { COLOR, FONT, MEDIA_QUERY } from "../../constants/style";
 
 export const NavbarWrapper = styled.div`
   display: flex;
@@ -12,13 +12,15 @@ export const NavbarWrapper = styled.div`
 `;
 
 export const LogoText = styled.a`
-  font-size: ${font.logo};
+  font-size: ${FONT.logo};
   font-weight: bold;
   text-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
-  color: ${color.primany};
+  color: ${COLOR.primany};
   transition: all 0.2s;
 
   &:hover {
     transform: scale(1.1);
   }
+
+  ${MEDIA_QUERY}
 `;

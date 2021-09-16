@@ -1,7 +1,11 @@
 import styled from "styled-components";
-import { color, font } from "../../constants/style";
+import { COLOR, FONT, MEDIA_QUERY } from "../../constants/style";
 
 export const FormWrapper = styled.div`
+  padding: 0 16px;
+`;
+
+export const UserForm = styled.div`
   max-width: 750px;
   margin: 40px auto 0;
   box-shadow: 7px 7px 38px rgba(0, 0, 0, 0.25);
@@ -11,7 +15,7 @@ export const FormWrapper = styled.div`
   justify-content: center;
 `;
 
-export const UserForm = styled.form`
+export const FormContainer = styled.form`
   max-width: 500px;
   display: flex;
   flex-direction: column;
@@ -19,7 +23,7 @@ export const UserForm = styled.form`
   align-items: center;
 `;
 export const FormTitle = styled.h1`
-  font-size: ${font.h1};
+  font-size: ${FONT.h1};
   margin-bottom: 50px;
 `;
 export const FormInfo = styled.div`
@@ -28,11 +32,11 @@ export const FormInfo = styled.div`
 
 export const FormInput = styled.input`
   width: 100%;
-  border-bottom: 1px solid ${color.black};
+  border-bottom: 1px solid ${COLOR.black};
   padding: 10px 6px;
 
   &::placeholder {
-    color: ${color.text_gray};
+    color: ${COLOR.text_gray};
   }
 
   & + & {
@@ -54,9 +58,9 @@ export const FormButton = styled.div`
 
 export const SubmitButton = styled.button`
   border-radius: 40px;
-  background: ${color.btn};
+  background: ${COLOR.btn};
   padding: 10px 52px;
-  color: ${color.primany};
+  color: ${COLOR.primany};
   font-weight: 600;
   transition: all 0.1s;
 
@@ -67,7 +71,7 @@ export const SubmitButton = styled.button`
 
 export const LinkButton = styled.a`
   margin-top: 28px;
-  color: ${color.primany};
+  color: ${COLOR.primany};
   transition: all 0.1s;
 
   &:hover {

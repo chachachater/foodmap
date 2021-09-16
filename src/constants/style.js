@@ -1,4 +1,4 @@
-export const color = {
+export const COLOR = {
   primany: "#113333",
   secondary: "#99BC90",
   white: "#fff",
@@ -7,10 +7,15 @@ export const color = {
   btn: "#FEDD89",
 };
 
-export const font = {
+export const FONT = {
   logo: "36px",
   h1: "32px",
   h2: "28px",
   h3: "24px",
   h4: "18px",
+};
+
+export const MEDIA_QUERY = {
+  md: "@media screen and (max-width: 768px)",
+  sm: "@media screen and (max-width: 480px)",
 };
