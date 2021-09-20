@@ -1,3 +1,4 @@
+import React from "react";
 import { NavbarWrapper, LogoText } from "./NavbarStyle";
 
 function UserNavbar() {

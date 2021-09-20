@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { COLOR, FONT, MEDIA_QUERY } from "../../constants/style";
+import { COLOR, FONT } from "../../constants/style";
 
 export const FormWrapper = styled.div`
   padding: 0 16px;

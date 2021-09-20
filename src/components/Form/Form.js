@@ -1,3 +1,5 @@
+import React from "react";
+import PropTypes from "prop-types";
 import {
   FormWrapper,
   UserForm,
@@ -45,5 +47,15 @@ function Form({
     </FormWrapper>
   );
 }
+
+Form.propTypes = {
+  title: PropTypes.string,
+  username: PropTypes.string,
+  email: PropTypes.string,
+  password: PropTypes.string,
+  checkPassword: PropTypes.string,
+  submitValue: PropTypes.string,
+  linkValue: PropTypes.string,
+};
 
 export default Form;
