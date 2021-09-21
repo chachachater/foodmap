@@ -56,7 +56,7 @@ const GlobalStyle = createGlobalStyle`
 
 const Wrapper = styled.div`
   min-height: calc(100vh - 190px);
-  margin-bottom: 65px;
+  margin: 48px 0;
 `
 
 export { GlobalStyle, Wrapper};

@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { COLOR, FONT, MEDIA_QUERY } from "../../constants/style";
+import { COLOR, FONT } from "../../constants/style";
 
 export const NavbarWrapper = styled.div`
   display: flex;
@@ -33,13 +33,30 @@ export const LogoText = styled.a`
   }
 `;
 
+// export const Hamburger = styled.a`
+// 	width: 54px;
+// 	display: inline-block;
+// 	padding: 12px;
+//   background: ${COLOR.btn};
+//   border-radius: 40px;
+// `
+
+// export const Span = styled.span`
+//   display: block;
+// 	width: 100%;
+// 	height: 2px;
+// 	background: ${COLOR.primary};
+	
+//   & + & {
+//     margin-top: 4px;
+//   }
+// `
+
 export const NavbarButtons = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
 
-  
-  ${MEDIA_QUERY}
 `;
 
 export const NavbarButton = styled.a`
