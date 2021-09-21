@@ -19,7 +19,7 @@ export const LogoText = styled.a`
   font-size: ${FONT.logo};
   font-weight: bold;
   text-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
-  color: ${COLOR.primany};
+  color: ${COLOR.primary};
   transition: all 0.2s;
 
   &:hover {
