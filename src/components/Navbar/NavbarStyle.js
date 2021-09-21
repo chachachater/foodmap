@@ -7,8 +7,12 @@ export const NavbarWrapper = styled.div`
   align-items: center;
   height: 95px;
   width: 100%;
+  background: ${COLOR.white};
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
-  margin-bottom: 68px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
 `;
 
 export const LogoText = styled.a`
