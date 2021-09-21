@@ -1,7 +1,8 @@
 import React from "react";
 import { GlobalStyle, Wrapper } from "./constants/globalStyle";
 import Footer from "./components/Footer";
-import RegisterPage from "./pages/user/RegisterPage";
+import HomePage from "./pages/blog/HomePage";
+//import RegisterPage from "./pages/user/RegisterPage";
 //import LoginPage from "./pages/user/LoginPage";
 //import { SendEmailPage, ResetPasswordPage } from "./pages/user/PasswordPage";
 
@@ -10,7 +11,7 @@ function App() {
     <>
       <Wrapper>
         <GlobalStyle />
-        <RegisterPage />
+        <HomePage />
       </Wrapper>
       <Footer />
     </>
