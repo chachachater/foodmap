@@ -20,11 +20,12 @@ const Banner = styled.div`
   overflow: hidden;
   position: relative;
   background: url(${BannerImg}) center/cover;
+  z-index: -1;
 `;
 const AddBanner = styled.div`
   background: url(${addBtn}) center/cover;
   position: absolute;
-  z-index: 999;
+  z-index: 1;
   bottom: 5px;
   right: 5px;
   height: 40px;
@@ -43,7 +44,7 @@ const ProfileContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  margin-top: -68px;
+  margin-top: 95px;
   margin-bottom: 130px;
 `;
 const Name = styled.div`
@@ -136,6 +137,9 @@ const FilterContainer = styled.div`
   margin: 0 auto;
   padding: 0 40px;
   margin-bottom: 90px;
+  ${MEDIA_QUERY.md} {
+    margin-bottom: 40px;
+  }
 `;
 const FilterTitle = styled.h1``;
 const FilterOptionsContainer = styled.div`
@@ -167,8 +171,10 @@ const ArticleContainer = styled.div`
   margin: 0 auto;
   width: 100%;
   height: 200px;
+  margin-bottom: 30px;
   ${MEDIA_QUERY.md} {
     margin: 0 10px;
+    margin-bottom: 20px;
   }
   ${MEDIA_QUERY.sm} {
     flex-direction: column;
@@ -176,6 +182,7 @@ const ArticleContainer = styled.div`
     algin-items: center;
     height: 300px;
     margin: 0;
+    margin-bottom: 20px;
   }
 `;
 const UserAllArticle = styled.div`

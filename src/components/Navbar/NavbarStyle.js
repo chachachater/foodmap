@@ -3,6 +3,7 @@ import { COLOR, FONT, MEDIA_QUERY } from "../../constants/style";
 
 export const NavbarWrapper = styled.div`
   display: flex;
+  z-index: 999;
   justify-content: center;
   align-items: center;
   height: 95px;

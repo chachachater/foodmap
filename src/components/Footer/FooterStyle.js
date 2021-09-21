@@ -10,7 +10,7 @@ export const FooterWappwer = styled.div`
   height: 95px;
   width: 100%;
   box-shadow: 4px 0 4px rgba(0, 0, 0, 0.25);
-  margin-top: 65px;
+  // margin-top: 65px;
   padding: 0 28px;
   position: relative;
   left: 0;

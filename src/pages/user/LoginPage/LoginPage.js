@@ -1,10 +1,11 @@
 import React from "react";
 import Form from "../../../components/Form";
 import { UserNavbar } from "../../../components/Navbar";
+import { Wrapper } from "../../../constants/globalStyle"
 
 function LoginPage() {
   return (
-    <>
+    <Wrapper>
       <UserNavbar />
       <Form
         title="登入"
@@ -13,7 +14,7 @@ function LoginPage() {
         submitValue="登入"
         linkValue="忘記密碼， 前往重設"
       />
-    </>
+    </Wrapper>
   );
 }
 
