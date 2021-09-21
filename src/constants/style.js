@@ -1,5 +1,5 @@
 export const COLOR = {
-  primany: "#113333",
+  primary: "#013320",
   secondary: "#99BC90",
   white: "#fff",
   black: "#000",
@@ -16,6 +16,7 @@ export const FONT = {
 };
 
 export const MEDIA_QUERY = {
+  lg: "@media screen and (max-width: 1200px)",
   md: "@media screen and (max-width: 768px)",
   sm: "@media screen and (max-width: 480px)",
 };

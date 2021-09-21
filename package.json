@@ -42,5 +42,8 @@
     "eslint-plugin-react": "^7.25.2",
     "prettier": "^2.4.0",
     "prettier-eslint": "^13.0.0"
+  },
+  "parserOptions": {
+    "ecmaVersion": 11
   }
 }
