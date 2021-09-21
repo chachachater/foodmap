@@ -4,6 +4,7 @@ import { COLOR, FONT, MEDIA_QUERY } from "../../constants/style";
 export const NavbarWrapper = styled.div`
   display: flex;
   justify-content: space-between;
+  z-index: 999;
   align-items: center;
   height: 95px;
   width: 100%;
@@ -14,7 +15,6 @@ export const NavbarWrapper = styled.div`
   top: 0;
   left: 0;
   right: 0;
-  z-index: 999;
 `;
 
 export const UserNavbarWrapper = styled(NavbarWrapper)`

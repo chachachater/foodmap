@@ -1,10 +1,10 @@
 import React from "react";
 import Form from "../../../components/Form";
 import { UserNavbar } from "../../../components/Navbar";
-
+import { Wrapper } from "../../../constants/globalStyle"
 function RegisterPage() {
   return (
-    <>
+    <Wrapper>
       <UserNavbar />
       <Form
         title="會員註冊"
@@ -15,7 +15,7 @@ function RegisterPage() {
         submitValue="註冊"
         linkValue="已有帳號，前往登入"
       />
-    </>
+    </Wrapper>
   );
 }
 
