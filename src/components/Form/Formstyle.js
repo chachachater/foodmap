@@ -3,6 +3,7 @@ import { COLOR, FONT } from "../../constants/style";
 
 export const FormWrapper = styled.div`
   padding: 0 16px;
+  margin-top: 160px;
 `;
 
 export const UserForm = styled.div`
@@ -60,7 +61,7 @@ export const SubmitButton = styled.button`
   border-radius: 40px;
   background: ${COLOR.btn};
   padding: 10px 52px;
-  color: ${COLOR.primany};
+  color: ${COLOR.primary};
   font-weight: 600;
   transition: all 0.1s;
 
@@ -71,10 +72,10 @@ export const SubmitButton = styled.button`
 
 export const LinkButton = styled.a`
   margin-top: 28px;
-  color: ${COLOR.primany};
+  color: ${COLOR.primary};
   transition: all 0.1s;
 
   &:hover {
-    filter: brightness(3.5);
+    font-weight: 700;
   }
 `;

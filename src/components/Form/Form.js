@@ -13,34 +13,32 @@ import {
   LinkButton,
 } from "./Formstyle";
 
-function Form({
-  title,
-  username,
-  email,
-  password,
-  checkPassword,
-  submitValue,
-  linkValue,
-}) {
+function Form(props) {
   return (
     <FormWrapper>
       <UserForm>
         <FormContainer>
-          <FormTitle>{title}</FormTitle>
+          <FormTitle>{props.title}</FormTitle>
           <FormInfo>
-            {username !== undefined && <FormInput placeholder={username} />}
-            {email !== undefined && <FormInput placeholder={email} />}
-            {password !== undefined && <FormInput placeholder={password} />}
-            {checkPassword !== undefined && (
-              <FormInput placeholder={checkPassword} />
+            {props.username && (
+              <FormInput type="text" placeholder={props.username} />
+            )}
+            {props.email && (
+              <FormInput type="email" placeholder={props.email} />
+            )}
+            {props.password && (
+              <FormInput type="password" placeholder={props.password} />
+            )}
+            {props.checkPassword && (
+              <FormInput type="password" placeholder={props.checkPassword} />
             )}
           </FormInfo>
           <FormUserTerms>
             當您繼續使用吃貨地圖時，即表示您以閱讀、瞭解並同意接受本服務條款之所有內容。
           </FormUserTerms>
           <FormButton>
-            <SubmitButton>{submitValue}</SubmitButton>
-            <LinkButton>{linkValue}</LinkButton>
+            <SubmitButton>{props.submitValue}</SubmitButton>
+            <LinkButton>{props.linkValue}</LinkButton>
           </FormButton>
         </FormContainer>
       </UserForm>

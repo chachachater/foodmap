@@ -112,7 +112,7 @@ export const GithubImg = styled.div`
 `;
 
 export const AuthorName = styled.p`
-  color: ${COLOR.primany};
+  color: ${COLOR.primary};
 
   ${MEDIA_QUERY.md} {
     margin-left: 4px;
