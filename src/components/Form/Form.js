@@ -14,7 +14,6 @@ import {
 } from "./Formstyle";
 
 function Form(props) {
-  console.log(props.username);
   return (
     <FormWrapper>
       <UserForm>
