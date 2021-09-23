@@ -57,6 +57,7 @@ export const ArticleTitle = styled.div`
   font-weight: 600;
   line-height: 32px;
   letter-spacing: 3px;
+  
 
   ${MEDIA_QUERY.lg} {
     height: 100px;
@@ -66,14 +67,14 @@ export const ArticleTitle = styled.div`
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     white-space: normal;
+    overflow: hidden;
   }
 
   ${MEDIA_QUERY.md} {
     max-width: 375px;
     margin: 0 auto;
     font-size: ${FONT.h4};
-    display: contents;
-    height: 100%;
+    -webkit-line-clamp: 3;
   }
 `;
 

@@ -1,12 +1,11 @@
 import styled from "styled-components";
-import { COLOR, FONT, MEDIA_QUERY} from "../../../constants/style";
+import { COLOR, FONT, MEDIA_QUERY } from "../../../constants/style";
 import AvatarImg from "../../../components/pictures/avatar.png";
 
 export const Post = styled.div`
   padding: 0 24px;
   margin-top: 165px;
-`
-
+`;
 
 export const PostContainer = styled.div`
   border: 2px solid ${COLOR.primary};
@@ -60,14 +59,4 @@ export const PostContent = styled.p`
   margin-bottom: 48px;
 `;
 
-export const PostImg = styled.div`
-  height: 300px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-`;
-
-export const Img = styled.img`
-  height: 280px;
-  object-fit: contain;
-`;
+export const PostImg = styled.div``;
