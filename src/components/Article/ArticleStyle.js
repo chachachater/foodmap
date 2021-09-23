@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { FONT, MEDIA_QUERY } from "../../constants/style";
+import { COLOR, FONT, MEDIA_QUERY } from "../../constants/style";
 import FoodImg from "../pictures/food.png";
 
 export const ArticleContainer = styled.a`
@@ -7,10 +7,11 @@ export const ArticleContainer = styled.a`
   margin: 0 auto;
   width: 100%;
   height: 200px;
-  margin-bottom: 36px;
+  margin-bottom: 42px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid ${COLOR.text_gray};
 
   ${MEDIA_QUERY.md} {
-    margin: 0 10px;
     margin-bottom: 20px;
   }
 
@@ -19,6 +20,7 @@ export const ArticleContainer = styled.a`
     justify-content: center;
     algin-items: center;
     height: 300px;
+    width: 100%;
     margin: 0;
     margin-bottom: 20px;
   }
@@ -28,6 +30,7 @@ export const UserAllArticle = styled.div`
   flex-direction: column;
   max-width: 1200px;
   margin: 0 auto;
+  padding: 0 16px;
 
   ${MEDIA_QUERY.lg} {
     max-width: 768px;
@@ -40,7 +43,8 @@ export const UserAllArticle = styled.div`
 
 export const ArticleImage = styled.div`
   height: 100%;
-  width: 375px;
+  width: 100%;
+  max-width: 375px;
   background: url(${FoodImg}) center/cover;
 
   ${MEDIA_QUERY.md} {
@@ -55,9 +59,22 @@ export const ArticleTitle = styled.div`
   letter-spacing: 3px;
   margin-bottom: 16px;
 
-  ${MEDIA_QUERY.sm} {
+  ${MEDIA_QUERY.lg} {
+    height: 100px;
+    overflow: hidden;
+    display: -webkit-box;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    white-space: normal;
+    overflow: hidden;
+  }
+
+  ${MEDIA_QUERY.md} {
     max-width: 375px;
     margin: 0 auto;
+    font-size: ${FONT.h4};
+    -webkit-line-clamp: 3;
   }
 `;
 
@@ -109,4 +126,3 @@ export const FilterOptionsContainer = styled.div`
 export const FilterOption = styled.div`
   margin-right: 20px;
 `;
-
