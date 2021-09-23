@@ -7,6 +7,7 @@ import HomePage from "./pages/blog/HomePage";
 import Profile from "./pages/blog/ProfilePage";
 import RegisterPage from "./pages/user/RegisterPage";
 import LoginPage from "./pages/user/LoginPage";
+import ArticlePage from "./pages/blog/ArticlePage";
 import { SendEmailPage, ResetPasswordPage } from "./pages/user/PasswordPage";
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
           <Link to="/forget">forget</Link>
           <Link to="/reset-password">reset-password</Link>
           <Link to="/user/1">Profile</Link>
+          <Link to="/posts/1">post</Link>
         </Router>
         <Route path="/home">
           <HomePage />
@@ -40,6 +42,9 @@ function App() {
         </Route>
         <Route path="/user/:id">
           <Profile />
+        </Route>
+        <Route path="/posts/:id">
+          <ArticlePage />
         </Route>
       </Switch>
       <Footer />
