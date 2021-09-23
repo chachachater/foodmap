@@ -7,6 +7,8 @@ import HomePage from "./pages/blog/HomePage";
 import Profile from "./pages/blog/ProfilePage";
 import RegisterPage from "./pages/user/RegisterPage";
 import LoginPage from "./pages/user/LoginPage";
+import AdminPage from "./components/Admin";
+import BackStagePage from "./components/BackStage";
 import ArticlePage from "./pages/blog/ArticlePage";
 import SearchPage from "./pages/blog/SearchPage";
 import LuckPage from "./pages/blog/LuckPage";
@@ -26,6 +28,8 @@ function App() {
           <Link to="/forget">forget</Link>
           <Link to="/reset-password">reset-password</Link>
           <Link to="/user/1">Profile</Link>
+          <Link to="/admin">Admin</Link>
+          <Link to="/backstage/rich">後台</Link>
           <Link to="/posts/1">post</Link>
           <Link to="/search">search</Link>
           <Link to="/luck">luck</Link>
@@ -48,6 +52,12 @@ function App() {
         </Route>
         <Route path="/user/:id">
           <Profile />
+        </Route>
+        <Route path="/admin">
+          <AdminPage />
+        </Route>
+        <Route path="/backstage/:user">
+          <BackStagePage />
         </Route>
         <Route path="/posts/:id">
           <ArticlePage />

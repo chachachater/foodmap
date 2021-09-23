@@ -57,7 +57,7 @@ export const ArticleTitle = styled.div`
   font-weight: 600;
   line-height: 32px;
   letter-spacing: 3px;
-  
+  margin-bottom: 16px;
 
   ${MEDIA_QUERY.lg} {
     height: 100px;
@@ -79,7 +79,6 @@ export const ArticleTitle = styled.div`
 `;
 
 export const ArticleDesc = styled.div`
-  margin-top: 16px;
   height: 100%;
   justify-content: center;
 
