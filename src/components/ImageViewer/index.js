@@ -1,1 +1,1 @@
-export { default } from "./ReactImageViewer";
+export { default } from "./ImageViewer";
