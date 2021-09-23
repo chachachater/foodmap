@@ -73,5 +73,4 @@ ImageViewer.propTypes = {
   photos: PropTypes.array,
 };
 
-
 export default ImageViewer;

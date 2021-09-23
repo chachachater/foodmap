@@ -10,6 +10,7 @@ import LoginPage from "./pages/user/LoginPage";
 import ArticlePage from "./pages/blog/ArticlePage";
 import SearchPage from "./pages/blog/SearchPage";
 import LuckPage from "./pages/blog/LuckPage";
+import EditPage from "./pages/blog/EditPage";
 import { SendEmailPage, ResetPasswordPage } from "./pages/user/PasswordPage";
 
 function App() {
@@ -28,6 +29,7 @@ function App() {
           <Link to="/posts/1">post</Link>
           <Link to="/search">search</Link>
           <Link to="/luck">luck</Link>
+          <Link to="/edit">edit</Link>
         </Router>
         <Route path="/home">
           <HomePage />
@@ -55,6 +57,9 @@ function App() {
         </Route>
         <Route path="/luck">
           <LuckPage />
+        </Route>
+        <Route path="/edit">
+          <EditPage />
         </Route>
       </Switch>
       <Footer />

@@ -80,7 +80,7 @@ function SearchPage() {
             </InfoContent>
           </RestaurantInfo>
           <InfoImg>
-            <ImageViewer photos={photos} />;
+            <ImageViewer photos={photos} />
           </InfoImg>
         </SearchInfo>
         <Article />
