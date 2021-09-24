@@ -2,7 +2,7 @@ import React from "react";
 import { Wrapper } from "../../../constants/globalStyle";
 import { Navbar } from "../../../components/Navbar";
 import Search from "../../../components/Search";
-import { Article,ArticleInfo } from "../../../components/Article";
+import { Article, ArticleInfo } from "../../../components/Article";
 import { UserAllArticle } from "../../../components/Article/ArticleStyle";
 import ImageViewer from "../../../components/ImageViewer";
 import {
@@ -17,7 +17,7 @@ import {
   AddLogo,
   BhLogo,
   UrlLogo,
-  InfoImg
+  InfoImg,
 } from "./SearchPageStyle";
 
 function SearchPage() {
@@ -48,7 +48,6 @@ function SearchPage() {
     },
   ];
 
-
   return (
     <Wrapper>
       <Navbar />
@@ -62,21 +61,15 @@ function SearchPage() {
             <InfoTitle>貳樓餐廳 Second Floor Cafe 仁愛店</InfoTitle>
             <InfoContent>
               <AddLogo></AddLogo>
-              <InfoText>
-                100台北市中正區仁愛路二段108號
-              </InfoText>
+              <InfoText>100台北市中正區仁愛路二段108號</InfoText>
             </InfoContent>
             <InfoContent>
               <BhLogo></BhLogo>
-              <InfoText>
-                營業中：  10:00–21:00
-              </InfoText>
+              <InfoText>營業中： 10:00–21:00</InfoText>
             </InfoContent>
             <InfoContent>
               <UrlLogo></UrlLogo>
-              <InfoText>
-                secondfloorcafe.com
-              </InfoText>
+              <InfoText>secondfloorcafe.com</InfoText>
             </InfoContent>
           </RestaurantInfo>
           <InfoImg>
@@ -86,7 +79,7 @@ function SearchPage() {
         <Article />
         <UserAllArticle>
           <ArticleInfo />
-        </UserAllArticle> 
+        </UserAllArticle>
       </SearchContainer>
     </Wrapper>
   );

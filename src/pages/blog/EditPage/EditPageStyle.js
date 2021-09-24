@@ -1,90 +1,103 @@
 import styled from "styled-components";
-import { COLOR, FONT, MEDIA_QUERY } from "../../../constants/style";
-import addLogo from "../../../components/pictures/addLogo.png";
-import bhLogo from "../../../components/pictures/bhLogo.png";
-import urlLogo from "../../../components/pictures/urlLogo.png";
+import { COLOR, FONT } from "../../../constants/style";
+import plus from "../../../components/pictures/plus.png";
+import deleteBtn from "../../../components/pictures/deleteBtn.png";
+import deleteBtnHover from "../../../components/pictures/deleteBtnHover.png";
 
-export const SearchContainer = styled.div`
+export const EditContainer = styled.div`
   padding: 150px 16px 0;
   max-width: 1200px;
   margin: 0 auto;
 `;
 
-export const SearchBorder = styled.div`
-  border: 1px solid ${COLOR.black};
-  border-radius: 40px;
-  width: 100%;
-  margin: 0 auto 32px;
-`;
-
-export const SearchMap = styled.div`
-  width: 100%;
-  height: 300px;
-  background: ${COLOR.text_gray};
-  margin-bottom: 48px;
-`;
-
-export const SearchInfo = styled.div`
+export const EditInputs = styled.div`
   display: flex;
-  justify-content: space-between;
-  padding: 0 24px;
+  flex-direction: column;
+  justify-content: center;
+  aligin-items: center;
+`;
+
+export const EditLabel = styled.label`
   margin-bottom: 48px;
-
-  ${MEDIA_QUERY.sm} {
-    flex-direction: column;
-    align-items: center;
-  }
-`;
-
-export const RestaurantInfo = styled.div`
-  margin-right: 24px;
-`;
-
-export const InfoTitle = styled.h3`
-  font-size: ${FONT.h3};
-  margin-bottom: 20px;
-  line-height: 1.4;
-`;
-
-export const InfoContent = styled.div`
+  border-bottom: 1px solid ${COLOR.text_gray};
+  padding: 8px 0;
   display: flex;
-  justify-content: flex-start;
-  margin-bottom: 12px;
+  aligin-items: center;
 `;
 
-export const InfoText = styled.div`
+export const Span = styled.span`
+  background: url(${plus}) center/cover;
+  width: 30px;
+  height: 30px;
+  margin-right: 8px;
+`;
+
+export const Input = styled.input``;
+
+export const FileInput = styled.input`
+  width: 0;
+  height: 0;
+`;
+
+export const NoBorderLabel = styled(EditLabel)`
+  border: none;
+  color: ${COLOR.text_gray};
   font-size: ${FONT.h4};
-  margin-left: 8px;
-  line-height: 1.4;
+  vertical-align: middle;
+  line-height: 30px;
+  margin-bottom: 24px;
+`;
+
+export const UnloadImg = styled.div`
+  margin-bottom: 24px;
+  display: flex;
+`;
+
+export const ImgBox = styled.div`
+  height: 200px;
+  width: 260px;
+  box-shadow: 2px 2px 4px 2px rgb(0, 0, 0, 0.2);
+  position: relative;
 
   & + & {
-    margin-top: 14px;
+    margin-left: 18px;
   }
 `;
 
-export const AddLogo = styled.span`
-  background: url(${addLogo}) center/cover;
-  display: inline-block;
+export const Img = styled.img`
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+`;
+
+export const DeleteBtn = styled.button`
+  background: url(${deleteBtn}) center/cover;
   width: 25px;
   height: 25px;
-`;
+  position: absolute;
+  right: -10px;
+  top: -10px;
 
-export const BhLogo = styled(AddLogo)`
-  background: url(${bhLogo}) center/cover;
-`;
-
-export const UrlLogo = styled(AddLogo)`
-  background: url(${urlLogo}) center/cover;
-`;
-
-export const InfoImg = styled.div`
-  width: 500px;
-
-  ${MEDIA_QUERY.sm} {
-    width: 400px;
+  &:hover {
+    background: url(${deleteBtnHover}) center/cover;
   }
+`;
 
-  ${MEDIA_QUERY.sm} {
-    width: 300px;
+export const SubmitButton = styled.div`
+  display: flex;
+  justify-content: space-around;
+  margin-top: 48px;
+`;
+
+export const Button = styled.button`
+  color: ${COLOR.primary};
+  font-size: ${FONT.h4};
+  font-weight: 600;
+  padding: 8px 16px;
+  border-radius: 40px;
+  background: ${COLOR.btn};
+
+  &:hover {
+    filter: saturate(2.5);
   }
 `;
