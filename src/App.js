@@ -11,10 +11,25 @@ import ArticlePage from "./pages/blog/ArticlePage";
 import SearchPage from "./pages/blog/SearchPage";
 import LuckPage from "./pages/blog/LuckPage";
 import { SendEmailPage, ResetPasswordPage } from "./pages/user/PasswordPage";
+import { successAsync, logoutAsync } from "./redux/reducers/userReducer"
+import { useDispatch } from "react-redux";
 
 function App() {
+  const dispatch = useDispatch();
+  function handleClick() {
+    dispatch(successAsync()).catch(err => {
+      console.log(err)
+    })
+  }
+  function handleLogout() {
+    dispatch(logoutAsync()).catch(err => {
+      console.log(err)
+    })
+  }
   return (
     <Router>
+      <button onClick={handleClick}>test success</button>
+      <button onClick={handleLogout}>test logout</button>
       <GlobalStyle />
       <BackToTopBtn />
       <Switch>
