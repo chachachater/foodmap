@@ -38,7 +38,7 @@ export const LogoText = styled(Link)`
 
 export const HamburgerIcon = styled.div`
   display: none;
-  transition: all 0.2s;
+  transition: all 0.1s;
 
   &:hover {
     transform: scale(1.2);
@@ -91,6 +91,7 @@ export const NavbarButton = styled(Link)`
   font-weight: 600;
   padding: 8px 16px;
   border-radius: 40px;
+  transition: all 0.2s;
 
   & + & {
     margin-left: 4px;
@@ -101,8 +102,20 @@ export const NavbarButton = styled(Link)`
   }
 
   ${MEDIA_QUERY.md} {
+    border-radius: 0;
+    border-bottom: 1px solid ${COLOR.secondary};
+    width: 60%;
+    justify-content: center;
+    height: 42px;
+    transition: all 0.2s;
+
     & + & {
-      margin-top: 48px;
+      margin-top: 84px;
+    }
+
+    &:hover {
+      background: none;
+      border-bottom: 3px solid ${COLOR.btn};
     }
   }
 `;
@@ -114,5 +127,14 @@ export const LuckButton = styled(NavbarButton)`
 
   &:hover {
     color: ${COLOR.primary};
+  }
+
+  ${MEDIA_QUERY.md} {
+    color: ${COLOR.primary};
+    background: none;
+
+    &:hover {
+      color: ${COLOR.secondary};
+    }
   }
 `;
