@@ -1,11 +1,11 @@
 import styled from "styled-components";
-import { COLOR, FONT } from "../../../constants/style";
+import { COLOR, FONT, MEDIA_QUERY } from "../../../constants/style";
 import plus from "../../../components/pictures/plus.png";
 import deleteBtn from "../../../components/pictures/deleteBtn.png";
 import deleteBtnHover from "../../../components/pictures/deleteBtnHover.png";
 
 export const EditContainer = styled.div`
-  padding: 150px 16px 0;
+  padding: 150px 24px 0;
   max-width: 1200px;
   margin: 0 auto;
 `;
@@ -51,6 +51,11 @@ export const NoBorderLabel = styled(EditLabel)`
 export const UnloadImg = styled.div`
   margin-bottom: 24px;
   display: flex;
+
+  ${MEDIA_QUERY.sm} {
+    flex-direction: column;
+    align-items: center;
+  }
 `;
 
 export const ImgBox = styled.div`
@@ -61,6 +66,13 @@ export const ImgBox = styled.div`
 
   & + & {
     margin-left: 18px;
+  }
+
+  ${MEDIA_QUERY.sm} {
+    & + & {
+    margin-left: 0;
+    margin-top: 18px;
+    }
   }
 `;
 
