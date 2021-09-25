@@ -9,7 +9,7 @@ import {
 function Filters() {
   return (
     <FilterOptionsContainer>
-      <FilterOption>最新排序</FilterOption>
+      <FilterOption active>最新排序</FilterOption>
       <FilterOption>熱門排序</FilterOption>
     </FilterOptionsContainer>
   );

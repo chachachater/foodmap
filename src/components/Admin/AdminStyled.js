@@ -40,12 +40,14 @@ export const SearchInput = styled.input`
   }
 `;
 export const SearchBtn = styled.button`
-  background-color: ${COLOR.btn};
+  // background-color: ${COLOR.secondary};
+  color: black;
+  border: 2px solid ${COLOR.secondary};
   height: 49px;
   border-radius: 40px;
   width: 125px;
   ${MEDIA_QUERY.md} {
-    height: 34px;
+    height: 32px;
     padding: 0;
     width: 100px;
   }

@@ -70,7 +70,7 @@ const EditingGroup = styled.div`
   align-items: center;
   margin: 0 auto;
 `;
-const EditName = styled.div`
+const EditName = styled.button`
   font-size: ${FONT.h3};
   color: ${COLOR.text_gray};
   border: 1px solid #013328;
