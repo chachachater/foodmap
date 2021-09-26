@@ -13,7 +13,10 @@ export function fetchRegister(userData) {
     }),
   })
     .then((res) => res.json())
-    .catch((err) => console.log(err));
+    .catch((err) => {
+      alert('操作失敗，發生錯誤')
+      console.log(err)
+    });
 }
 
 export function fetchLogin(userData) {
@@ -29,7 +32,10 @@ export function fetchLogin(userData) {
     }),
   })
     .then((res) => res.json())
-    .catch((err) => console.log(err));
+    .catch((err) => {
+      alert('操作失敗，發生錯誤')
+      console.log(err)
+    });
 }
 
 export function fetchSuccess() {
@@ -38,7 +44,10 @@ export function fetchSuccess() {
     credentials: "include",
   })
     .then((res) => res.json())
-    .catch((err) => console.log(err));
+    .catch((err) => {
+      alert('操作失敗，發生錯誤')
+      console.log(err)
+    });
 }
 
 export function fetchLogout() {
@@ -47,5 +56,8 @@ export function fetchLogout() {
     credentials: "include",
   })
     .then((res) => res.json())
-    .catch((err) => console.log(err));
+    .catch((err) => {
+      alert('操作失敗，發生錯誤')
+      console.log(err)
+    });
 }

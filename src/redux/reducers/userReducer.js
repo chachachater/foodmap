@@ -10,7 +10,12 @@ const initialState = {
 export const registerAsync = createAsyncThunk(
   "user/register",
   async (userData) => {
-    const result = await fetchRegister(userData);
+    let result = ''
+    try {
+      result = await fetchRegister(userData)
+    } catch(err) {
+      alert('操作失敗，發生錯誤')
+    }
     return result
   }
 );
@@ -18,25 +23,37 @@ export const registerAsync = createAsyncThunk(
 export const loginAsync = createAsyncThunk(
   "user/login",
   async (userData) => {
-  const result = await fetchLogin(userData);
-  console.log(result)
-  return result;
+    let result = ''
+    try {
+      result = await fetchLogin(userData)
+    } catch (err) {
+      alert('操作失敗，發生錯誤')
+    }
+    return result
 });
 
 export const successAsync = createAsyncThunk(
   "user/success",
   async () => {
-    const result = await fetchSuccess();
-    console.log(result)
-    return result;
+    let result = ''
+    try {
+      result = await fetchSuccess()
+    } catch (err) {
+      alert('操作失敗，發生錯誤')
+    }
+    return result
   });
 
 export const logoutAsync = createAsyncThunk(
   "user/logout",
   async (userData) => {
-    const result = await fetchLogout();
-    console.log(result)
-    return result;
+    let result = ''
+    try {
+      result = await fetchtRegister()
+    } catch (err) {
+      alert('操作失敗，發生錯誤')
+    }
+    return result
   });
 
 export const userSlice = createSlice({

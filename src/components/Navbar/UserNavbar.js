@@ -4,7 +4,7 @@ import { UserNavbarWrapper, LogoText } from "./NavbarStyle";
 function UserNavbar() {
   return (
     <UserNavbarWrapper>
-      <LogoText>吃貨地圖</LogoText>
+      <LogoText to="/home">吃貨地圖</LogoText>
     </UserNavbarWrapper>
   );
 }
