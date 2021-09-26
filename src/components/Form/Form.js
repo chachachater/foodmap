@@ -11,7 +11,7 @@ import {
   FormButton,
   SubmitButton,
   LinkButton,
-} from "./Formstyle";
+} from "./FormStyle";
 
 function Form(props) {
   return (

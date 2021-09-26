@@ -7,7 +7,7 @@ import BannerImg from "../pictures/banner.png";
 import { FONT, COLOR } from "../../constants/style";
 
 const Banner = styled.div`
-  height: 335px;
+  height: 380px;
   width: 100%;
   overflow: hidden;
   position: relative;
@@ -36,7 +36,6 @@ const ProfileContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  margin-top: 95px;
   margin-bottom: 130px;
 `;
 const Name = styled.div`

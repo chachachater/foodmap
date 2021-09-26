@@ -88,6 +88,7 @@ export const NavbarButtons = styled.div`
 export const NavbarButton = styled(Link)`
   color: ${COLOR.primary};
   font-size: ${FONT.h4};
+  line-height: 1;
   font-weight: 600;
   padding: 8px 16px;
   border-radius: 40px;
@@ -123,14 +124,12 @@ export const NavbarButton = styled(Link)`
 export const NavbarLogoutButton = styled.a`
   color: ${COLOR.primary};
   font-size: ${FONT.h4};
+  line-height: 1;
   font-weight: 600;
   padding: 8px 16px;
   border-radius: 40px;
   transition: all 0.2s;
-
-  & + & {
-    margin-left: 4px;
-  }
+  margin-left: 4px;
 
   &:hover {
     background: ${COLOR.btn};
@@ -144,7 +143,7 @@ export const NavbarLogoutButton = styled.a`
     height: 42px;
     transition: all 0.2s;
 
-    & + & {
+    & {
       margin-top: 84px;
     }
 
@@ -158,7 +157,7 @@ export const NavbarLogoutButton = styled.a`
 export const LuckButton = styled(NavbarButton)`
   color: ${COLOR.white};
   background: ${COLOR.primary};
-  margin-left: 12px;
+  margin-left: 4px;
 
   &:hover {
     color: ${COLOR.primary};
