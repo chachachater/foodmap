@@ -4,11 +4,13 @@ import React from "react";
 
 export const BackStageTitle = styled.div`
   margin-top: 236px;
-  font-size: ${FONT.logo};
   font-size: 64px;
   color: #013328;
   margin-bottom: 60px;
   text-align: center;
+  ${MEDIA_QUERY.md} {
+    font-size: ${FONT.logo};
+  }
 `;
 export const SearchContainer = styled.div`
   display: flex;
@@ -23,20 +25,32 @@ export const SearchContainer = styled.div`
   margin-bottom: 100px;
   ${MEDIA_QUERY.md} {
     width: 100%;
+    height: 45px;
   }
 `;
 
 export const SearchInput = styled.input`
-  font-size: 30px;
+  font-size: ${FONT.h2};
   line-height: 60px;
   margin-left: 20px;
   width: 80%;
+  ${MEDIA_QUERY.md} {
+    line-height: 36px;
+    font-size: ${FONT.h4};
+  }
 `;
 export const SearchBtn = styled.button`
-  background-color: ${COLOR.btn};
+  // background-color: ${COLOR.secondary};
+  color: black;
+  border: 2px solid ${COLOR.secondary};
   height: 49px;
   border-radius: 40px;
-  padding: 10px 50px;
+  width: 125px;
+  ${MEDIA_QUERY.md} {
+    height: 32px;
+    padding: 0;
+    width: 100px;
+  }
 `;
 const Table = styled.table`
   margin: 0 auto;
@@ -63,6 +77,19 @@ const Table = styled.table`
     font-size: ${FONT.h4};
   }
 `;
+const BanBtn = styled.button`
+  background-color: #dc3545;
+  color: white;
+  padding: 10px 25px;
+  border-radius: 12px;
+  font-size: 18px;
+  ${MEDIA_QUERY.md} {
+    padding: 7px 14px;
+  }
+`;
+const UnbanBtn = styled(BanBtn)`
+  background-color: #28a745;
+`;
 export function UserTable() {
   return (
     <Table>
@@ -75,21 +102,30 @@ export function UserTable() {
       </thead>
       <tbody>
         <tr>
-          <td>我的哀低是從領數到一百反正只要到三十二個字都可以喔</td>
-          <td>user:rich</td>
+          <td>dicksonWang</td>
+          <td>王大明的分身</td>
           <td>no</td>
+          <td>
+            <BanBtn>Ban</BanBtn>
+          </td>
         </tr>
         <tr>
-          <td>12345678901234567890123456789012</td>
-          <td>user:rich</td>
+          <td>aszx1314520</td>
+          <td>愛情的一縷煙</td>
           <td>no</td>
+          <td>
+            <BanBtn>Ban</BanBtn>
+          </td>
         </tr>
         <tr>
           <td>
             nick:acasasdnick:sacasasdnick:acasasdnick:sacasasdnick:acasasdnick:sacasasdnick:acasasdnick:sacasasdnick:acasasdnick:sacasasdnick:acasasdnick:sacasasdnick:acasasdnick:sacasasdnick:acasasdnick:sacasasdnick:acasasdnick:sacasasdnick:acasasdnick:sacasasd
           </td>
-          <td>user:rich</td>
-          <td>no</td>
+          <td>hacker32</td>
+          <td>yes</td>
+          <td>
+            <UnbanBtn>Unban</UnbanBtn>
+          </td>
         </tr>
       </tbody>
     </Table>

@@ -33,8 +33,12 @@ export const Publish = styled.div`
 export const Private = styled(Publish)``;
 const Container = styled.div`
   display: flex;
-  flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
+  align-items: center;
+  ${MEDIA_QUERY.sm} {
+    max-width: 375px;
+    margin: 0 auto;
+  }
 `;
 const ArticleTime = styled.div`
   font-size: ${FONT.h3};
@@ -59,9 +63,18 @@ const BtnContainer = styled.div`
 const EditBtn = styled.button`
   background-color: ${COLOR.btn};
   border-radius: 40px;
-  padding: 10px 20px;
+  width: 88px;
+  height: 65px;
   color: ${COLOR.primary};
   font-size: ${FONT.h3};
+  ${MEDIA_QUERY.lg} {
+    border-radius: 35%;
+    font-size: ${FONT.h4};
+    width: 60px;
+    height: 45px;
+  }
+  ${MEDIA_QUERY.md} {
+  }
 `;
 const DeleteBtn = styled(EditBtn)`
   color: ${COLOR.secondary};
@@ -72,7 +85,7 @@ const DeleteBtn = styled(EditBtn)`
 function ArticleBtn() {
   return (
     <Container>
-      <ArticleTime>食記時間 2021/12/21</ArticleTime>
+      <ArticleTime>2021/12/21</ArticleTime>
       <BtnContainer>
         <EditBtn>編輯</EditBtn>
         <DeleteBtn>刪除</DeleteBtn>
@@ -81,12 +94,18 @@ function ArticleBtn() {
   );
 }
 const BackStageImage = styled(ArticleImage)`
-  ${MEDIA_QUERY.md} {
-    display: none;
+  ${MEDIA_QUERY.lg} {
+    max-width: 350px;
+  }
+  ${MEDIA_QUERY.sm} {
+    max-width: 375px;
   }
 `;
 const BackStageContainer = styled(ArticleContainer)`
   margin-bottom: 60px;
+  ${MEDIA_QUERY.lg} {
+    max-width: 768px;
+  }
 `;
 export function BackStageArticle() {
   return (
