@@ -7,10 +7,6 @@ const GlobalStyle = createGlobalStyle`
     height: 100%;
   }
 
-  body {
-    height: 100%;
-  }
-
   * {
     box-sizing: border-box;
     margin: 0;
@@ -59,7 +55,8 @@ const GlobalStyle = createGlobalStyle`
 `;
 
 const Wrapper = styled.div`
-  min-height: calc(100vh - 160px);
+  min-height: calc(100vh - 190px);
+  margin: 48px 0;
 `
 
 export { GlobalStyle, Wrapper};

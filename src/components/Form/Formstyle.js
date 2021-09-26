@@ -8,7 +8,7 @@ export const FormWrapper = styled.div`
 
 export const UserForm = styled.div`
   max-width: 750px;
-  margin: 40px auto 0;
+  margin: 0 auto;
   box-shadow: 7px 7px 38px rgba(0, 0, 0, 0.25);
   border-radius: 18px;
   padding: 48px 32px;
