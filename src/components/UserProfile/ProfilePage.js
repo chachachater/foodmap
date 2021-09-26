@@ -1,6 +1,6 @@
 import { Navbar } from "../Navbar";
 import { Wrapper } from "../../constants/globalStyle";
-import { Profile } from "./components";
+import { Profile } from "./profilestyled.js";
 import { Article } from "../Article";
 import React from "react";
 
