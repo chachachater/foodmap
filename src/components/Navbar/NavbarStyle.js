@@ -120,7 +120,7 @@ export const NavbarButton = styled(Link)`
   }
 `;
 
-export const NavbarLogoutButton = styled.div`
+export const NavbarLogoutButton = styled.a`
   color: ${COLOR.primary};
   font-size: ${FONT.h4};
   font-weight: 600;
