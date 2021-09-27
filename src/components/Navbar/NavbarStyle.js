@@ -121,40 +121,7 @@ export const NavbarButton = styled(Link)`
   }
 `;
 
-export const NavbarLogoutButton = styled.a`
-  color: ${COLOR.primary};
-  font-size: ${FONT.h4};
-  line-height: 1;
-  font-weight: 600;
-  padding: 8px 16px;
-  border-radius: 40px;
-  transition: all 0.2s;
-  margin-left: 4px;
-
-  &:hover {
-    background: ${COLOR.btn};
-  }
-
-  ${MEDIA_QUERY.md} {
-    border-radius: 0;
-    border-bottom: 1px solid ${COLOR.secondary};
-    width: 60%;
-    justify-content: center;
-    height: 42px;
-    transition: all 0.2s;
-
-    & {
-      margin-top: 84px;
-    }
-
-    &:hover {
-      background: none;
-      border-bottom: 3px solid ${COLOR.btn};
-    }
-  }
-`;
-
-export const LuckButton = styled(NavbarButton)`
+export const NearbyButton = styled(NavbarButton)`
   color: ${COLOR.white};
   background: ${COLOR.primary};
   margin-left: 4px;

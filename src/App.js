@@ -11,7 +11,7 @@ import AdminPage from "./components/Admin";
 import BackStagePage from "./components/BackStage";
 import ArticlePage from "./pages/blog/ArticlePage";
 import SearchPage from "./pages/blog/SearchPage";
-import LuckPage from "./pages/blog/LuckPage";
+import NearbyPage from "./pages/blog/NearbyPage";
 import EditPage from "./pages/blog/EditPage";
 import { SendEmailPage, ResetPasswordPage } from "./pages/user/PasswordPage";
 import { successAsync, logoutAsync } from "./redux/reducers/userReducer"
@@ -47,7 +47,7 @@ function App() {
           <Link to="/backstage/rich">後台</Link>
           <Link to="/posts/1">post</Link>
           <Link to="/search">search</Link>
-          <Link to="/luck">luck</Link>
+          <Link to="/nearby">nearby</Link>
           <Link to="/edit">edit</Link>
         </Router>
         <Route path="/home">
@@ -80,8 +80,8 @@ function App() {
         <Route path="/search">
           <SearchPage />
         </Route>
-        <Route path="/luck">
-          <LuckPage />
+        <Route path="/nearby">
+          <NearbyPage />
         </Route>
         <Route path="/edit">
           <EditPage />
