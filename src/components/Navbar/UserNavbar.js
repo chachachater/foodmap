@@ -1,11 +1,11 @@
 import React from "react";
-import { NavbarWrapper, LogoText } from "./NavbarStyle";
+import { UserNavbarWrapper, LogoText } from "./NavbarStyle";
 
 function UserNavbar() {
   return (
-    <NavbarWrapper>
-      <LogoText>吃貨地圖</LogoText>
-    </NavbarWrapper>
+    <UserNavbarWrapper>
+      <LogoText to="/home">吃貨地圖</LogoText>
+    </UserNavbarWrapper>
   );
 }
 
