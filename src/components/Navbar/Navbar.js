@@ -5,20 +5,19 @@ import {
   HamburgerIcon,
   NavbarButtons,
   NavbarButton,
-  NavbarLogoutButton,
-  LuckButton,
+  NearbyButton,
 } from "./NavbarStyle";
-import { logoutAsync } from "../../redux/reducers/userReducer"
+import { logoutAsync } from "../../redux/reducers/userReducer";
 import { useDispatch } from "react-redux";
 
 function Navbar() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const dispatch = useDispatch();
   function handleLogout() {
-    dispatch(logoutAsync()).catch(err => {
-      alert('操作失敗，發生錯誤')
-      console.log(err)
-    })
+    dispatch(logoutAsync()).catch((err) => {
+      alert("操作失敗，發生錯誤");
+      console.log(err);
+    });
   }
   return (
     <NavbarWrapper>
@@ -32,8 +31,8 @@ function Navbar() {
         <NavbarButton to="/edit">新增食記</NavbarButton>
         <NavbarButton>個人頁</NavbarButton>
         <NavbarButton>個人後台管理</NavbarButton>
-        <NavbarLogoutButton onClick={handleLogout}>登出</NavbarLogoutButton>
-        <LuckButton to="/luck">好手氣</LuckButton>
+        <NavbarButton to = "/" onClick={handleLogout}>登出</NavbarButton>
+        <NearbyButton to="/nearby">附近餐廳</NearbyButton>
       </NavbarButtons>
     </NavbarWrapper>
   );
