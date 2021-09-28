@@ -26,6 +26,7 @@ export default function useRegister() {
       email,
     };
     dispatch(registerAsync(userData)).then((result) => {
+      console.log(result)
       if (!result.payload.ok) {
         return setErrorMessage(result.payload.message);
       }
