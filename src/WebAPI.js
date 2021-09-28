@@ -8,7 +8,7 @@ export function fetchRegister(userData) {
     body: JSON.stringify({
       username: userData.username,
       password: userData.password,
-      password2: userData.checkedpassword,
+      checkedPassword: userData.checkedpassword,
       email: userData.email,
     }),
   })
