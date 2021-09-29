@@ -1,25 +1,25 @@
 {
   "files": {
-    "main.js": "/static/js/main.e9847e35.chunk.js",
-    "main.js.map": "/static/js/main.e9847e35.chunk.js.map",
-    "runtime-main.js": "/static/js/runtime-main.d2c47ec3.js",
-    "runtime-main.js.map": "/static/js/runtime-main.d2c47ec3.js.map",
-    "static/js/2.682c6aeb.chunk.js": "/static/js/2.682c6aeb.chunk.js",
-    "static/js/2.682c6aeb.chunk.js.map": "/static/js/2.682c6aeb.chunk.js.map",
-    "static/js/3.043df425.chunk.js": "/static/js/3.043df425.chunk.js",
-    "static/js/3.043df425.chunk.js.map": "/static/js/3.043df425.chunk.js.map",
-    "index.html": "/index.html",
-    "static/js/2.682c6aeb.chunk.js.LICENSE.txt": "/static/js/2.682c6aeb.chunk.js.LICENSE.txt",
-    "static/media/addBtn.f341a400.svg": "/static/media/addBtn.f341a400.svg",
-    "static/media/avatar.6a01629c.png": "/static/media/avatar.6a01629c.png",
-    "static/media/backtotop.e0b52ce4.svg": "/static/media/backtotop.e0b52ce4.svg",
-    "static/media/banner.b7123d83.png": "/static/media/banner.b7123d83.png",
-    "static/media/food.dd6e7298.png": "/static/media/food.dd6e7298.png",
-    "static/media/homeBanner.46fdefb0.png": "/static/media/homeBanner.46fdefb0.png"
+    "main.js": "/my-app/static/js/main.e9847e35.chunk.js",
+    "main.js.map": "/my-app/static/js/main.e9847e35.chunk.js.map",
+    "runtime-main.js": "/my-app/static/js/runtime-main.652f38f6.js",
+    "runtime-main.js.map": "/my-app/static/js/runtime-main.652f38f6.js.map",
+    "static/js/2.c6f0ffa2.chunk.js": "/my-app/static/js/2.c6f0ffa2.chunk.js",
+    "static/js/2.c6f0ffa2.chunk.js.map": "/my-app/static/js/2.c6f0ffa2.chunk.js.map",
+    "static/js/3.043df425.chunk.js": "/my-app/static/js/3.043df425.chunk.js",
+    "static/js/3.043df425.chunk.js.map": "/my-app/static/js/3.043df425.chunk.js.map",
+    "index.html": "/my-app/index.html",
+    "static/js/2.c6f0ffa2.chunk.js.LICENSE.txt": "/my-app/static/js/2.c6f0ffa2.chunk.js.LICENSE.txt",
+    "static/media/addBtn.f341a400.svg": "/my-app/static/media/addBtn.f341a400.svg",
+    "static/media/avatar.6a01629c.png": "/my-app/static/media/avatar.6a01629c.png",
+    "static/media/backtotop.e0b52ce4.svg": "/my-app/static/media/backtotop.e0b52ce4.svg",
+    "static/media/banner.b7123d83.png": "/my-app/static/media/banner.b7123d83.png",
+    "static/media/food.dd6e7298.png": "/my-app/static/media/food.dd6e7298.png",
+    "static/media/homeBanner.46fdefb0.png": "/my-app/static/media/homeBanner.46fdefb0.png"
   },
   "entrypoints": [
-    "static/js/runtime-main.d2c47ec3.js",
-    "static/js/2.682c6aeb.chunk.js",
+    "static/js/runtime-main.652f38f6.js",
+    "static/js/2.c6f0ffa2.chunk.js",
     "static/js/main.e9847e35.chunk.js"
   ]
 }
