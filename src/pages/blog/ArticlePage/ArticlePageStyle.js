@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { COLOR, FONT, MEDIA_QUERY } from "../../../constants/style";
 import AvatarImg from "../../../components/pictures/avatar.png";
 
-export const Post = styled.div`
+export const PostWrapper = styled.div`
   padding: 0 24px;
   margin-top: 165px;
 `;

@@ -13,6 +13,7 @@ import { UserAllArticle } from "../../../components/Article/ArticleStyle";
 import { ArticleInfo } from "../../../components/Article";
 
 function HomePage() {
+  
   return (
     <Wrapper>
       <Navbar />
