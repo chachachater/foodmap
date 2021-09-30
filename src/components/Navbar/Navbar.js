@@ -7,14 +7,19 @@ import {
   NavbarButton,
   NearbyButton,
 } from "./NavbarStyle";
-import { logoutAsync } from "../../redux/reducers/userReducer";
+import { logoutAsync,logout } from "../../redux/reducers/userReducer";
 import { useDispatch } from "react-redux";
 
 function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const dispatch = useDispatch();
   function handleLogout() {
-    dispatch(logoutAsync()).catch((err) => {
+    dispatch(logoutAsync())
+    .then(result => {
+      console.log(result)
+      dispatch(logout())
+    })
+    .catch((err) => {
       alert("操作失敗，發生錯誤");
       console.log(err);
     });

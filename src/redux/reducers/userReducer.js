@@ -3,7 +3,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { fetchRegister, fetchLogin, getMe, fetchSuccess, fetchLogout } from "../../WebAPI";
 
 const initialState = {
-  data: "",
+  result: "",
   status: "idle",
 };
 
@@ -49,9 +49,10 @@ export const logoutAsync = createAsyncThunk(
   async (userData) => {
     let result = ''
     try {
-      result = await fetchtRegister()
+      result = await fetchLogout()
     } catch (err) {
       alert('操作失敗，發生錯誤')
+      console.log(err)
     }
     return result
   });
@@ -61,7 +62,7 @@ export const userSlice = createSlice({
   initialState,
   reducers: {
     logout: (state, action) => {
-      state.data = "";
+      state.result = "";
     },
   },
   extraReducers: (builder) => {
@@ -71,21 +72,22 @@ export const userSlice = createSlice({
       })
       .addCase(registerAsync.fulfilled, (state, action) => {
         state.status = "idle";
-        state.data = action.payload;
+        state.result = action.payload;
       })
       .addCase(loginAsync.pending, (state) => {
         state.status = "loading";
       })
       .addCase(loginAsync.fulfilled, (state, action) => {
         state.status = "idle";
-        state.data = action.payload;
+        state.result = action.payload;
+
       })
       .addCase(successAsync.pending, (state) => {
         state.status = "loading";
       })
       .addCase(successAsync.fulfilled, (state, action) => {
       state.status = "idle";
-      state.data = action.payload;
+        state.result = action.payload;
     });
   },
 });

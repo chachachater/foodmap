@@ -61,3 +61,29 @@ export function fetchLogout() {
       console.log(err)
     });
 }
+
+export function fetchAddPost(postData) {
+  console.log(postData)
+  const formData = new FormData();
+  for (const name in postData) {
+    formData.append(name, postData[name]);
+  }
+  if (postData['images']) {
+    formData.delete('images')
+    postData['images'].forEach(each => {
+      console.log(each)
+      formData.append('images', each)})
+    console.log(formData.get('images'))
+  }
+
+  return fetch(`http://localhost:5001/api/post`, {
+    method: "POST",
+    credentials: "include",
+    body: formData
+  })
+    .then((res) => res.json())
+    .catch((err) => {
+      alert('操作失敗，發生錯誤')
+      console.log(err)
+    });
+}
