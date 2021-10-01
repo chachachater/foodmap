@@ -4,26 +4,11 @@ import mapApiKey from "./key"; // 引入 API key
 import GoogleMapReact from "google-map-react";
 import _ from "lodash";
 
-const MyPosition = ({ text }) => {
-  return (
-    <div>
-      <img
-        alt={"myposition"}
-        style={{ height: "50px", width: "50px", background: "transparent" }}
-        src={
-          "https://icon-library.com/images/my-location-icon/my-location-icon-29.jpg"
-        }
-      />
-      <div>{text}</div>
-    </div>
-  );
-};
-
-const CafeMarker = ({ text, handleMarkerClicked, placeId }) => {
+const Marker = ({ text, handleSetPlaceId, placeId }) => {
   return (
     <div
       onClick={() => {
-        handleMarkerClicked(placeId);
+        handleSetPlaceId(placeId);
       }}
     >
       <img
@@ -34,32 +19,6 @@ const CafeMarker = ({ text, handleMarkerClicked, placeId }) => {
         }
       />
       <div>{text}</div>
-    </div>
-  );
-};
-
-// function handleClickMarker(obj) {
-//   console.log(obj.x, obj.y, obj.lat, obj.lng, obj.event);
-// }
-const RestaurantInfo = ({ Info }) => {
-  console.log(Info);
-  const {
-    name,
-    business_status,
-    formatted_address,
-    formatted_phone_number,
-    opening_hours,
-  } = Info;
-  return (
-    <div>
-      <div>名稱：{name}</div>
-      <div>地址：{formatted_address}</div>
-      <div>現在狀態：{business_status}</div>
-      <div>電話：{formatted_phone_number}</div>
-      {opening_hours &&
-        opening_hours.weekday_text.map((item, index) => {
-          return <div key={index}>營業時間：{item}</div>;
-        })}
     </div>
   );
 };
@@ -95,7 +54,7 @@ const SearchBox = ({
               style={{ background: "white" }}
               key={index}
               onClick={() => {
-                handleSearchRestaurant(data.place_id);
+                handleSearchRestaurant(data.place_id, data.structured_formatting.main_text);
               }}
             >
               {data.terms[0].value}
@@ -107,29 +66,27 @@ const SearchBox = ({
   );
 };
 
-const SimpleMap = (props) => {
+function SimpleMap(props) {
   const [mapApiLoaded, setMapApiLoaded] = useState(false)
   const [mapInstance, setMapInstance] = useState(null)
   const [mapApi, setMapApi] = useState(null)
   const [places, setPlaces] = useState([])
   const [restaurantList, setRestaurantList] = useState([])
   const [inputText, setInputText] = useState("")
-  const [restaurantInfo, setRestaurantInfo] = useState({})
   const [myPosition, setMyPosition] = useState({
     lat: 24.953631,
     lng: 121.225591,
   });
-
   const handleApiLoaded = (map, maps) => {
     setMapInstance(map);
     setMapApi(maps);
     setMapApiLoaded(true);
   };
-  const handleAutocomplete = useCallback((inputValue) => {
+  const handleAutocomplete = useCallback((value) => {
     if (mapApiLoaded) {
       const service = new mapApi.places.AutocompleteService();
       const request = {
-        input: inputValue,
+        input: value,
       };
 
       service.getPlacePredictions(request, (results, status) => {
@@ -139,35 +96,13 @@ const SimpleMap = (props) => {
         }
       });
     }
-  })
-  function handleSearchBtn() {
-    setMyPosition({
-      // center.lat() 與 center.lng() 會回傳正中心的經緯度
-      lat: mapInstance.center.lat(),
-      lng: mapInstance.center.lng(),
-    });
-  }
-  const findCafeLocation = () => {
-    if (mapApiLoaded) {
-      const service = new mapApi.places.PlacesService(mapInstance);
-
-      const request = {
-        location: myPosition,
-        radius: 1000,
-        type: ["food"],
-      };
-
-      service.nearbySearch(request, (results, status) => {
-        if (status === mapApi.places.PlacesServiceStatus.OK) {
-          setPlaces(results);
-        }
-      });
-    }
-  };
-  useEffect(() => {
-    findCafeLocation()
-  }, [myPosition, findCafeLocation])
-  function handleSearchRestaurant(placeId) {
+  }, [mapApiLoaded])
+  const debounce = useMemo(() => {
+    return _.debounce((inputText) => {
+      handleAutocomplete(inputText)
+    }, 800)
+  }, [handleAutocomplete])
+  function handleSearchRestaurant(placeId, text) {
     if (mapApiLoaded) {
       const service = new mapApi.places.PlacesService(mapInstance);
 
@@ -182,27 +117,21 @@ const SimpleMap = (props) => {
             lng: results.geometry.location.lng(),
           });
           console.log(results);
-          setRestaurantInfo(results);
-          setRestaurantList([]);
+          setInputText(text)
+          setPlaces([results])
         }
       });
     }
   }
-  const testDebounce = useMemo(() => {
-    return _.debounce((inputText) => {
-      handleAutocomplete(inputText);
-    }, 800)
-  }, [handleAutocomplete])
-
   useEffect(() => {
-    testDebounce(inputText)
-  }, [inputText, testDebounce, handleAutocomplete])
+    debounce(inputText)
+  }, [inputText, debounce, handleAutocomplete])
   function handleInputChange(e) {
     setInputText(e.target.value);
   }
 
-  function handleMarkerClicked(place_id) {
-    handleSearchRestaurant(place_id);
+  function handleSetPlaceId(place_id) {
+    props.setPlaceId(place_id);
   }
   return (
     // Important! Always set the container height explicitly
@@ -216,38 +145,28 @@ const SimpleMap = (props) => {
       <div style={{ height: "80vh", width: "100%" }}>
         <GoogleMapReact
           center={myPosition}
-          bootstrapURLKeys={{ key: mapApiKey, libraries: ["places"] }}
+          bootstrapURLKeys={{ key: mapApiKey, language: "zh-TW", libraries: ["places"] }}
           defaultCenter={props.center}
           defaultZoom={props.zoom}
           yesIWantToUseGoogleMapApiInternals // 設定為 true
           onGoogleApiLoaded={({ map, maps }) => handleApiLoaded(map, maps)} // 載入完成後執行
         >
-          <MyPosition
-            lat={myPosition.lat}
-            lng={myPosition.lng}
-            text="My Position"
-          />
           {places.map((item, index) => (
-            <CafeMarker
+            <Marker
               key={index}
               lat={item.geometry.location.lat()}
               lng={item.geometry.location.lng()}
               text={item.name}
               placeId={item.place_id}
-              handleMarkerClicked={handleMarkerClicked}
+              handleSetPlaceId={handleSetPlaceId}
             />
           ))}
         </GoogleMapReact>
-        <div style={{ display: "flex", justifyContent: "center" }}>
-          <button onClick={handleSearchBtn}>搜尋附近美食</button>
-        </div>
-        <RestaurantInfo Info={restaurantInfo} />
       </div>
     </>
   );
-};
 
-// 由於改寫成 functional component，故另外設定 defaultProps
+}
 SimpleMap.defaultProps = {
   center: {
     lat: 24.953631,
@@ -255,13 +174,13 @@ SimpleMap.defaultProps = {
   },
   zoom: 17,
 };
-
 function MyMap() {
+  const [placeId, setPlaceId] = useState('')
+  console.log(placeId)
   return (
     <div className="App">
-      <SimpleMap />
+      <SimpleMap setPlaceId={setPlaceId} />
     </div>
   );
 }
-
-export default MyMap;
+export default MyMap
