@@ -1,11 +1,11 @@
 import styled from "styled-components";
-import { FONT, COLOR, MEDIA_QUERY } from "../../constants/style";
+import { FONT, COLOR, MEDIA_QUERY } from "../../../constants/style";
 import {
   ArticleContainer,
   ArticleImage,
   ArticleContent,
   ArticleTitle,
-} from "../Article/ArticleStyle";
+} from "../../../components/Article/ArticleStyle";
 import React from "react";
 import PropTypes from "prop-types";
 
@@ -33,7 +33,6 @@ export const Filter = styled.div`
   line-height: 60px;
   font-size: ${FONT.logo};
   margin-bottom: 60px;
-  cursor: pointer;
 `;
 
 export const Publish = styled.div`
@@ -43,12 +42,14 @@ export const Publish = styled.div`
   color: ${(props) => (props.active ? "white" : COLOR.primary)};
   background-color: ${(props) => (props.active ? COLOR.secondary : "white")};
 `;
+
 export const Private = styled(Publish)``;
 
 const Container = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+ 
   ${MEDIA_QUERY.sm} {
     max-width: 375px;
     margin: 0 auto;
@@ -131,8 +132,6 @@ ArticleBtn.propTypes = {
 };
 
 const BackStageImage = styled(ArticleImage)`
-
-  
   background: ${(props) => `url(${props.$link}) center/cover`};
 
   ${MEDIA_QUERY.lg} {
@@ -151,7 +150,7 @@ const BackStageContainer = styled(ArticleContainer)`
 `;
 
 export function BackStageArticle({ userPost, userImg }) {
-  console.log(userImg)
+  console.log(userImg);
   return (
     <BackStageContainer>
       <BackStageImage $link={userImg} />
@@ -167,3 +166,4 @@ BackStageArticle.propTypes = {
   userPost: PropTypes.array,
   userImg: PropTypes.array,
 };
+
