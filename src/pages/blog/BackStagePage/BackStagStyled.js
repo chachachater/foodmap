@@ -1,11 +1,11 @@
 import styled from "styled-components";
-import { FONT, COLOR, MEDIA_QUERY } from "../../constants/style";
+import { FONT, COLOR, MEDIA_QUERY } from "../../../constants/style";
 import {
   ArticleContainer,
   ArticleImage,
   ArticleContent,
   ArticleTitle,
-} from "../Article/ArticleStyle";
+} from "../../../components/Article/ArticleStyle";
 import React from "react";
 
 export const BackStageTitle = styled.div`

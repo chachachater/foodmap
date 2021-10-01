@@ -1,9 +1,10 @@
 /* eslint-disable */
-import React from 'react';
+import React, { useState } from "react";
 import Popup from 'reactjs-popup';
 import 'reactjs-popup/dist/index.css';
+import MyMap from "../components/Map/map";
 
-function PopUp({placeHolder}) {
+function PopUp({ placeHolder, getResaurantId}) {
   return (
     <Popup
       trigger={<button className="button">{placeHolder}</button>}
@@ -17,8 +18,8 @@ function PopUp({placeHolder}) {
         </button>
           <div className="header"> Modal Title </div>
           <div className="content">
-            {' '}
-            <input type="text" />
+
+            <MyMap />
           </div>
           <div className="actions">
             <Popup
@@ -26,11 +27,7 @@ function PopUp({placeHolder}) {
               position="top center"
               nested
             >
-              <span>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Beatae
-                magni omnis delectus nemo, maxime molestiae dolorem numquam
-                mollitia, voluptate ea, accusamus excepturi deleniti ratione
-                sapiente! Laudantium, aperiam doloribus. Odit, aut.
+              <span>123
             </span>
             </Popup>
             <button
@@ -51,5 +48,6 @@ function PopUp({placeHolder}) {
 
 PopUp.propTypes = {
   placeHolder: String,
+  getResaurantId: Function,
 }
 export default PopUp
