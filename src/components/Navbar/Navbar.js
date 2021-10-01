@@ -31,7 +31,9 @@ function Navbar() {
         <NavbarButton to="/edit">新增食記</NavbarButton>
         <NavbarButton>個人頁</NavbarButton>
         <NavbarButton>個人後台管理</NavbarButton>
-        <NavbarButton to = "/" onClick={handleLogout}>登出</NavbarButton>
+        <NavbarButton to="/" onClick={handleLogout}>
+          登出
+        </NavbarButton>
         <NearbyButton to="/nearby">附近餐廳</NearbyButton>
       </NavbarButtons>
     </NavbarWrapper>

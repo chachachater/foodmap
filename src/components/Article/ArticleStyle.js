@@ -47,8 +47,18 @@ export const ArticleImage = styled.div`
   max-width: 375px;
   background: url(${FoodImg}) center/cover;
 
+  ${MEDIA_QUERY.lg} {
+    max-width: 350px;
+  }
+
   ${MEDIA_QUERY.md} {
     margin: 0 auto;
+    max-width: 300px;
+  }
+
+  ${MEDIA_QUERY.sm} {
+    margin-bottom: 16px;
+    max-width: 400px;
   }
 `;
 
