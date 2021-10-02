@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React from "react";
 import { Wrapper } from "../../../constants/globalStyle";
 import { Navbar } from "../../../components/Navbar";
@@ -26,8 +27,8 @@ function HomePage() {
       </HomeBanner>
       <HomeTiltle>最新文章</HomeTiltle>
       <UserAllArticle>
-        <ArticleInfo />
-        <ArticleInfo />
+        {/* <ArticleInfo />
+        <ArticleInfo /> */}
       </UserAllArticle>
     </Wrapper>
   );

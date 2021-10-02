@@ -9,7 +9,7 @@ import {
 } from "../../WebAPI";
 
 const initialState = {
-  data: "",
+  result: "",
   status: "idle",
 };
 
@@ -46,22 +46,24 @@ export const successAsync = createAsyncThunk("user/success", async () => {
   return result;
 });
 
-export const logoutAsync = createAsyncThunk("user/logout", async (userData) => {
-  let result = "";
-  try {
-    result = await fetchtRegister();
-  } catch (err) {
-    alert("操作失敗，發生錯誤");
-  }
-  return result;
-});
-
+export const logoutAsync = createAsyncThunk(
+  "user/logout",
+  async (userData) => {
+    let result = ''
+    try {
+      result = await fetchLogout()
+    } catch (err) {
+      alert('操作失敗，發生錯誤')
+      console.log(err)
+    }
+    return result
+  });
 export const userSlice = createSlice({
   name: "users",
   initialState,
   reducers: {
     logout: (state, action) => {
-      state.data = "";
+      state.result = "";
     },
   },
   extraReducers: (builder) => {
@@ -71,21 +73,22 @@ export const userSlice = createSlice({
       })
       .addCase(registerAsync.fulfilled, (state, action) => {
         state.status = "idle";
-        state.data = action.payload;
+        state.result = action.payload;
       })
       .addCase(loginAsync.pending, (state) => {
         state.status = "loading";
       })
       .addCase(loginAsync.fulfilled, (state, action) => {
         state.status = "idle";
-        state.data = action.payload;
+        state.result = action.payload;
+
       })
       .addCase(successAsync.pending, (state) => {
         state.status = "loading";
       })
       .addCase(successAsync.fulfilled, (state, action) => {
       state.status = "idle";
-      state.data = action.payload;
+        state.result = action.payload;
     });
   },
 });

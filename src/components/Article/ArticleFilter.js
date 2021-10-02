@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
+import PropTypes from "prop-types";
 import {
   FilterOptionsContainer,
   FilterOption,
@@ -6,22 +7,44 @@ import {
   FilterTitle,
 } from "./ArticleStyle";
 
-function Filters() {
+function Filters({ setFilter }) {
+  const [active, setActive] = useState("createdAt");
   return (
     <FilterOptionsContainer>
-      <FilterOption active>最新排序</FilterOption>
-      <FilterOption>熱門排序</FilterOption>
+      <FilterOption
+        active={active === "createdAt" ? true : false}
+        onClick={() => {
+          setFilter("createdAt");
+          setActive("createdAt");
+        }}
+      >
+        最新排序
+      </FilterOption>
+      <FilterOption
+        active={active === "views" ? true : false}
+        onClick={() => {
+          setFilter("views");
+          setActive("views");
+        }}
+      >
+        熱門排序
+      </FilterOption>
     </FilterOptionsContainer>
   );
 }
 
-function FilterBar() {
+function FilterBar({ setFilter }) {
   return (
     <FilterContainer>
       <FilterTitle>最新文章</FilterTitle>
-      <Filters />
+      <Filters setFilter={setFilter} />
     </FilterContainer>
   );
 }
-
+FilterBar.propTypes = {
+  setFilter: PropTypes.func,
+};
+Filters.propTypes = {
+  setFilter: PropTypes.func,
+};
 export default FilterBar;

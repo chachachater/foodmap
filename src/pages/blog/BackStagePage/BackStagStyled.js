@@ -57,32 +57,26 @@ const ArticleBottom = styled.div`
     padding: 0 8px;
   }
 `;
-
 const ArticleTime = styled.div`
   font-size: ${FONT.h3};
   line-height: 55px;
   margin-bottom: 10px;
-
   ${MEDIA_QUERY.md} {
     font-size: ${FONT.h4};
   }
-
   ${MEDIA_QUERY.sm} {
     width: 375px;
     margin: 0 auto;
     text-align: left;
   }
 `;
-
 const BtnContainer = styled.div`
   display: flex;
   justify-content: flex-start;
-
   ${MEDIA_QUERY.md} {
     justify-content: center;
   }
 `;
-
 const EditBtn = styled.button`
   color: ${COLOR.primary};
   font-size: ${FONT.h4};
@@ -91,11 +85,9 @@ const EditBtn = styled.button`
   border-radius: 40px;
   background: ${COLOR.btn};
   white-space: nowrap;
-
   &:hover {
     filter: saturate(2.5);
   }
-
   ${MEDIA_QUERY.md} {
     margin-left: 10px;
   }
@@ -122,7 +114,6 @@ const BackStageContainer = styled(ArticleContainer)`
     max-width: 768px;
   }
 `;
-
 export function BackStageArticle({ userPost, userImgs, onDelete }) {
   const onDeletePost = () => {
     onDelete(userPost.id)
@@ -153,7 +144,6 @@ export function BackStageArticle({ userPost, userImgs, onDelete }) {
     </BackStageContainer>
   );
 }
-
 BackStageArticle.propTypes = {
   userPost: PropTypes.object,
   userImgs: PropTypes.array,

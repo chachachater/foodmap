@@ -7,14 +7,19 @@ import {
   NavbarButton,
   NearbyButton,
 } from "./NavbarStyle";
-import { logoutAsync } from "../../redux/reducers/userReducer";
+import { logoutAsync,logout } from "../../redux/reducers/userReducer";
 import { useDispatch } from "react-redux";
 
 function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const dispatch = useDispatch();
   function handleLogout() {
-    dispatch(logoutAsync()).catch((err) => {
+    dispatch(logoutAsync())
+    .then(result => {
+      console.log(result)
+      dispatch(logout())
+    })
+    .catch((err) => {
       alert("操作失敗，發生錯誤");
       console.log(err);
     });
@@ -28,8 +33,8 @@ function Navbar() {
       ></HamburgerIcon>
       <NavbarButtons $isMenuOpen={isMenuOpen}>
         {/* 登入狀態 */}
-        <NavbarButton to="/edit">新增食記</NavbarButton>
-        <NavbarButton>個人頁</NavbarButton>
+        <NavbarButton to="/add">新增食記</NavbarButton>
+        <NavbarButton to="/user/1">個人頁</NavbarButton>
         <NavbarButton>個人後台管理</NavbarButton>
         <NavbarButton to="/" onClick={handleLogout}>
           登出
