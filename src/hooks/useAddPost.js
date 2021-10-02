@@ -1,6 +1,6 @@
 /* eslint-disable */
 import { useState } from "react";
-import { fetchAddPost } from "../WebAPI";
+import { fetchAddPost, fetchEditPost } from "../WebAPI";
 import { useHistory } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { selectUser } from "../redux/reducers/userReducer"
@@ -13,6 +13,8 @@ export default function useAddPost() {
   const [content, setContent] = useState('')
   const [visitedDate, setVisitedDate] = useState('')
   const [isPublished, setIsPublished] = useState(false)
+  const [postId, setPostId] = useState('')
+
   const userState = useSelector(selectUser);
   let userId = 4
   if (userState.result) {
@@ -68,19 +70,24 @@ export default function useAddPost() {
     postData.content = content
     postData.visited_time = visitedDate
     postData.is_published = isPublished
-    fetchAddPost(postData)
+    if (postId) return fetchEditPost(postData, postId)
+    return fetchAddPost(postData)
   }
   return {
     images,
     uploadImages,
     setImages,
+    title,
     setTitle,
+    content,
     setContent,
+    visitedDate,
     setVisitedDate,
     setIsPublished,
     restaurantId,
     setRestaurantId,
     getResaurantId,
+    setPostId,
     handleInputChange,
     handleSubmit
   };

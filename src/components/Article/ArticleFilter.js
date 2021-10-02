@@ -1,32 +1,50 @@
-import React from "react";
-import { useParams } from "react-router-dom";
+import React, { useState } from "react";
+import PropTypes from "prop-types";
 import {
   FilterOptionsContainer,
   FilterOption,
   FilterContainer,
   FilterTitle,
 } from "./ArticleStyle";
-import useConfirmUser from "../../hooks/useConfirmUser"
 
-function Filters() {
-  const { id } = useParams();
-  const { confirmUser } = useConfirmUser(id)
+function Filters({ setFilter }) {
+  const [active, setActive] = useState("createdAt");
   return (
     <FilterOptionsContainer>
-      {!confirmUser && <FilterOption active>最新排序</FilterOption>}
-      {confirmUser && <FilterOption active>私人文章</FilterOption>}
-      {confirmUser && <FilterOption>公開文章</FilterOption>}
+      <FilterOption
+        active={active === "createdAt" ? true : false}
+        onClick={() => {
+          setFilter("createdAt");
+          setActive("createdAt");
+        }}
+      >
+        最新排序
+      </FilterOption>
+      <FilterOption
+        active={active === "views" ? true : false}
+        onClick={() => {
+          setFilter("views");
+          setActive("views");
+        }}
+      >
+        熱門排序
+      </FilterOption>
     </FilterOptionsContainer>
   );
 }
 
-function FilterBar() {
+function FilterBar({ setFilter }) {
   return (
     <FilterContainer>
       <FilterTitle>最新文章</FilterTitle>
-      <Filters />
+      <Filters setFilter={setFilter} />
     </FilterContainer>
   );
 }
-
+FilterBar.propTypes = {
+  setFilter: PropTypes.func,
+};
+Filters.propTypes = {
+  setFilter: PropTypes.func,
+};
 export default FilterBar;

@@ -1,4 +1,6 @@
 /* eslint-disable */
+import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import { Navbar } from "../../../components/Navbar";
 import { Wrapper } from "../../../constants/globalStyle";
 import {
@@ -21,14 +23,12 @@ import {
   Span,
   EditLabel
 } from "./ProfilePageStyled";
-import ArticleInfo from "../../../components/Article/ArticleInfo";
+import { Article } from "../../../components/Article";
 import { UserAllArticle } from "../../../components/Article/ArticleStyle";
 import FilterBar from "../../../components/Article/ArticleFilter";
-import React, { useState, useEffect } from "react";
 import { fetchUserData, fecthPostsByUserId } from "../../../WebAPI";
 import useEditUserData from "../../../hooks/useEditUserData"
 import useConfirmUser from "../../../hooks/useConfirmUser"
-import { useParams } from "react-router-dom";
 
 function ProfilePage() {
   const { id } = useParams();
@@ -48,10 +48,14 @@ function ProfilePage() {
   const [postCounts, setPostCounts] = useState('')
   const [posts, setPosts] = useState([])
   const [images, setImages] = useState([])
-
+  const [filter, setFilter] = useState('createdAt')
+  useEffect(async () => {
+console.log('c')
+  }, [filter]);
   useEffect(() => {
     fetchUserData(id)
       .then((result) => {
+        console.log(result)
         setNickname(result.data.nickname)
         if (result.data.background_pic_url) setDefaultBanner(result.data.background_pic_url)
         if (result.data.picture_url) setDefaultAvatar(result.data.picture_url)
@@ -104,10 +108,7 @@ function ProfilePage() {
           <ArticleCounter>共有 {postCounts} 篇食記</ArticleCounter>
         </InfoContainer>
       </ProfileContainer>
-      <UserAllArticle>
-        <FilterBar />
-        <ArticleInfo />
-      </UserAllArticle>
+      <Article postsData={posts} setFilter={setFilter}/>
     </Wrapper>
   );
 }

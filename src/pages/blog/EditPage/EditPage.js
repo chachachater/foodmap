@@ -1,5 +1,6 @@
 /* eslint-disable */
-import React, { useState } from "react";
+import React, { useEffect } from "react";
+import { useLocation, useParams } from "react-router-dom";
 import { Wrapper } from "../../../constants/globalStyle";
 import { Navbar } from "../../../components/Navbar";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
@@ -18,29 +19,53 @@ import {
   SubmitButton,
   Button
 } from "./EditPageStyle";
-import { fetchAddPost } from "../../../WebAPI";
 import Editor from 'ckeditor5-custom-build/build/ckeditor';
 import 'ckeditor5-custom-build/build/ckeditor.css';
-import { useSelector } from "react-redux";
-import { selectUser } from "../../../redux/reducers/userReducer"
 import useAddPost from "../../../hooks/useAddPost";
+import { fecthPostByPostId } from "../../../WebAPI";
 
 function EditPage() {
+  let pathname = useLocation().pathname
+  console.log(location.pathname)
+  const { id } = useParams()
   const {
     images,
     uploadImages,
     setImages,
+    title,
     setTitle,
+    content,
     setContent,
+    visitedDate,
     setVisitedDate,
     setIsPublished,
     restaurantId,
     setRestaurantId,
     getResaurantId,
+    setPostId,
     handleInputChange,
     handleSubmit
   } = useAddPost();
+  useEffect(() => {
+    if (pathname.includes('edit')) {
+      setPostId(id)
+      fecthPostByPostId(id).then(result => {
+        console.log(result)
+        setImages(result.images)
+        setTitle(result.post.title)
+        setContent(result.post.content)
+        setVisitedDate(result.post.visited_time)
+        setIsPublished(result.post.is_published)
+        setRestaurantId(result.post.restaurant_id)
+      })
+    }
+  }, [])
+  const handleDraft = async () => {
+    setIsPublished(false)
+    return handleSubmit()
+  }
   const renderImages = () => {
+    if(!images.length) return
     return images.map(each => {
       return (
         <ImgBox>
@@ -74,7 +99,7 @@ function EditPage() {
         <EditInputs>
           <EditLabel>
             <Span></Span>
-            <Input type="date" onChange={handleInputChange(setVisitedDate)} />
+            <Input type="date" value={visitedDate} onChange={handleInputChange(setVisitedDate)} />
           </EditLabel>
           <EditLabel>
             <Span></Span>
@@ -82,7 +107,7 @@ function EditPage() {
           </EditLabel>
           <EditLabel>
             <Span></Span>
-            <Input placeholder="食記標題" onChange={handleInputChange(setTitle)} />
+            <Input placeholder="食記標題" value={title} onChange={handleInputChange(setTitle)} />
           </EditLabel>
           <NoBorderLabel>
             <Span></Span>
@@ -96,7 +121,7 @@ function EditPage() {
         <CKEditor
           editor={Editor}
           config={editorConfiguration}
-          data="<p>Hello from FoodMap!</p>"
+          data={ content ? content : "<p>Hello from FoodMap!</p>"}
           onReady={editor => {
             editor.editing.view.change((writer) => {
               writer.setStyle(
@@ -105,16 +130,14 @@ function EditPage() {
                 editor.editing.view.document.getRoot()
               );
             });
-            console.log('Editor is ready to use!', editor);
           }}
           onChange={(event, editor) => {
             const data = editor.getData();
-            console.log({ event, editor, data });
             setContent(data)
           }}
         />
         <SubmitButton>
-          <Button>儲存</Button>
+          <Button onClick={handleDraft}>儲存</Button>
           <Button onClick={handleSubmit}>發表食記</Button>
         </SubmitButton>
       </EditContainer>

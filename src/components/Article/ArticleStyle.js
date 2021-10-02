@@ -1,8 +1,8 @@
 import styled from "styled-components";
 import { COLOR, FONT, MEDIA_QUERY } from "../../constants/style";
-import FoodImg from "../pictures/food.png";
-
-export const ArticleContainer = styled.a`
+import { Link } from "react-router-dom";
+export const ArticleContainer = styled(Link)`
+  color: black;
   display: flex;
   margin: 0 auto;
   width: 100%;
@@ -10,11 +10,9 @@ export const ArticleContainer = styled.a`
   margin-bottom: 42px;
   padding-bottom: 18px;
   border-bottom: 1px solid ${COLOR.text_gray};
-
   ${MEDIA_QUERY.md} {
     margin-bottom: 20px;
   }
-
   ${MEDIA_QUERY.sm} {
     flex-direction: column;
     justify-content: center;
@@ -31,11 +29,9 @@ export const UserAllArticle = styled.div`
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 16px;
-
   ${MEDIA_QUERY.lg} {
     max-width: 768px;
   }
-
   ${MEDIA_QUERY.sm} {
     margin: 0;
   }
@@ -45,8 +41,7 @@ export const ArticleImage = styled.div`
   height: 100%;
   width: 100%;
   max-width: 375px;
-  background: url(${FoodImg}) center/cover;
-
+  background: url(${(props) => props.image}) center/cover;
   ${MEDIA_QUERY.md} {
     margin: 0 auto;
   }
@@ -58,7 +53,6 @@ export const ArticleTitle = styled.div`
   line-height: 32px;
   letter-spacing: 3px;
   margin-bottom: 16px;
-
   ${MEDIA_QUERY.lg} {
     height: 100px;
     overflow: hidden;
@@ -69,7 +63,6 @@ export const ArticleTitle = styled.div`
     white-space: normal;
     overflow: hidden;
   }
-
   ${MEDIA_QUERY.md} {
     max-width: 375px;
     margin: 0 auto;
@@ -81,7 +74,6 @@ export const ArticleTitle = styled.div`
 export const ArticleDesc = styled.div`
   height: 100%;
   justify-content: center;
-
   ${MEDIA_QUERY.md} {
     display: none;
   }
@@ -93,12 +85,10 @@ export const ArticleContent = styled.div`
   height: 100%;
   width: 100%;
   margin-left: 30px;
-
   ${MEDIA_QUERY.md} {
     justify-content: center;
     margin-left: 10px;
   }
-
   ${MEDIA_QUERY.sm} {
     margin: 0;
   }
