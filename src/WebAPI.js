@@ -1,3 +1,5 @@
+const baseUrl = "http://localhost:5001"
+
 export function fetchRegister(userData) {
   return fetch(`http://localhost:5001/register`, {
     method: "POST",
@@ -88,7 +90,19 @@ export function fetchAddPost(postData) {
     });
 }
 
-export function fetchGetUserData(userId) {
+export function fecthPostsByUserId(userId) {
+  return fetch(`${baseUrl}/api/post/user/${userId}?limit=10&offset=0`, {
+    method: "GET",
+    credentials: "include",
+  })
+    .then((res) => res.json())
+    .catch((err) => {
+      alert('操作失敗，發生錯誤')
+      console.log(err.message);
+    });
+}
+
+export function fetchUserData(userId) {
   console.log(userId)
   return fetch(`http://localhost:5001/api/user/${userId}`, {
     method: "GET",

@@ -83,7 +83,10 @@ function App() {
         <Route path="/nearby">
           <NearbyPage />
         </Route>
-        <Route path="/edit">
+        <Route path="/add">
+          <EditPage />
+        </Route>
+        <Route path="/edit/:id">
           <EditPage />
         </Route>
       </Switch>

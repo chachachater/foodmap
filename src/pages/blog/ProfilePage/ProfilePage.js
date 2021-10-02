@@ -21,9 +21,11 @@ import {
   Span,
   EditLabel
 } from "./ProfilePageStyled";
-import { Article } from "../../../components/Article";
+import ArticleInfo from "../../../components/Article/ArticleInfo";
+import { UserAllArticle } from "../../../components/Article/ArticleStyle";
+import FilterBar from "../../../components/Article/ArticleFilter";
 import React, { useState, useEffect } from "react";
-import { fetchGetUserData } from "../../../WebAPI";
+import { fetchUserData, fecthPostsByUserId } from "../../../WebAPI";
 import useEditUserData from "../../../hooks/useEditUserData"
 import useConfirmUser from "../../../hooks/useConfirmUser"
 import { useParams } from "react-router-dom";
@@ -43,13 +45,23 @@ function ProfilePage() {
     handleSubmit } = useEditUserData()
   const [defaultBanner, setDefaultBanner] = useState('')
   const [defaultAvatar, setDefaultAvatar] = useState('')
+  const [postCounts, setPostCounts] = useState('')
+  const [posts, setPosts] = useState([])
+  const [images, setImages] = useState([])
 
   useEffect(() => {
-    fetchGetUserData(id)
+    fetchUserData(id)
       .then((result) => {
         setNickname(result.data.nickname)
         if (result.data.background_pic_url) setDefaultBanner(result.data.background_pic_url)
         if (result.data.picture_url) setDefaultAvatar(result.data.picture_url)
+      })
+    fecthPostsByUserId(id)
+      .then((result) => {
+        setPostCounts(result.postCounts)
+        setPosts(result.posts)
+        setImages(result.images)
+        console.log(result)
       })
   }, [])
   return (
@@ -89,10 +101,13 @@ function ProfilePage() {
               </BtnContainer>
             </EditingGroup>
           )}
-          <ArticleCounter>共有 1 篇食記</ArticleCounter>
+          <ArticleCounter>共有 {postCounts} 篇食記</ArticleCounter>
         </InfoContainer>
       </ProfileContainer>
-      <Article />
+      <UserAllArticle>
+        <FilterBar />
+        <ArticleInfo />
+      </UserAllArticle>
     </Wrapper>
   );
 }
