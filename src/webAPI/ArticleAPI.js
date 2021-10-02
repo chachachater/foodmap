@@ -59,6 +59,9 @@ export function fetchDletePost(id) {
   return fetch(`${BASE_URL}/api/post/${id}`, {
     method: "DELETE",
     credentials: "include",
+    headers: {
+      "content-type": "application/json",
+    },
   })
     .then((res) => res.json())
     .catch((err) => {

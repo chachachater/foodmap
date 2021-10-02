@@ -48,8 +48,10 @@ export default function BackStagePage() {
   }
 
   const handleDelete = (id) => {
-    console.log(id)
-    fetchDletePost(id);
+    fetchDletePost(id)
+    console.log(posts)
+    // setPosts(posts.filter((post) => post.is_deleted === false));
+    console.log(posts);
   };
 
   return (

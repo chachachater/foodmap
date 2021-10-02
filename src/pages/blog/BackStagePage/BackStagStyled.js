@@ -46,7 +46,7 @@ export const Publish = styled.div`
 
 export const Private = styled(Publish)``;
 
-const Container = styled.div`
+const ArticleBottom = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -112,24 +112,6 @@ const DeleteBtn = styled(EditBtn)`
   }
 `;
 
-function ArticleBtn({ userPost, onDelete }) {
-  return (
-    <Container>
-      <ArticleTime>
-        {new Date(userPost.visited_time).toLocaleDateString()}
-      </ArticleTime>
-      <BtnContainer>
-        <EditBtn>編輯</EditBtn>
-        <DeleteBtn onClick={onDelete}>刪除</DeleteBtn>
-      </BtnContainer>
-    </Container>
-  );
-}
-
-ArticleBtn.propTypes = {
-  userPost: PropTypes.object,
-  onDelete: PropTypes.func,
-};
 
 const BackStageImage = styled(ArticleImage)`
   background: ${(props) => `url(${props.$link}) center/cover`};
@@ -142,6 +124,10 @@ const BackStageContainer = styled(ArticleContainer)`
 `;
 
 export function BackStageArticle({ userPost, userImgs, onDelete }) {
+  const onDeletePost = () => {
+    onDelete(userPost.id)
+  }
+  
   return (
     <BackStageContainer>
       <ArticleImage>
@@ -154,7 +140,15 @@ export function BackStageArticle({ userPost, userImgs, onDelete }) {
       </ArticleImage>
       <ArticleContent>
         <ArticleTitle>{userPost.title}</ArticleTitle>
-        <ArticleBtn userPost={userPost} onDelete={onDelete} />
+        <ArticleBottom>
+          <ArticleTime>
+            {new Date(userPost.visited_time).toLocaleDateString()}
+          </ArticleTime>
+          <BtnContainer>
+            <EditBtn>編輯</EditBtn>
+            <DeleteBtn onClick={onDeletePost}>刪除</DeleteBtn>
+          </BtnContainer>
+        </ArticleBottom>
       </ArticleContent>
     </BackStageContainer>
   );
