@@ -4,7 +4,7 @@ import { GlobalStyle } from "./constants/globalStyle";
 import BackToTopBtn from "./components/BackToTop";
 import Footer from "./components/Footer";
 import HomePage from "./pages/blog/HomePage";
-import Profile from "./pages/blog/ProfilePage";
+import ProfilePage from "./pages/blog/ProfilePage";
 import RegisterPage from "./pages/user/RegisterPage";
 import LoginPage from "./pages/user/LoginPage";
 import AdminPage from "./components/Admin";
@@ -66,7 +66,7 @@ function App() {
           <ResetPasswordPage />
         </Route>
         <Route path="/user/:id">
-          <Profile />
+          <ProfilePage />
         </Route>
         <Route path="/admin">
           <AdminPage />

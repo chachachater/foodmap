@@ -87,3 +87,34 @@ export function fetchAddPost(postData) {
       console.log(err)
     });
 }
+
+export function fetchGetUserData(userId) {
+  console.log(userId)
+  return fetch(`http://localhost:5001/api/user/${userId}`, {
+    method: "GET",
+    credentials: "include",
+  })
+    .then((res) => res.json())
+    .catch((err) => {
+      alert('操作失敗，發生錯誤')
+      console.log(err)
+    });
+}
+
+export function fetchEditUserData(data, userId) {
+  console.log(data)
+  const formData = new FormData();
+  for (const name in data) {
+    formData.append(name, data[name]);
+  }
+  return fetch(`http://localhost:5001/api/user/${userId}`, {
+    method: "POST",
+    credentials: "include",
+    body: formData
+  })
+    .then((res) => res.json())
+    .catch((err) => {
+      alert('操作失敗，發生錯誤')
+      console.log(err)
+    });
+}

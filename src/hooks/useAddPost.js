@@ -8,7 +8,7 @@ import { selectUser } from "../redux/reducers/userReducer"
 export default function useAddPost() {
   const history = useHistory();
   const [images, setImages] = useState([])
-  const [restaurantId, setRestaurantId] = useState('')
+  const [restaurantId, setRestaurantId] = useState('999')
   const [title, setTitle] = useState('')
   const [content, setContent] = useState('')
   const [visitedDate, setVisitedDate] = useState('')
@@ -23,7 +23,7 @@ export default function useAddPost() {
       setter(e.target.value);
     };
   }
-  function uploadImage (setter) {
+  function uploadImages (setter) {
     const checkedList = [
       "image/jpeg",
       "image/png",
@@ -46,11 +46,10 @@ export default function useAddPost() {
     };
   }
   function getResaurantId (setter) {
-    return (
-      () => {
-        setter(value)
+    return (placeId) => {
+      console.log(placeId)
+      setter(placeId)
       }
-    )
   }
   async function handleSubmit() {
     const postData = {}
@@ -64,7 +63,7 @@ export default function useAddPost() {
       postData.images = blobArr
     }
     postData.user_id = userId
-    postData.restaurant_id = 123
+    postData.restaurant_id = restaurantId
     postData.title = title
     postData.content = content
     postData.visited_time = visitedDate
@@ -73,12 +72,13 @@ export default function useAddPost() {
   }
   return {
     images,
-    uploadImage,
+    uploadImages,
     setImages,
     setTitle,
     setContent,
     setVisitedDate,
     setIsPublished,
+    restaurantId,
     setRestaurantId,
     getResaurantId,
     handleInputChange,

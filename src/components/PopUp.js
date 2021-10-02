@@ -4,7 +4,7 @@ import Popup from 'reactjs-popup';
 import 'reactjs-popup/dist/index.css';
 import MyMap from "../components/Map/map";
 
-function PopUp({ placeHolder, getResaurantId}) {
+function PopUp({ placeHolder, restaurantId, getResaurantId}) {
   return (
     <Popup
       trigger={<button className="button">{placeHolder}</button>}
@@ -19,7 +19,7 @@ function PopUp({ placeHolder, getResaurantId}) {
           <div className="header"> Modal Title </div>
           <div className="content">
 
-            <MyMap />
+            <MyMap restaurantId={restaurantId} getResaurantId={getResaurantId}/>
           </div>
           <div className="actions">
             <Popup

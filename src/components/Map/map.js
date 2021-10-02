@@ -82,6 +82,12 @@ function SimpleMap(props) {
     setMapApi(maps);
     setMapApiLoaded(true);
   };
+  useEffect(() => {
+    if (props.placeId) {
+      handleSearchRestaurant(props.placeId)
+    }
+    console.log(props.placeId)
+  }, [mapApiLoaded])
   const handleAutocomplete = useCallback((value) => {
     if (mapApiLoaded) {
       const service = new mapApi.places.AutocompleteService();
@@ -174,12 +180,10 @@ SimpleMap.defaultProps = {
   },
   zoom: 17,
 };
-function MyMap() {
-  const [placeId, setPlaceId] = useState('')
-  console.log(placeId)
+function MyMap({ restaurantId,getResaurantId}) {
   return (
     <div className="App">
-      <SimpleMap setPlaceId={setPlaceId} />
+      <SimpleMap placeId={restaurantId} setPlaceId={getResaurantId} />
     </div>
   );
 }

@@ -28,12 +28,13 @@ import useAddPost from "../../../hooks/useAddPost";
 function EditPage() {
   const {
     images,
-    uploadImage,
+    uploadImages,
     setImages,
     setTitle,
     setContent,
     setVisitedDate,
     setIsPublished,
+    restaurantId,
     setRestaurantId,
     getResaurantId,
     handleInputChange,
@@ -77,8 +78,7 @@ function EditPage() {
           </EditLabel>
           <EditLabel>
             <Span></Span>
-            {/* <Input placeholder="選擇餐廳" /> */}
-            <PopUp placeHolder="選擇餐廳" getResaurantId={getResaurantId(setRestaurantId)} />
+            <PopUp placeHolder="選擇餐廳" restaurantId={restaurantId} getResaurantId={getResaurantId(setRestaurantId)} />
           </EditLabel>
           <EditLabel>
             <Span></Span>
@@ -86,7 +86,7 @@ function EditPage() {
           </EditLabel>
           <NoBorderLabel>
             <Span></Span>
-            <FileInput type="file" multiple="multiple" accept="image/jpg, image/jpeg, image/png" onChange={uploadImage(setImages)} />
+            <FileInput type="file" multiple="multiple" accept="image/jpg, image/jpeg, image/png" onChange={uploadImages(setImages)} />
             選擇照片(最多三張)
           </NoBorderLabel>
           <UnloadImg>
