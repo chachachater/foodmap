@@ -25,7 +25,7 @@ import { Article } from "../../../components/Article";
 import React, { useState, useEffect } from "react";
 import { fetchGetUserData } from "../../../WebAPI";
 import useEditUserData from "../../../hooks/useEditUserData"
-import useConfirmUser from "../../../hooks/useuseConfirmUser"
+import useConfirmUser from "../../../hooks/useConfirmUser"
 import { useParams } from "react-router-dom";
 
 function ProfilePage() {
