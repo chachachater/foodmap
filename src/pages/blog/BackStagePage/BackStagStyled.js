@@ -7,6 +7,17 @@ import {
   ArticleTitle,
 } from "../../../components/Article/ArticleStyle";
 import React from "react";
+import PropTypes from "prop-types";
+
+export const BackStageWrapper = styled.div`
+  padding: 0 24px;
+  max-width: 1200px;
+  margin: 0 auto;
+
+  ${MEDIA_QUERY.sm} {
+    padding: 0;
+  }
+`;
 
 export const BackStageTitle = styled.div`
   font-size: 48px;
@@ -23,21 +34,27 @@ export const Filter = styled.div`
   font-size: ${FONT.logo};
   margin-bottom: 60px;
 `;
+
 export const Publish = styled.div`
   width: 50%;
   height: 100%;
   text-align: center;
-  color: ${(props) => (props.active ? "white" : COLOR.primary)};
-  background-color: ${(props) => (props.active ? COLOR.secondary : "white")};
+  color: ${(props) => (props.$active ? "white" : COLOR.primary)};
+  background-color: ${(props) => (props.$active ? COLOR.secondary : "white")};
+  cursor: pointer;
 `;
+
 export const Private = styled(Publish)``;
-const Container = styled.div`
+
+const ArticleBottom = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+
   ${MEDIA_QUERY.sm} {
     max-width: 375px;
     margin: 0 auto;
+    padding: 0 8px;
   }
 `;
 const ArticleTime = styled.div`
@@ -61,62 +78,74 @@ const BtnContainer = styled.div`
   }
 `;
 const EditBtn = styled.button`
-  background-color: ${COLOR.btn};
-  border-radius: 40px;
-  width: 88px;
-  height: 65px;
   color: ${COLOR.primary};
-  font-size: ${FONT.h3};
-  ${MEDIA_QUERY.lg} {
-    border-radius: 35%;
-    font-size: ${FONT.h4};
-    width: 60px;
-    height: 45px;
+  font-size: ${FONT.h4};
+  font-weight: 600;
+  padding: 8px 16px;
+  border-radius: 40px;
+  background: ${COLOR.btn};
+  white-space: nowrap;
+  &:hover {
+    filter: saturate(2.5);
   }
   ${MEDIA_QUERY.md} {
+    margin-left: 10px;
   }
 `;
+
 const DeleteBtn = styled(EditBtn)`
   color: ${COLOR.secondary};
   background-color: white;
   border: 1px solid ${COLOR.primary};
-  margin-left: 45px;
+  margin-left: 40px;
+
+  ${MEDIA_QUERY.md} {
+    margin-left: 8px;
+  }
 `;
-function ArticleBtn() {
-  return (
-    <Container>
-      <ArticleTime>2021/12/21</ArticleTime>
-      <BtnContainer>
-        <EditBtn>編輯</EditBtn>
-        <DeleteBtn>刪除</DeleteBtn>
-      </BtnContainer>
-    </Container>
-  );
-}
+
+
 const BackStageImage = styled(ArticleImage)`
-  ${MEDIA_QUERY.lg} {
-    max-width: 350px;
-  }
-  ${MEDIA_QUERY.sm} {
-    max-width: 375px;
-  }
+  background: ${(props) => `url(${props.$link}) center/cover`};
 `;
+
 const BackStageContainer = styled(ArticleContainer)`
-  margin-bottom: 60px;
   ${MEDIA_QUERY.lg} {
     max-width: 768px;
   }
 `;
-export function BackStageArticle() {
+export function BackStageArticle({ userPost, userImgs, onDelete }) {
+  const onDeletePost = () => {
+    onDelete(userPost.id)
+  }
+  
   return (
     <BackStageContainer>
-      <BackStageImage />
+      <ArticleImage>
+        {userImgs.map(
+          (userImg) =>
+            userImg.postId === userPost.id && (
+              <BackStageImage key={userImg.postId} $link={userImg.link} />
+            )
+        )}
+      </ArticleImage>
       <ArticleContent>
-        <ArticleTitle>
-          台北西門町少女系餐廳甜蜜回歸！「水蜜桃舒芙蕾」及「巨型芒果舒芙蕾」登場，為你的七夕做好準備
-        </ArticleTitle>
-        <ArticleBtn />
+        <ArticleTitle>{userPost.title}</ArticleTitle>
+        <ArticleBottom>
+          <ArticleTime>
+            {new Date(userPost.visited_time).toLocaleDateString()}
+          </ArticleTime>
+          <BtnContainer>
+            <EditBtn>編輯</EditBtn>
+            <DeleteBtn onClick={onDeletePost}>刪除</DeleteBtn>
+          </BtnContainer>
+        </ArticleBottom>
       </ArticleContent>
     </BackStageContainer>
   );
 }
+BackStageArticle.propTypes = {
+  userPost: PropTypes.object,
+  userImgs: PropTypes.array,
+  onDelete: PropTypes.func,
+};

@@ -1,6 +1,12 @@
 /* eslint-disable */
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { fetchRegister, fetchLogin, getMe, fetchSuccess, fetchLogout } from "../../WebAPI";
+import {
+  fetchRegister,
+  fetchLogin,
+  getMe,
+  fetchSuccess,
+  fetchLogout,
+} from "../../WebAPI";
 
 const initialState = {
   result: "",
@@ -10,39 +16,35 @@ const initialState = {
 export const registerAsync = createAsyncThunk(
   "user/register",
   async (userData) => {
-    let result = ''
+    let result = "";
     try {
-      result = await fetchRegister(userData)
-    } catch(err) {
-      alert('操作失敗，發生錯誤')
+      result = await fetchRegister(userData);
+    } catch (err) {
+      alert("操作失敗，發生錯誤");
     }
-    return result
+    return result;
   }
 );
 
-export const loginAsync = createAsyncThunk(
-  "user/login",
-  async (userData) => {
-    let result = ''
-    try {
-      result = await fetchLogin(userData)
-    } catch (err) {
-      alert('操作失敗，發生錯誤')
-    }
-    return result
+export const loginAsync = createAsyncThunk("user/login", async (userData) => {
+  let result = "";
+  try {
+    result = await fetchLogin(userData);
+  } catch (err) {
+    alert("操作失敗，發生錯誤");
+  }
+  return result;
 });
 
-export const successAsync = createAsyncThunk(
-  "user/success",
-  async () => {
-    let result = ''
-    try {
-      result = await fetchSuccess()
-    } catch (err) {
-      alert('操作失敗，發生錯誤')
-    }
-    return result
-  });
+export const successAsync = createAsyncThunk("user/success", async () => {
+  let result = "";
+  try {
+    result = await fetchSuccess();
+  } catch (err) {
+    alert("操作失敗，發生錯誤");
+  }
+  return result;
+});
 
 export const logoutAsync = createAsyncThunk(
   "user/logout",
@@ -56,7 +58,6 @@ export const logoutAsync = createAsyncThunk(
     }
     return result
   });
-
 export const userSlice = createSlice({
   name: "users",
   initialState,
