@@ -1,3 +1,4 @@
+const BASE_URL = `http://localhost:5001`;
 export function fetchRegister(userData) {
   return fetch(`http://localhost:5001/register`, {
     method: "POST",
@@ -14,8 +15,8 @@ export function fetchRegister(userData) {
   })
     .then((res) => res.json())
     .catch((err) => {
-      alert('操作失敗，發生錯誤')
-      console.log(err)
+      alert("操作失敗，發生錯誤");
+      console.log(err);
     });
 }
 
@@ -33,8 +34,8 @@ export function fetchLogin(userData) {
   })
     .then((res) => res.json())
     .catch((err) => {
-      alert('操作失敗，發生錯誤')
-      console.log(err)
+      alert("操作失敗，發生錯誤");
+      console.log(err);
     });
 }
 
@@ -45,8 +46,8 @@ export function fetchSuccess() {
   })
     .then((res) => res.json())
     .catch((err) => {
-      alert('操作失敗，發生錯誤')
-      console.log(err)
+      alert("操作失敗，發生錯誤");
+      console.log(err);
     });
 }
 
@@ -57,7 +58,20 @@ export function fetchLogout() {
   })
     .then((res) => res.json())
     .catch((err) => {
-      alert('操作失敗，發生錯誤')
-      console.log(err)
+      alert("操作失敗，發生錯誤");
+      console.log(err);
+    });
+}
+export function fetchPostsAndPicturesByPlaceId(limit, offset, placeId, filter) {
+  return fetch(
+    `${BASE_URL}/api/map?limit=${limit}&offset=${offset}&place_id=${placeId}&order=${filter}`,
+    {
+      method: "GET",
+    }
+  )
+    .then((res) => res.json())
+    .catch((err) => {
+      alert("操作失敗，發生錯誤");
+      console.log(err);
     });
 }

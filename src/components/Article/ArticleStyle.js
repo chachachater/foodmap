@@ -1,8 +1,8 @@
 import styled from "styled-components";
 import { COLOR, FONT, MEDIA_QUERY } from "../../constants/style";
-import FoodImg from "../pictures/food.png";
-
-export const ArticleContainer = styled.a`
+import { Link } from "react-router-dom";
+export const ArticleContainer = styled(Link)`
+  color: black;
   display: flex;
   margin: 0 auto;
   width: 100%;
@@ -45,7 +45,7 @@ export const ArticleImage = styled.div`
   height: 100%;
   width: 100%;
   max-width: 375px;
-  background: url(${FoodImg}) center/cover;
+  background: url(${(props) => props.image}) center/cover;
 
   ${MEDIA_QUERY.md} {
     margin: 0 auto;

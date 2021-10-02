@@ -1,11 +1,30 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { SearchWrapper, SearchInput, SearchButton, ButtonImg } from "./SearchStyle";
+import {
+  SearchBox,
+  SearchWrapper,
+  SearchButton,
+  ButtonImg,
+} from "./SearchStyle";
 
-function Search(props) {
+function Search({
+  text,
+  handleInputChange,
+  inputText,
+  restaurantList = [],
+  handleSearchRestaurant,
+  // setFocused,
+}) {
   return (
     <SearchWrapper>
-      <SearchInput placeholder={props.text} />
+      <SearchBox
+        text={text}
+        handleInputChange={handleInputChange}
+        inputText={inputText}
+        restaurantList={restaurantList}
+        handleSearchRestaurant={handleSearchRestaurant}
+        // setFocused={setFocused}
+      />
       <SearchButton>
         <ButtonImg></ButtonImg>
       </SearchButton>
@@ -14,8 +33,11 @@ function Search(props) {
 }
 
 Search.propTypes = {
-  text: PropTypes.string
+  text: PropTypes.string,
+  handleInputChange: PropTypes.func,
+  inputText: PropTypes.string,
+  // setFocused: PropTypes.func,
+  restaurantList: PropTypes.array,
+  handleSearchRestaurant: PropTypes.func,
 };
-
-
 export default Search;
