@@ -62,7 +62,7 @@ export const SearchBox = ({
   inputText,
   restaurantList,
   handleSearchRestaurant,
-  // setFocused,
+  setFocused,
 }) => {
   return (
     <SearchBoxContainer>
@@ -70,14 +70,14 @@ export const SearchBox = ({
         type="text"
         placeholder={text}
         value={inputText}
-        // onFocus={() => {
-        //   setFocused(true);
-        // }}
-        // onBlur={() => {
-        //   setTimeout(() => {
-        //     setFocused(false);
-        //   }, 800);
-        // }}
+        onFocus={() => {
+          setFocused(true);
+        }}
+        onBlur={() => {
+          setTimeout(() => {
+            setFocused(false);
+          }, 800);
+        }}
         onChange={(e) => {
           handleInputChange(e);
         }}
@@ -108,6 +108,6 @@ SearchBox.propTypes = {
   handleInputChange: PropTypes.func,
   inputText: PropTypes.string,
   restaurantList: PropTypes.array,
-  // setFocused: PropTypes.func,
+  setFocused: PropTypes.func,
   handleSearchRestaurant: PropTypes.func,
 };

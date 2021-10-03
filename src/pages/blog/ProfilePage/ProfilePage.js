@@ -24,7 +24,7 @@ import {
   EditLabel,
 } from "./ProfilePageStyled";
 import { Article } from "../../../components/Article";
-import { fetchUserData, fecthPostsByUserId } from "../../../WebAPI";
+import { fetchUserData, fetchPostsByUserId } from "../../../WebAPI";
 import useEditUserData from "../../../hooks/useEditUserData";
 import useConfirmUser from "../../../hooks/useConfirmUser";
 import useParseData from "../../../hooks/useParseData";
@@ -57,7 +57,7 @@ function ProfilePage() {
         setDefaultBanner(result.data.background_pic_url);
       if (result.data.picture_url) setDefaultAvatar(result.data.picture_url);
     });
-    fecthPostsByUserId(id, filter).then((result) => {
+    fetchPostsByUserId(id, filter).then((result) => {
       setPostCounts(result.postCounts);
       console.log(result);
       // 這邊等後端改成 left join 會更好處理
@@ -66,7 +66,7 @@ function ProfilePage() {
   }, []);
 
   useEffect(async () => {
-    fecthPostsByUserId(id, filter).then((result) => {
+    fetchPostsByUserId(id, filter).then((result) => {
       console.log(result);
       // 這邊等後端改成 left join 會更好處理
       setParseResult(parseData(result));

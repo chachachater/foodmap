@@ -2,7 +2,8 @@ import React, { useState, useCallback, useMemo, useEffect } from "react";
 import { Wrapper } from "../../../constants/globalStyle";
 import { Navbar } from "../../../components/Navbar";
 import { SearchContainer, SearchBorder } from "../SearchPage/SearchPageStyle";
-import { Map, Luck, LuckButton, LuckText } from "./NearbyPageStyle";
+import { RestaurantInfoContainer } from "../SearchPage/SearchPageStyle";
+import { Map, Luck, LuckButton } from "./NearbyPageStyle";
 import GoogleMapReact from "google-map-react";
 import _ from "lodash";
 import PropTypes from "prop-types";
@@ -47,19 +48,13 @@ function NearbyPage(props) {
   const [mapApi, setMapApi] = useState(null);
   const [places, setPlaces] = useState([]);
   const [restaurantList, setRestaurantList] = useState([]);
+  const [restaurantInfo, setRestaurantInfo] = useState({});
   const [inputText, setInputText] = useState("");
   const [myPosition, setMyPosition] = useState({
     lat: 24.953631,
     lng: 121.225591,
   });
-  const [currentCenter, setCurrentCenter] = useState({
-    lat: 24.953631,
-    lng: 121.225591,
-  });
-  // const [randomRestaurant, setRandomRestaurant] = useState("");
-  // useEffect(() => {
-  //   searchNearbyRestaurant(randomRestaurant.place_id);
-  // }, [randomRestaurant]);
+  const [currentCenter, setCurrentCenter] = useState(myPosition);
 
   const handleApiLoaded = (map, maps) => {
     setMapInstance(map);
@@ -105,9 +100,7 @@ function NearbyPage(props) {
 
       service.nearbySearch(request, (results, status) => {
         if (status === mapApi.places.PlacesServiceStatus.OK) {
-          // let num = Math.floor(Math.random() * 19 + 1);
           setPlaces(results);
-          // setRandomRestaurant(Math.floor(results[Math.random() * 19 + 1]));
         }
       });
     }
@@ -134,7 +127,6 @@ function NearbyPage(props) {
             lng: results.geometry.location.lng(),
           });
           console.log(results);
-          // setRestaurantInfo(results);
           setInputText(name);
           setRestaurantList([]);
         }
@@ -155,6 +147,7 @@ function NearbyPage(props) {
             lng: results.geometry.location.lng(),
           });
           console.log(results);
+          setRestaurantInfo(results);
           setInputText(name);
           setRestaurantList([]);
         }
@@ -163,6 +156,16 @@ function NearbyPage(props) {
   }
   function handleInputChange(e) {
     setInputText(e.target.value);
+  }
+  function handleSearchNearbyFood() {
+    setMyPosition({
+      lat: mapInstance.center.lat(),
+      lng: mapInstance.center.lng(),
+    });
+    setCurrentCenter({
+      lat: mapInstance.center.lat(),
+      lng: mapInstance.center.lng(),
+    });
   }
   // function handleClickedRandomRestaurant() {
   //   nearbySearch();
@@ -183,7 +186,11 @@ function NearbyPage(props) {
         <Map>
           <GoogleMapReact
             center={currentCenter}
-            bootstrapURLKeys={{ key: mapApiKey, libraries: ["places"] }}
+            bootstrapURLKeys={{
+              key: mapApiKey,
+              libraries: ["places"],
+              language: "zh-TW",
+            }}
             defaultCenter={props.center}
             defaultZoom={props.zoom}
             yesIWantToUseGoogleMapApiInternals // 設定為 true
@@ -207,9 +214,11 @@ function NearbyPage(props) {
           </GoogleMapReact>
         </Map>
         <Luck>
-          <LuckButton>好手氣</LuckButton>
-          <LuckText>不知道要吃甚麼？來抽一家吧！！</LuckText>
+          <LuckButton onClick={handleSearchNearbyFood}>
+            搜尋這附近餐廳
+          </LuckButton>
         </Luck>
+        <RestaurantInfoContainer restaurantInfo={restaurantInfo} />
       </SearchContainer>
     </Wrapper>
   );

@@ -22,7 +22,7 @@ import {
 import Editor from "ckeditor5-custom-build/build/ckeditor";
 import "ckeditor5-custom-build/build/ckeditor.css";
 import usePost from "../../../hooks/usePost";
-import { fecthPostByPostId } from "../../../WebAPI";
+import { fetchPostByPostId } from "../../../WebAPI";
 
 function EditPage() {
   let pathname = useLocation().pathname;
@@ -49,7 +49,7 @@ function EditPage() {
   useEffect(() => {
     if (pathname.includes("edit")) {
       setPostId(id);
-      fecthPostByPostId(id).then((result) => {
+      fetchPostByPostId(id).then((result) => {
         console.log(result);
         setImages(result.images);
         setTitle(result.post.title);

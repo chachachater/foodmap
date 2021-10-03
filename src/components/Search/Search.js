@@ -13,7 +13,7 @@ function Search({
   inputText,
   restaurantList = [],
   handleSearchRestaurant,
-  // setFocused,
+  setFocused,
 }) {
   return (
     <SearchWrapper>
@@ -23,7 +23,7 @@ function Search({
         inputText={inputText}
         restaurantList={restaurantList}
         handleSearchRestaurant={handleSearchRestaurant}
-        // setFocused={setFocused}
+        setFocused={setFocused}
       />
       <SearchButton>
         <ButtonImg></ButtonImg>
@@ -36,7 +36,7 @@ Search.propTypes = {
   text: PropTypes.string,
   handleInputChange: PropTypes.func,
   inputText: PropTypes.string,
-  // setFocused: PropTypes.func,
+  setFocused: PropTypes.func,
   restaurantList: PropTypes.array,
   handleSearchRestaurant: PropTypes.func,
 };

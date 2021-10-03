@@ -58,7 +58,7 @@ function SearchPage(props) {
     lng: 121.225591,
   });
   const [filter, setFilter] = useState("createdAt");
-  // const [focused, setFocused] = useState(false);
+  const [focused, setFocused] = useState(false);
   const handleApiLoaded = (map, maps) => {
     setMapInstance(map);
     setMapApi(maps);
@@ -133,9 +133,9 @@ function SearchPage(props) {
   function handleInputChange(e) {
     setInputText(e.target.value);
   }
-  // useEffect(() => {
-  //   if (!focused) setRestaurantList([]);
-  // }, [focused]);
+  useEffect(() => {
+    if (!focused) setRestaurantList([]);
+  }, [focused]);
   return (
     <Wrapper>
       <Navbar />
@@ -147,7 +147,7 @@ function SearchPage(props) {
             inputText={inputText}
             restaurantList={restaurantList}
             handleSearchRestaurant={handleSearchRestaurant}
-            // setFocused={setFocused}
+            setFocused={setFocused}
           />
         </SearchBorder>
         <SearchMap>

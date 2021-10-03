@@ -40,6 +40,7 @@ export const SearchInfo = styled.div`
 
 const RestaurantInfo = styled.div`
   margin-right: 24px;
+  height: 300px;
 `;
 
 const InfoTitle = styled.h3`
