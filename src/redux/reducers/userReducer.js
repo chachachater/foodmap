@@ -3,7 +3,6 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import {
   fetchRegister,
   fetchLogin,
-  getMe,
   fetchSuccess,
   fetchLogout,
 } from "../../WebAPI";
@@ -17,55 +16,32 @@ export const registerAsync = createAsyncThunk(
   "user/register",
   async (userData) => {
     let result = "";
-    try {
-      result = await fetchRegister(userData);
-    } catch (err) {
-      alert("操作失敗，發生錯誤");
-    }
+    result = await fetchRegister(userData);
     return result;
   }
 );
 
 export const loginAsync = createAsyncThunk("user/login", async (userData) => {
   let result = "";
-  try {
-    result = await fetchLogin(userData);
-  } catch (err) {
-    alert("操作失敗，發生錯誤");
-  }
+  result = await fetchLogin(userData);
   return result;
 });
 
 export const successAsync = createAsyncThunk("user/success", async () => {
   let result = "";
-  try {
-    result = await fetchSuccess();
-  } catch (err) {
-    alert("操作失敗，發生錯誤");
-  }
+  result = await fetchSuccess();
   return result;
 });
 
-export const logoutAsync = createAsyncThunk(
-  "user/logout",
-  async (userData) => {
-    let result = ''
-    try {
-      result = await fetchLogout()
-    } catch (err) {
-      alert('操作失敗，發生錯誤')
-      console.log(err)
-    }
-    return result
-  });
+export const logoutAsync = createAsyncThunk("user/logout", async (userData) => {
+  await fetchLogout();
+  return "";
+});
+
 export const userSlice = createSlice({
   name: "users",
   initialState,
-  reducers: {
-    logout: (state, action) => {
-      state.result = "";
-    },
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder
       .addCase(registerAsync.pending, (state) => {
@@ -81,15 +57,21 @@ export const userSlice = createSlice({
       .addCase(loginAsync.fulfilled, (state, action) => {
         state.status = "idle";
         state.result = action.payload;
-
+      })
+      .addCase(logoutAsync.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(logoutAsync.fulfilled, (state, action) => {
+        state.status = "idle";
+        state.result = action.payload;
       })
       .addCase(successAsync.pending, (state) => {
         state.status = "loading";
       })
       .addCase(successAsync.fulfilled, (state, action) => {
-      state.status = "idle";
+        state.status = "idle";
         state.result = action.payload;
-    });
+      });
   },
 });
 

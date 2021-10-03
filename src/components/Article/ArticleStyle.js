@@ -78,6 +78,7 @@ export const ArticleTitle = styled.div`
 `;
 
 export const ArticleDesc = styled.div`
+  height: 50%;
   justify-content: center;
   ${MEDIA_QUERY.md} {
     display: none;

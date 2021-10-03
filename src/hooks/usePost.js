@@ -5,7 +5,7 @@ import { useHistory } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { selectUser } from "../redux/reducers/userReducer"
 
-export default function useAddPost() {
+export default function usePost() {
   const history = useHistory();
   const [images, setImages] = useState([])
   const [restaurantId, setRestaurantId] = useState('999')
@@ -14,12 +14,13 @@ export default function useAddPost() {
   const [visitedDate, setVisitedDate] = useState('')
   const [isPublished, setIsPublished] = useState(false)
   const [postId, setPostId] = useState('')
-
   const userState = useSelector(selectUser);
-  let userId = 4
-  if (userState.result) {
-    const { userId } = userState.result.data
-  }
+
+  const { userId } = userState.result.data
+  // let userId = 4
+  // if (userState.result) {
+  //   const { userId } = userState.result.data
+  // }
   function handleInputChange(setter) {
     return (e) => {
       setter(e.target.value);
@@ -56,22 +57,24 @@ export default function useAddPost() {
   async function handleSubmit() {
     const postData = {}
     const blobArr = []
-    if (images.length) {
-      for (let i = 0; i < images.length; i++) {
-        let blob = await fetch(images[i]).then(result => result.blob());
-        console.log(blob.arrayBuffer())
-        blobArr.push(blob)
-      }
-      postData.images = blobArr
+    if (!images.length) return alert('至少上傳一張圖片')
+    for (let i = 0; i < images.length; i++) {
+      let blob = await fetch(images[i]).then(result => result.blob());
+      console.log(blob.arrayBuffer())
+      blobArr.push(blob)
     }
+    postData.images = blobArr
     postData.user_id = userId
     postData.restaurant_id = restaurantId
     postData.title = title
     postData.content = content
     postData.visited_time = visitedDate
     postData.is_published = isPublished
-    if (postId) return fetchEditPost(postData, postId)
-    return fetchAddPost(postData)
+    if (postId) {
+      return fetchEditPost(postData, postId)
+      .then(() => history.push("/home"))
+    }
+    return fetchAddPost(postData).then(() => history.push("/home"))
   }
   return {
     images,

@@ -1,5 +1,7 @@
 /* eslint-disable */
 import React from "react";
+import { useDispatch } from "react-redux";
+import { successAsync, logoutAsync } from "./redux/reducers/userReducer";
 import { HashRouter as Router, Switch, Route, Link } from "react-router-dom";
 import { GlobalStyle } from "./constants/globalStyle";
 import BackToTopBtn from "./components/BackToTop";

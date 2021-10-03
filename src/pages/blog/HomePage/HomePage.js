@@ -11,7 +11,7 @@ import {
 } from "./HomePageStyle";
 import Search from "../../../components/Search";
 import { UserAllArticle } from "../../../components/Article/ArticleStyle";
-import { ArticleInfo } from "../../../components/Article";
+// import { ArticleInfo } from "../../../components/Article";
 
 function HomePage() {
   
@@ -26,10 +26,7 @@ function HomePage() {
         </BannerInfo>
       </HomeBanner>
       <HomeTiltle>最新文章</HomeTiltle>
-      <UserAllArticle>
-        {/* <ArticleInfo />
-        <ArticleInfo /> */}
-      </UserAllArticle>
+      <UserAllArticle>{/* <ArticleInfo /> */}</UserAllArticle>
     </Wrapper>
   );
 }

@@ -12,12 +12,12 @@ export default function useRegister() {
   const history = useHistory();
   const dispatch = useDispatch();
 
-  function handleInputChange(setter) {
+  const handleInputChange = (setter) => {
     return (e) => {
       setter(e.target.value);
     };
   }
-  function handleSubmit(e) {
+  const handleSubmit = (e) => {
     e.preventDefault();
     const userData = {
       username,
@@ -25,7 +25,8 @@ export default function useRegister() {
       checkedpassword,
       email,
     };
-    dispatch(registerAsync(userData)).then((result) => {
+    dispatch(registerAsync(userData))
+    .then((result) => {
       console.log(result)
       if (!result.payload.ok) {
         return setErrorMessage(result.payload.message);

@@ -1,12 +1,10 @@
 /* eslint-disable */
 import { useState } from "react";
 import { fetchEditUserData } from "../WebAPI";
-import { useHistory } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { selectUser } from "../redux/reducers/userReducer"
 
 export default function useEditUserData() {
-  const history = useHistory();
   const [avatar, setAvatar] = useState('')
   const [banner, setBanner] = useState('')
   const [nickname, setNickname] = useState('')

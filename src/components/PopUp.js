@@ -18,7 +18,6 @@ function PopUp({ placeHolder, restaurantId, getResaurantId}) {
         </button>
           <div className="header"> Modal Title </div>
           <div className="content">
-
             <MyMap restaurantId={restaurantId} getResaurantId={getResaurantId}/>
           </div>
           <div className="actions">
@@ -50,4 +49,5 @@ PopUp.propTypes = {
   placeHolder: String,
   getResaurantId: Function,
 }
+
 export default PopUp
