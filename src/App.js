@@ -17,8 +17,6 @@ import SearchPage from "./pages/blog/SearchPage";
 import NearbyPage from "./pages/blog/NearbyPage";
 import EditPage from "./pages/blog/EditPage";
 import { SendEmailPage, ResetPasswordPage } from "./pages/user/PasswordPage";
-import { successAsync, logoutAsync } from "./redux/reducers/userReducer";
-import { useDispatch } from "react-redux";
 import { ScrollToTop } from "./constants/units";
 
 function App() {
