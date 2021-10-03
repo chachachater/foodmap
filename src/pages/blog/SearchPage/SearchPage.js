@@ -13,30 +13,11 @@ import {
   SearchBorder,
   SearchMap,
   SearchInfo,
-  RestaurantInfo,
-  InfoTitle,
-  InfoContent,
-  InfoText,
-  AddLogo,
-  BhLogo,
-  UrlLogo,
+  RestaurantInfoContainer,
   InfoImg,
+  Marker,
 } from "./SearchPageStyle";
 const mapApiKey = process.env.REACT_APP_MAP_KEY;
-const Marker = ({ text }) => {
-  return (
-    <div>
-      <img
-        alt={"marker"}
-        style={{ maxHeight: "30px", background: "transparent" }}
-        src={
-          "https://www.pinclipart.com/picdir/big/126-1269086_google-map-marker-red-peg-png-image-red.png"
-        }
-      />
-      <div>{text}</div>
-    </div>
-  );
-};
 
 function SearchPage(props) {
   const [photos, setPhotos] = useState([
@@ -132,6 +113,7 @@ function SearchPage(props) {
     }
   }
   useEffect(async () => {
+    if (!mapApiLoaded) return;
     let results = await fetchPostsAndPicturesByPlaceId(
       5,
       0,
@@ -197,28 +179,7 @@ function SearchPage(props) {
           </GoogleMapReact>
         </SearchMap>
         <SearchInfo>
-          <RestaurantInfo>
-            <InfoTitle>{restaurantInfo.name}</InfoTitle>
-            <InfoContent>
-              {restaurantInfo.formatted_address && <AddLogo />}
-              <InfoText>{restaurantInfo.formatted_address}</InfoText>
-            </InfoContent>
-            <InfoContent>
-              {restaurantInfo.opening_hours && <BhLogo />}
-              <InfoText>
-                {restaurantInfo.opening_hours &&
-                  restaurantInfo.opening_hours.weekday_text.map(
-                    (item, index) => {
-                      return <div key={index}>{item}</div>;
-                    }
-                  )}
-              </InfoText>
-            </InfoContent>
-            <InfoContent>
-              {restaurantInfo.website && <UrlLogo />}
-              <InfoText>{restaurantInfo.website}</InfoText>
-            </InfoContent>
-          </RestaurantInfo>
+          <RestaurantInfoContainer restaurantInfo={restaurantInfo} />
           <InfoImg>
             <ImageViewer photos={photos} />
           </InfoImg>
@@ -239,10 +200,6 @@ SearchPage.propTypes = {
   props: PropTypes.object,
   center: PropTypes.object,
   zoom: PropTypes.number,
-};
-Marker.propTypes = {
-  text: PropTypes.string,
-  placeId: PropTypes.string,
 };
 
 export default SearchPage;
