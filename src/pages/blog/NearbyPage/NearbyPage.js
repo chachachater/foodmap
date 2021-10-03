@@ -13,8 +13,8 @@ const MyPosition = ({ text }) => {
   return (
     <div>
       <img
-        alt={"myposition"}
-        style={{ height: "50px", width: "50px", background: "transparent" }}
+        alt={"current position"}
+        style={{ height: "35px", width: "35px", background: "transparent" }}
         src={
           "https://icon-library.com/images/my-location-icon/my-location-icon-29.jpg"
         }
@@ -23,11 +23,11 @@ const MyPosition = ({ text }) => {
     </div>
   );
 };
-const Marker = ({ text, handleMarkerClicked, placeId }) => {
+const Marker = ({ text, handleMarkerClickedAndSearch, placeId }) => {
   return (
     <div
       onClick={() => {
-        handleMarkerClicked(placeId);
+        handleMarkerClickedAndSearch(placeId, text);
       }}
     >
       <img
@@ -49,6 +49,10 @@ function NearbyPage(props) {
   const [restaurantList, setRestaurantList] = useState([]);
   const [inputText, setInputText] = useState("");
   const [myPosition, setMyPosition] = useState({
+    lat: 24.953631,
+    lng: 121.225591,
+  });
+  const [currentCenter, setCurrentCenter] = useState({
     lat: 24.953631,
     lng: 121.225591,
   });
@@ -88,7 +92,8 @@ function NearbyPage(props) {
   useEffect(() => {
     handleDebounce(inputText);
   }, [inputText, handleDebounce, handleAutocomplete]);
-  const findLocation = () => {
+
+  const nearbySearch = () => {
     if (mapApiLoaded) {
       const service = new mapApi.places.PlacesService(mapInstance);
 
@@ -100,26 +105,30 @@ function NearbyPage(props) {
 
       service.nearbySearch(request, (results, status) => {
         if (status === mapApi.places.PlacesServiceStatus.OK) {
-          let num = Math.floor(Math.random() * 19 + 1);
-          setPlaces([results[num]]);
+          // let num = Math.floor(Math.random() * 19 + 1);
+          setPlaces(results);
           // setRandomRestaurant(Math.floor(results[Math.random() * 19 + 1]));
         }
       });
     }
   };
-  // useEffect(() => {
-  //   findLocation();
-  // }, [myPosition, findLocation]);
-  function handleSearchRestaurant(placeId, name) {
+  useEffect(() => {
+    nearbySearch();
+  }, [myPosition, nearbySearch]);
+
+  function searchRestaurantById(placeId, name) {
     if (mapApiLoaded) {
       const service = new mapApi.places.PlacesService(mapInstance);
 
       const request = {
         placeId,
       };
-
       service.getDetails(request, (results, status) => {
         if (status === mapApi.places.PlacesServiceStatus.OK) {
+          setCurrentCenter({
+            lat: results.geometry.location.lat(),
+            lng: results.geometry.location.lng(),
+          });
           setMyPosition({
             lat: results.geometry.location.lat(),
             lng: results.geometry.location.lng(),
@@ -132,34 +141,32 @@ function NearbyPage(props) {
       });
     }
   }
-  // function searchNearbyRestaurant(placeId) {
-  //   if (mapApiLoaded) {
-  //     const service = new mapApi.places.PlacesService(mapInstance);
+  function handleMarkerClickedAndSearch(placeId, name) {
+    if (mapApiLoaded) {
+      const service = new mapApi.places.PlacesService(mapInstance);
 
-  //     const request = {
-  //       placeId,
-  //     };
-
-  //     service.getDetails(request, (results, status) => {
-  //       if (status === mapApi.places.PlacesServiceStatus.OK) {
-  //         setPlaces([results]);
-  //         console.log(results);
-  //         // setRestaurantInfo(results);
-  //         setRestaurantList([]);
-  //       }
-  //     });
-  //   }
-  // }
+      const request = {
+        placeId,
+      };
+      service.getDetails(request, (results, status) => {
+        if (status === mapApi.places.PlacesServiceStatus.OK) {
+          setCurrentCenter({
+            lat: results.geometry.location.lat(),
+            lng: results.geometry.location.lng(),
+          });
+          console.log(results);
+          setInputText(name);
+          setRestaurantList([]);
+        }
+      });
+    }
+  }
   function handleInputChange(e) {
     setInputText(e.target.value);
   }
-
-  function handleMarkerClicked(place_id) {
-    handleSearchRestaurant(place_id);
-  }
-  function handleClickedRandomRestaurant() {
-    findLocation();
-  }
+  // function handleClickedRandomRestaurant() {
+  //   nearbySearch();
+  // }
   return (
     <Wrapper>
       <Navbar />
@@ -170,12 +177,12 @@ function NearbyPage(props) {
             handleInputChange={handleInputChange}
             inputText={inputText}
             restaurantList={restaurantList}
-            handleSearchRestaurant={handleSearchRestaurant}
+            handleSearchRestaurant={searchRestaurantById}
           />
         </SearchBorder>
         <Map>
           <GoogleMapReact
-            center={myPosition}
+            center={currentCenter}
             bootstrapURLKeys={{ key: mapApiKey, libraries: ["places"] }}
             defaultCenter={props.center}
             defaultZoom={props.zoom}
@@ -194,15 +201,13 @@ function NearbyPage(props) {
                 lng={item.geometry.location.lng()}
                 text={item.name}
                 placeId={item.place_id}
-                handleMarkerClicked={handleMarkerClicked}
+                handleMarkerClickedAndSearch={handleMarkerClickedAndSearch}
               />
             ))}
           </GoogleMapReact>
         </Map>
         <Luck>
-          <LuckButton onClick={handleClickedRandomRestaurant}>
-            好手氣
-          </LuckButton>
+          <LuckButton>好手氣</LuckButton>
           <LuckText>不知道要吃甚麼？來抽一家吧！！</LuckText>
         </Luck>
       </SearchContainer>
@@ -225,7 +230,7 @@ MyPosition.propTypes = {
 };
 Marker.propTypes = {
   text: PropTypes.string,
-  handleMarkerClicked: PropTypes.func,
+  handleMarkerClickedAndSearch: PropTypes.func,
   placeId: PropTypes.string,
 };
 export default NearbyPage;
