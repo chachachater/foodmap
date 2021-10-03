@@ -23,6 +23,7 @@ export default function useLogin() {
     };
     dispatch(loginAsync(userData))
       .then((result) => {
+        console.log(result)
         if (!result.payload.ok) {
           return setErrorMessage(result.payload.message);
         }
