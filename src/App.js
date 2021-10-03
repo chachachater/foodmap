@@ -17,6 +17,9 @@ import SearchPage from "./pages/blog/SearchPage";
 import NearbyPage from "./pages/blog/NearbyPage";
 import EditPage from "./pages/blog/EditPage";
 import { SendEmailPage, ResetPasswordPage } from "./pages/user/PasswordPage";
+import { successAsync, logoutAsync } from "./redux/reducers/userReducer";
+import { useDispatch } from "react-redux";
+import { ScrollToTop } from "./constants/units";
 
 function App() {
   const dispatch = useDispatch();
@@ -35,6 +38,7 @@ function App() {
       <button onClick={handleClick}>test success</button>
       <button onClick={handleLogout}>test logout</button>
       <GlobalStyle />
+      <ScrollToTop />
       <BackToTopBtn />
       <Switch>
         <Router exact path="/">
@@ -45,7 +49,7 @@ function App() {
           <Link to="/reset-password">reset-password</Link>
           <Link to="/user/1">Profile</Link>
           <Link to="/admin">Admin</Link>
-          <Link to="/backstage/rich">後台</Link>
+          <Link to="/backstage/1">後台</Link>
           <Link to="/posts/1">post</Link>
           <Link to="/search">search</Link>
           <Link to="/nearby">nearby</Link>
@@ -72,7 +76,7 @@ function App() {
         <Route path="/admin">
           <AdminPage />
         </Route>
-        <Route path="/backstage/:user">
+        <Route path="/backstage/:userId">
           <BackStagePage />
         </Route>
         <Route path="/posts/:id">
