@@ -132,6 +132,7 @@ function SearchPage(props) {
     }
   }
   useEffect(async () => {
+    if (!mapApiLoaded) return;
     let results = await fetchPostsAndPicturesByPlaceId(
       5,
       0,
