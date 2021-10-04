@@ -1,9 +1,19 @@
 import React, { useState, useCallback, useMemo, useEffect } from "react";
 import { Wrapper } from "../../../constants/globalStyle";
 import { Navbar } from "../../../components/Navbar";
-import { SearchContainer, SearchBorder } from "../SearchPage/SearchPageStyle";
-import { RestaurantInfoContainer } from "../SearchPage/SearchPageStyle";
-import { Map, Luck, LuckButton } from "./NearbyPageStyle";
+import {
+  SearchContainer,
+  SearchBorder,
+  RestaurantInfoContainer,
+} from "../SearchPage/SearchPageStyle";
+import {
+  Map,
+  Luck,
+  LuckButton,
+  Marker,
+  MarginContainer,
+} from "./NearbyPageStyle";
+import ImageViewer from "../../../components/ImageViewer";
 import GoogleMapReact from "google-map-react";
 import _ from "lodash";
 import PropTypes from "prop-types";
@@ -24,24 +34,6 @@ const MyPosition = ({ text }) => {
     </div>
   );
 };
-const Marker = ({ text, handleMarkerClickedAndSearch, placeId }) => {
-  return (
-    <div
-      onClick={() => {
-        handleMarkerClickedAndSearch(placeId, text);
-      }}
-    >
-      <img
-        alt={"marker"}
-        style={{ maxHeight: "30px", background: "transparent" }}
-        src={
-          "https://www.pinclipart.com/picdir/big/126-1269086_google-map-marker-red-peg-png-image-red.png"
-        }
-      />
-      <div>{text}</div>
-    </div>
-  );
-};
 function NearbyPage(props) {
   const [mapApiLoaded, setMapApiLoaded] = useState(false);
   const [mapInstance, setMapInstance] = useState(null);
@@ -54,8 +46,9 @@ function NearbyPage(props) {
     lat: 24.953631,
     lng: 121.225591,
   });
+  const [focused, setFocused] = useState(false);
   const [currentCenter, setCurrentCenter] = useState(myPosition);
-
+  const [photos, setPhotos] = useState([]);
   const handleApiLoaded = (map, maps) => {
     setMapInstance(map);
     setMapApi(maps);
@@ -108,7 +101,9 @@ function NearbyPage(props) {
   useEffect(() => {
     nearbySearch();
   }, [myPosition, nearbySearch]);
-
+  useEffect(() => {
+    if (!focused) setRestaurantList([]);
+  }, [focused]);
   function searchRestaurantById(placeId, name) {
     if (mapApiLoaded) {
       const service = new mapApi.places.PlacesService(mapInstance);
@@ -167,9 +162,14 @@ function NearbyPage(props) {
       lng: mapInstance.center.lng(),
     });
   }
-  // function handleClickedRandomRestaurant() {
-  //   nearbySearch();
-  // }
+  useEffect(() => {
+    if (restaurantInfo.photos === undefined) return;
+    let arr = [];
+    restaurantInfo.photos.map((photo) => {
+      arr.push({ src: photo.getUrl() });
+    });
+    setPhotos(arr);
+  }, [restaurantInfo]);
   return (
     <Wrapper>
       <Navbar />
@@ -181,6 +181,7 @@ function NearbyPage(props) {
             inputText={inputText}
             restaurantList={restaurantList}
             handleSearchRestaurant={searchRestaurantById}
+            setFocused={setFocused}
           />
         </SearchBorder>
         <Map>
@@ -212,13 +213,16 @@ function NearbyPage(props) {
               />
             ))}
           </GoogleMapReact>
+          <MarginContainer>
+            <RestaurantInfoContainer restaurantInfo={restaurantInfo} />
+            <ImageViewer photos={photos} />
+          </MarginContainer>
         </Map>
         <Luck>
           <LuckButton onClick={handleSearchNearbyFood}>
             搜尋這附近餐廳
           </LuckButton>
         </Luck>
-        <RestaurantInfoContainer restaurantInfo={restaurantInfo} />
       </SearchContainer>
     </Wrapper>
   );

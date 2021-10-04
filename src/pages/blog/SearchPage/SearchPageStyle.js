@@ -91,7 +91,7 @@ export const InfoImg = styled.div`
     width: 300px;
   }
 `;
-const MarkerImg = styled.img`
+export const MarkerImg = styled.img`
   max-height: 30px;
   background: transparent;
 `;
