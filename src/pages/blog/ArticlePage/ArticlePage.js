@@ -71,16 +71,6 @@ function ArticlePage() {
     });    
   }, [id]);
 
-  useEffect(() => {
-    let arr = [];
-     postsData.images.map((image) => {
-    arr.push({ src: image });
-  });
-    if (postsData.length) setPhotos(arr);
-  }, [postsData]);
- 
-
-
   return (
     <Wrapper>
       <Navbar />

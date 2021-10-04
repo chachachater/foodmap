@@ -21,10 +21,11 @@ export default function BackStagePage() {
   const [postState, setPostState] = useState("published");
 
   const userState = useSelector(selectUser);
-  const { userId } = userState.data.data;
+  const { userId } = userState.result.data;
+  const order = 'createdAt'
 
   useEffect(() => {
-    FecthGetUserPosts(userId).then((userPost) => {
+    FecthGetUserPosts(userId, order).then((userPost) => {
       if (!userPost) {
         console.log(userPost.message);
         return;
@@ -49,9 +50,6 @@ export default function BackStagePage() {
 
   const handleDelete = (id) => {
     fetchDletePost(id)
-    console.log(posts)
-    // setPosts(posts.filter((post) => post.is_deleted === false));
-    console.log(posts);
   };
 
   return (
