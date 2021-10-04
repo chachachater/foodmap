@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import React from "react";
 import { Wrapper } from "../../../constants/globalStyle";
 import { Navbar } from "../../../components/Navbar";
@@ -76,10 +78,10 @@ function SearchPage() {
             <ImageViewer photos={photos} />
           </InfoImg>
         </SearchInfo>
-        <Article />
-        <UserAllArticle>
+        {/* <Article /> */}
+        {/* <UserAllArticle>
           <ArticleInfo />
-        </UserAllArticle>
+        </UserAllArticle> */}
       </SearchContainer>
     </Wrapper>
   );
