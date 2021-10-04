@@ -3,6 +3,8 @@ import { COLOR, FONT, MEDIA_QUERY } from "../../../constants/style";
 import addLogo from "../../../components/pictures/addLogo.png";
 import bhLogo from "../../../components/pictures/bhLogo.png";
 import urlLogo from "../../../components/pictures/urlLogo.png";
+import PropTypes from "prop-types";
+import React from "react";
 
 export const SearchContainer = styled.div`
   padding: 150px 16px 0;
@@ -36,23 +38,24 @@ export const SearchInfo = styled.div`
   }
 `;
 
-export const RestaurantInfo = styled.div`
+const RestaurantInfo = styled.div`
   margin-right: 24px;
+  height: 300px;
 `;
 
-export const InfoTitle = styled.h3`
+const InfoTitle = styled.h3`
   font-size: ${FONT.h3};
   margin-bottom: 20px;
   line-height: 1.4;
 `;
 
-export const InfoContent = styled.div`
+const InfoContent = styled.div`
   display: flex;
   justify-content: flex-start;
   margin-bottom: 12px;
 `;
 
-export const InfoText = styled.div`
+const InfoText = styled.div`
   font-size: ${FONT.h4};
   margin-left: 8px;
   line-height: 1.4;
@@ -62,18 +65,18 @@ export const InfoText = styled.div`
   }
 `;
 
-export const AddLogo = styled.span`
+const AddLogo = styled.span`
   background: url(${addLogo}) center/cover;
   display: inline-block;
   width: 25px;
   height: 25px;
 `;
 
-export const BhLogo = styled(AddLogo)`
+const BhLogo = styled(AddLogo)`
   background: url(${bhLogo}) center/cover;
 `;
 
-export const UrlLogo = styled(AddLogo)`
+const UrlLogo = styled(AddLogo)`
   background: url(${urlLogo}) center/cover;
 `;
 
@@ -88,3 +91,53 @@ export const InfoImg = styled.div`
     width: 300px;
   }
 `;
+export const MarkerImg = styled.img`
+  max-height: 30px;
+  background: transparent;
+`;
+export function Marker({ text }) {
+  return (
+    <div>
+      <MarkerImg
+        alt={"marker"}
+        style={{ maxHeight: "30px", background: "transparent" }}
+        src={
+          "https://www.pinclipart.com/picdir/big/126-1269086_google-map-marker-red-peg-png-image-red.png"
+        }
+      />
+      <div>{text}</div>
+    </div>
+  );
+}
+Marker.propTypes = {
+  text: PropTypes.string,
+  placeId: PropTypes.string,
+};
+export function RestaurantInfoContainer({ restaurantInfo }) {
+  return (
+    <RestaurantInfo>
+      <InfoTitle>{restaurantInfo.name}</InfoTitle>
+      <InfoContent>
+        {restaurantInfo.formatted_address && <AddLogo />}
+        <InfoText>{restaurantInfo.formatted_address}</InfoText>
+      </InfoContent>
+      <InfoContent>
+        {restaurantInfo.opening_hours && <BhLogo />}
+        <InfoText>
+          {restaurantInfo.opening_hours &&
+            restaurantInfo.opening_hours.weekday_text.map((item, index) => {
+              return <div key={index}>{item}</div>;
+            })}
+        </InfoText>
+      </InfoContent>
+      <InfoContent>
+        {restaurantInfo.website && <UrlLogo />}
+        <InfoText>{restaurantInfo.website}</InfoText>
+      </InfoContent>
+    </RestaurantInfo>
+  );
+}
+
+RestaurantInfoContainer.propTypes = {
+  restaurantInfo: PropTypes.object,
+};

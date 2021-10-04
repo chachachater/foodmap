@@ -1,10 +1,7 @@
 const BASE_URL = "http://localhost:5001";
 
 export function FetchGetPost(id) {
-  return fetch(`${BASE_URL}/api/post/${id}`, {
-    method: "GET",
-    credentials: "include",
-  })
+  return fetch(`${BASE_URL}/api/post/${id}`)
     .then((res) => res.json())
     .catch((err) => {
       console.log(err.message);
@@ -12,10 +9,7 @@ export function FetchGetPost(id) {
 }
 
 export function FetchGetUser(userId) {
-  return fetch(`${BASE_URL}/api/user/${userId}`, {
-    method: "GET",
-    credentials: "include",
-  })
+  return fetch(`${BASE_URL}/api/user/${userId}`)
     .then((res) => res.json())
     .catch((err) => {
       console.log(err.message);
@@ -65,6 +59,9 @@ export function fetchDletePost(id) {
   return fetch(`${BASE_URL}/api/post/${id}`, {
     method: "DELETE",
     credentials: "include",
+    headers: {
+      "content-type": "application/json",
+    },
   })
     .then((res) => res.json())
     .catch((err) => {

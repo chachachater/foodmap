@@ -1,8 +1,10 @@
-import React from "react";
+/* eslint-disable */
+import React, { useEffect } from "react";
+import { useLocation, useParams } from "react-router-dom";
 import { Wrapper } from "../../../constants/globalStyle";
 import { Navbar } from "../../../components/Navbar";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
-import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+import PopUp from "../../../components/PopUp";
 import {
   EditContainer,
   EditInputs,
@@ -16,22 +18,80 @@ import {
   Img,
   SubmitButton,
   Button,
-  DeleteBtn,
 } from "./EditPageStyle";
+import Editor from "ckeditor5-custom-build/build/ckeditor";
+import "ckeditor5-custom-build/build/ckeditor.css";
+import usePost from "../../../hooks/usePost";
+import { fetchPostByPostId } from "../../../WebAPI";
 
 function EditPage() {
-  // const photos = [
-  //   {
-  //     src: "https://images.unsplash.com/photo-1612927601601-6638404737ce?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=687&q=80",
-  //   },
-  //   {
-  //     src: "https://images.unsplash.com/photo-1455619452474-d2be8b1e70cd?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
-  //   },
-  //   {
-  //     src: "https://images.unsplash.com/photo-1604262590904-0039c606dc95?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1184&q=80",
-  //   },
-  // ];
-
+  let pathname = useLocation().pathname;
+  console.log(location.pathname);
+  const { id } = useParams();
+  const {
+    images,
+    uploadImages,
+    setImages,
+    title,
+    setTitle,
+    content,
+    setContent,
+    visitedDate,
+    setVisitedDate,
+    setIsPublished,
+    restaurantId,
+    setRestaurantId,
+    getResaurantId,
+    setPostId,
+    handleInputChange,
+    handleSubmit,
+  } = usePost();
+  useEffect(() => {
+    if (pathname.includes("edit")) {
+      setPostId(id);
+      fetchPostByPostId(id).then((result) => {
+        console.log(result);
+        setImages(result.images);
+        setTitle(result.post.title);
+        setContent(result.post.content);
+        setVisitedDate(result.post.visited_time);
+        setIsPublished(result.post.is_published);
+        setRestaurantId(result.post.restaurant_id);
+      });
+    }
+  }, []);
+  const handleDraft = async () => {
+    setIsPublished(false);
+    return handleSubmit();
+  };
+  const renderImages = () => {
+    if (!images.length) return;
+    return images.map((each) => {
+      return (
+        <ImgBox>
+          <Img src={each} key={each} />
+        </ImgBox>
+      );
+    });
+  };
+  const editorConfiguration = {
+    toolbar: {
+      items: [
+        "heading",
+        "|",
+        "bold",
+        "italic",
+        "link",
+        "bulletedList",
+        "numberedList",
+        "|",
+        "blockQuote",
+        "insertTable",
+        "undo",
+        "redo",
+      ],
+    },
+  };
   return (
     <Wrapper>
       <Navbar />
@@ -39,52 +99,44 @@ function EditPage() {
         <EditInputs>
           <EditLabel>
             <Span></Span>
-            <Input type="date" />
+            <Input
+              type="date"
+              value={visitedDate}
+              onChange={handleInputChange(setVisitedDate)}
+            />
           </EditLabel>
           <EditLabel>
             <Span></Span>
-            <Input placeholder="選擇餐廳" />
+            <PopUp
+              placeHolder="選擇餐廳"
+              restaurantId={restaurantId}
+              getResaurantId={getResaurantId(setRestaurantId)}
+            />
           </EditLabel>
           <EditLabel>
             <Span></Span>
-            <Input placeholder="食記標題" />
+            <Input
+              placeholder="食記標題"
+              value={title}
+              onChange={handleInputChange(setTitle)}
+            />
           </EditLabel>
           <NoBorderLabel>
             <Span></Span>
-            <FileInput type="file" multiple="multiple" />
-            選擇照片(最多三張)
+            <FileInput
+              type="file"
+              multiple="multiple"
+              accept="image/jpg, image/jpeg, image/png"
+              onChange={uploadImages(setImages)}
+            />
+            選擇照片(至少選擇一張圖片)
           </NoBorderLabel>
-          <UnloadImg>
-            <ImgBox>
-              <Img src="https://images.unsplash.com/photo-1612927601601-6638404737ce?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=687&q=80" />
-              <DeleteBtn></DeleteBtn>
-            </ImgBox>
-            <ImgBox>
-              <Img src="https://images.unsplash.com/photo-1455619452474-d2be8b1e70cd?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80" />
-              <DeleteBtn></DeleteBtn>
-            </ImgBox>
-            <ImgBox>
-              <Img src="https://images.unsplash.com/photo-1604262590904-0039c606dc95?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1184&q=80" />
-              <DeleteBtn></DeleteBtn>
-            </ImgBox>
-          </UnloadImg>
+          <UnloadImg>{renderImages()}</UnloadImg>
         </EditInputs>
         <CKEditor
-          editor={ClassicEditor}
-          data="<p>Hello from CKEditor 5!</p>"
-          config={{
-            removePlugins: [
-              "CKFinder",
-              "Image",
-              "ImageCaption",
-              "ImageStyle",
-              "ImageToolbar",
-              "MediaEmbed",
-              "EasyImage",
-              "ImageUpload",
-            ],
-            language: "zh",
-          }}
+          editor={Editor}
+          config={editorConfiguration}
+          data={content ? content : "<p>Hello from FoodMap!</p>"}
           onReady={(editor) => {
             editor.editing.view.change((writer) => {
               writer.setStyle(
@@ -93,22 +145,15 @@ function EditPage() {
                 editor.editing.view.document.getRoot()
               );
             });
-            console.log("Editor is ready to use!", editor);
           }}
           onChange={(event, editor) => {
             const data = editor.getData();
-            console.log({ event, editor, data });
-          }}
-          onBlur={(event, editor) => {
-            console.log("Blur.", editor);
-          }}
-          onFocus={(event, editor) => {
-            console.log("Focus.", editor);
+            setContent(data);
           }}
         />
         <SubmitButton>
-          <Button>儲存</Button>
-          <Button>發表食記</Button>
+          <Button onClick={handleDraft}>儲存</Button>
+          <Button onClick={handleSubmit}>發表食記</Button>
         </SubmitButton>
       </EditContainer>
     </Wrapper>

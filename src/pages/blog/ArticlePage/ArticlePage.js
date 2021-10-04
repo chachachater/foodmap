@@ -12,25 +12,24 @@ import {
   PostContent,
   PostImg,
 } from "./ArticlePageStyle";
-//import ImageViewer from "../../../components/ImageViewer";
+import ImageViewer from "../../../components/ImageViewer";
 import { FetchGetPost, FetchGetUser } from "../../../webAPI/ArticleAPI";
 import { useParams } from "react-router-dom";
 
-function Post({ post, authorImg, user }) {
+function Post({ post, user }) {
   if (!post) return null;
 
   return (
     <PostWrapper>
       <PostContainer>
         <PostAuthor>
-          <AuthorImg $img={authorImg}></AuthorImg>
-          <AuthorName>{user.nickname}</AuthorName>
+          <AuthorImg $img={user && user.picture_url}></AuthorImg>
+          <AuthorName>{user && user.nickname}</AuthorName>
         </PostAuthor>
-        <PostTitle>{post.post.title}</PostTitle>
-        <PostContent>{post.post.content}</PostContent>
+        <PostTitle>{post.post && post.post.title}</PostTitle>
+        <PostContent>{post.post && post.post.content}</PostContent>
         <PostImg>
-          {/* <ImageViewer />  */}
-          {/* photos={post.images} */}
+          <ImageViewer photos={post.images} /> 
         </PostImg>
       </PostContainer>
     </PostWrapper>
@@ -40,41 +39,37 @@ function Post({ post, authorImg, user }) {
 Post.propTypes = {
   post: PropTypes.object,
   user: PropTypes.object,
-  authorImg: PropTypes.string,
 };
 
 function ArticlePage() {
   const { id } = useParams();
   const [post, setPost] = useState();
   const [user, setUser] = useState();
-  const [authorImg, setAuthorImg] = useState();
 
   useEffect(() => {
-    FetchGetPost(1).then((post) => {
+    FetchGetPost(id).then((post) => {
       if (!post) {
         console.log(post.message);
         return;
       }
       setPost(post);
+      
+      const userId = post.post.user_id
 
-      FetchGetUser(1).then((user) => {
+      FetchGetUser(userId).then((user) => {
         if (!user) {
           console.log(user.message);
           return;
         }
         setUser(user.data);
-        setAuthorImg(user.data.picture_url);
       });
-    });
-    console.log(post);
+    });    
   }, [id]);
-
-  console.log(user);
 
   return (
     <Wrapper>
       <Navbar />
-      <Post post={post} user={user} authorImg={authorImg} />
+      <Post post={post} user={user} />
     </Wrapper>
   );
 }

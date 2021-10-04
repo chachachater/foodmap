@@ -1,10 +1,13 @@
+/* eslint-disable */
 import React from "react";
+import { useDispatch } from "react-redux";
+import { successAsync, logoutAsync } from "./redux/reducers/userReducer";
 import { HashRouter as Router, Switch, Route, Link } from "react-router-dom";
 import { GlobalStyle } from "./constants/globalStyle";
 import BackToTopBtn from "./components/BackToTop";
 import Footer from "./components/Footer";
 import HomePage from "./pages/blog/HomePage";
-import Profile from "./pages/blog/ProfilePage";
+import ProfilePage from "./pages/blog/ProfilePage";
 import RegisterPage from "./pages/user/RegisterPage";
 import LoginPage from "./pages/user/LoginPage";
 import AdminPage from "./components/Admin";
@@ -14,8 +17,6 @@ import SearchPage from "./pages/blog/SearchPage";
 import NearbyPage from "./pages/blog/NearbyPage";
 import EditPage from "./pages/blog/EditPage";
 import { SendEmailPage, ResetPasswordPage } from "./pages/user/PasswordPage";
-import { successAsync, logoutAsync } from "./redux/reducers/userReducer";
-import { useDispatch } from "react-redux";
 import { ScrollToTop } from "./constants/units";
 
 function App() {
@@ -68,7 +69,7 @@ function App() {
           <ResetPasswordPage />
         </Route>
         <Route path="/user/:id">
-          <Profile />
+          <ProfilePage />
         </Route>
         <Route path="/admin">
           <AdminPage />
@@ -85,7 +86,10 @@ function App() {
         <Route path="/nearby">
           <NearbyPage />
         </Route>
-        <Route path="/edit">
+        <Route path="/add">
+          <EditPage />
+        </Route>
+        <Route path="/edit/:id">
           <EditPage />
         </Route>
       </Switch>

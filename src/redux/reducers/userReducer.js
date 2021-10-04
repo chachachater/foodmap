@@ -1,69 +1,47 @@
 /* eslint-disable */
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { fetchRegister, fetchLogin, getMe, fetchSuccess, fetchLogout } from "../../WebAPI";
+import {
+  fetchRegister,
+  fetchLogin,
+  fetchSuccess,
+  fetchLogout,
+} from "../../WebAPI";
 
 const initialState = {
-  data: "",
+  result: "",
   status: "idle",
 };
 
 export const registerAsync = createAsyncThunk(
   "user/register",
   async (userData) => {
-    let result = ''
-    try {
-      result = await fetchRegister(userData)
-    } catch(err) {
-      alert('操作失敗，發生錯誤')
-    }
-    return result
+    let result = "";
+    result = await fetchRegister(userData);
+    return result;
   }
 );
 
-export const loginAsync = createAsyncThunk(
-  "user/login",
-  async (userData) => {
-    let result = ''
-    try {
-      result = await fetchLogin(userData)
-    } catch (err) {
-      alert('操作失敗，發生錯誤')
-    }
-    return result
+export const loginAsync = createAsyncThunk("user/login", async (userData) => {
+  let result = "";
+  result = await fetchLogin(userData);
+  return result;
 });
 
-export const successAsync = createAsyncThunk(
-  "user/success",
-  async () => {
-    let result = ''
-    try {
-      result = await fetchSuccess()
-    } catch (err) {
-      alert('操作失敗，發生錯誤')
-    }
-    return result
-  });
+export const successAsync = createAsyncThunk("user/success", async () => {
+  let result = "";
+  result = await fetchSuccess();
+  return result;
+});
 
-export const logoutAsync = createAsyncThunk(
-  "user/logout",
-  async (userData) => {
-    let result = ''
-    try {
-      result = await fetchtRegister()
-    } catch (err) {
-      alert('操作失敗，發生錯誤')
-    }
-    return result
-  });
+export const logoutAsync = createAsyncThunk("user/logout", async (userData) => {
+  await fetchLogout();
+  return "";
+});
 
 export const userSlice = createSlice({
   name: "users",
   initialState,
-  reducers: {
-    logout: (state, action) => {
-      state.data = "";
-    },
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder
       .addCase(registerAsync.pending, (state) => {
@@ -71,22 +49,29 @@ export const userSlice = createSlice({
       })
       .addCase(registerAsync.fulfilled, (state, action) => {
         state.status = "idle";
-        state.data = action.payload;
+        state.result = action.payload;
       })
       .addCase(loginAsync.pending, (state) => {
         state.status = "loading";
       })
       .addCase(loginAsync.fulfilled, (state, action) => {
         state.status = "idle";
-        state.data = action.payload;
+        state.result = action.payload;
+      })
+      .addCase(logoutAsync.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(logoutAsync.fulfilled, (state, action) => {
+        state.status = "idle";
+        state.result = action.payload;
       })
       .addCase(successAsync.pending, (state) => {
         state.status = "loading";
       })
       .addCase(successAsync.fulfilled, (state, action) => {
-      state.status = "idle";
-      state.data = action.payload;
-    });
+        state.status = "idle";
+        state.result = action.payload;
+      });
   },
 });
 

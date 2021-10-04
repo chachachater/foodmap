@@ -39,64 +39,55 @@ export const Publish = styled.div`
   width: 50%;
   height: 100%;
   text-align: center;
-  color: ${(props) => (props.active ? "white" : COLOR.primary)};
-  background-color: ${(props) => (props.active ? COLOR.secondary : "white")};
+  color: ${(props) => (props.$active ? "white" : COLOR.primary)};
+  background-color: ${(props) => (props.$active ? COLOR.secondary : "white")};
+  cursor: pointer;
 `;
 
 export const Private = styled(Publish)``;
 
-const Container = styled.div`
+const ArticleBottom = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
- 
+
   ${MEDIA_QUERY.sm} {
     max-width: 375px;
     margin: 0 auto;
     padding: 0 8px;
   }
 `;
-
 const ArticleTime = styled.div`
   font-size: ${FONT.h3};
   line-height: 55px;
   margin-bottom: 10px;
-
   ${MEDIA_QUERY.md} {
     font-size: ${FONT.h4};
   }
-
   ${MEDIA_QUERY.sm} {
     width: 375px;
     margin: 0 auto;
     text-align: left;
   }
 `;
-
 const BtnContainer = styled.div`
   display: flex;
   justify-content: flex-start;
-
   ${MEDIA_QUERY.md} {
     justify-content: center;
   }
 `;
-
 const EditBtn = styled.button`
-  background-color: ${COLOR.btn};
-  border-radius: 40px;
-  width: 88px;
-  height: 65px;
   color: ${COLOR.primary};
-  font-size: ${FONT.h3};
-
-  ${MEDIA_QUERY.lg} {
-    border-radius: 35%;
-    font-size: ${FONT.h4};
-    width: 60px;
-    height: 45px;
+  font-size: ${FONT.h4};
+  font-weight: 600;
+  padding: 8px 16px;
+  border-radius: 40px;
+  background: ${COLOR.btn};
+  white-space: nowrap;
+  &:hover {
+    filter: saturate(2.5);
   }
-
   ${MEDIA_QUERY.md} {
     margin-left: 10px;
   }
@@ -106,41 +97,16 @@ const DeleteBtn = styled(EditBtn)`
   color: ${COLOR.secondary};
   background-color: white;
   border: 1px solid ${COLOR.primary};
-  margin-left: 45px;
+  margin-left: 40px;
 
   ${MEDIA_QUERY.md} {
-    margin-left: 20px;
+    margin-left: 8px;
   }
 `;
 
-function ArticleBtn({ userPost }) {
-  return (
-    <Container>
-      <ArticleTime>
-        {new Date(userPost.visited_time).toLocaleDateString()}
-      </ArticleTime>
-      <BtnContainer>
-        <EditBtn>編輯</EditBtn>
-        <DeleteBtn>刪除</DeleteBtn>
-      </BtnContainer>
-    </Container>
-  );
-}
-
-ArticleBtn.propTypes = {
-  userPost: PropTypes.object,
-};
 
 const BackStageImage = styled(ArticleImage)`
   background: ${(props) => `url(${props.$link}) center/cover`};
-
-  ${MEDIA_QUERY.lg} {
-    max-width: 350px;
-  }
-
-  ${MEDIA_QUERY.sm} {
-    max-width: 375px;
-  }
 `;
 
 const BackStageContainer = styled(ArticleContainer)`
@@ -148,22 +114,38 @@ const BackStageContainer = styled(ArticleContainer)`
     max-width: 768px;
   }
 `;
-
-export function BackStageArticle({ userPost, userImg }) {
-  console.log(userImg);
+export function BackStageArticle({ userPost, userImgs, onDelete }) {
+  const onDeletePost = () => {
+    onDelete(userPost.id)
+  }
+  
   return (
     <BackStageContainer>
-      <BackStageImage $link={userImg} />
+      <ArticleImage>
+        {userImgs.map(
+          (userImg) =>
+            userImg.postId === userPost.id && (
+              <BackStageImage key={userImg.postId} $link={userImg.link} />
+            )
+        )}
+      </ArticleImage>
       <ArticleContent>
         <ArticleTitle>{userPost.title}</ArticleTitle>
-        <ArticleBtn userPost={userPost} />
+        <ArticleBottom>
+          <ArticleTime>
+            {new Date(userPost.visited_time).toLocaleDateString()}
+          </ArticleTime>
+          <BtnContainer>
+            <EditBtn>編輯</EditBtn>
+            <DeleteBtn onClick={onDeletePost}>刪除</DeleteBtn>
+          </BtnContainer>
+        </ArticleBottom>
       </ArticleContent>
     </BackStageContainer>
   );
 }
-
 BackStageArticle.propTypes = {
-  userPost: PropTypes.array,
-  userImg: PropTypes.array,
+  userPost: PropTypes.object,
+  userImgs: PropTypes.array,
+  onDelete: PropTypes.func,
 };
-
