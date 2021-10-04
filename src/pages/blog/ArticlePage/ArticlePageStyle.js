@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { COLOR, FONT, MEDIA_QUERY } from "../../../constants/style";
 import AvatarImg from "../../../components/pictures/avatar.png";
 
-export const Post = styled.div`
+export const PostWrapper = styled.div`
   padding: 0 24px;
   margin-top: 165px;
 `;
@@ -31,8 +31,10 @@ export const PostAuthor = styled.div`
 export const AuthorImg = styled.div`
   width: 80px;
   height: 80px;
-  background: url(${AvatarImg}) center/cover;
+  border-radius: 50%;
   margin-bottom: 18px;
+
+  background: ${(props) => (props.$img ? `url(${props.$img}) center/cover` : `url(${AvatarImg}) center/cover`)};
 `;
 
 export const AuthorName = styled.p`
@@ -55,8 +57,12 @@ export const PostTitle = styled.h1`
 
 export const PostContent = styled.p`
   font-size: ${FONT.h4};
-  line-height: 1.5;
+  line-height: 1.6;
   margin-bottom: 48px;
+
+  word-wrap: break-word;
+  word-break: break-all;
+  white-space: pre-wrap;
 `;
 
 export const PostImg = styled.div``;

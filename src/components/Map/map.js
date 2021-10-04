@@ -1,8 +1,9 @@
 /* eslint-disable */
 import React, { useCallback, useState, useEffect, useMemo } from "react";
-import mapApiKey from "./key"; // 引入 API key
+// import mapApiKey from "./key"; // 引入 API key
 import GoogleMapReact from "google-map-react";
 import _ from "lodash";
+const mapApiKey = process.env.REACT_APP_MAP_KEY;
 
 const Marker = ({ text, handleSetPlaceId, placeId }) => {
   return (
@@ -54,7 +55,10 @@ const SearchBox = ({
               style={{ background: "white" }}
               key={index}
               onClick={() => {
-                handleSearchRestaurant(data.place_id, data.structured_formatting.main_text);
+                handleSearchRestaurant(
+                  data.place_id,
+                  data.structured_formatting.main_text
+                );
               }}
             >
               {data.terms[0].value}
@@ -67,12 +71,12 @@ const SearchBox = ({
 };
 
 function SimpleMap(props) {
-  const [mapApiLoaded, setMapApiLoaded] = useState(false)
-  const [mapInstance, setMapInstance] = useState(null)
-  const [mapApi, setMapApi] = useState(null)
-  const [places, setPlaces] = useState([])
-  const [restaurantList, setRestaurantList] = useState([])
-  const [inputText, setInputText] = useState("")
+  const [mapApiLoaded, setMapApiLoaded] = useState(false);
+  const [mapInstance, setMapInstance] = useState(null);
+  const [mapApi, setMapApi] = useState(null);
+  const [places, setPlaces] = useState([]);
+  const [restaurantList, setRestaurantList] = useState([]);
+  const [inputText, setInputText] = useState("");
   const [myPosition, setMyPosition] = useState({
     lat: 24.953631,
     lng: 121.225591,
@@ -84,30 +88,33 @@ function SimpleMap(props) {
   };
   useEffect(() => {
     if (props.placeId) {
-      handleSearchRestaurant(props.placeId)
+      handleSearchRestaurant(props.placeId);
     }
-    console.log(props.placeId)
-  }, [mapApiLoaded])
-  const handleAutocomplete = useCallback((value) => {
-    if (mapApiLoaded) {
-      const service = new mapApi.places.AutocompleteService();
-      const request = {
-        input: value,
-      };
+    console.log(props.placeId);
+  }, [mapApiLoaded]);
+  const handleAutocomplete = useCallback(
+    (value) => {
+      if (mapApiLoaded) {
+        const service = new mapApi.places.AutocompleteService();
+        const request = {
+          input: value,
+        };
 
-      service.getPlacePredictions(request, (results, status) => {
-        if (status === mapApi.places.PlacesServiceStatus.OK) {
-          console.log(results);
-          setRestaurantList(results);
-        }
-      });
-    }
-  }, [mapApiLoaded])
+        service.getPlacePredictions(request, (results, status) => {
+          if (status === mapApi.places.PlacesServiceStatus.OK) {
+            console.log(results);
+            setRestaurantList(results);
+          }
+        });
+      }
+    },
+    [mapApiLoaded]
+  );
   const debounce = useMemo(() => {
     return _.debounce((inputText) => {
-      handleAutocomplete(inputText)
-    }, 800)
-  }, [handleAutocomplete])
+      handleAutocomplete(inputText);
+    }, 800);
+  }, [handleAutocomplete]);
   function handleSearchRestaurant(placeId, text) {
     if (mapApiLoaded) {
       const service = new mapApi.places.PlacesService(mapInstance);
@@ -123,15 +130,15 @@ function SimpleMap(props) {
             lng: results.geometry.location.lng(),
           });
           console.log(results);
-          setInputText(text)
-          setPlaces([results])
+          setInputText(text);
+          setPlaces([results]);
         }
       });
     }
   }
   useEffect(() => {
-    debounce(inputText)
-  }, [inputText, debounce, handleAutocomplete])
+    debounce(inputText);
+  }, [inputText, debounce, handleAutocomplete]);
   function handleInputChange(e) {
     setInputText(e.target.value);
   }
@@ -151,7 +158,11 @@ function SimpleMap(props) {
       <div style={{ height: "80vh", width: "100%" }}>
         <GoogleMapReact
           center={myPosition}
-          bootstrapURLKeys={{ key: mapApiKey, language: "zh-TW", libraries: ["places"] }}
+          bootstrapURLKeys={{
+            key: mapApiKey,
+            language: "zh-TW",
+            libraries: ["places"],
+          }}
           defaultCenter={props.center}
           defaultZoom={props.zoom}
           yesIWantToUseGoogleMapApiInternals // 設定為 true
@@ -171,7 +182,6 @@ function SimpleMap(props) {
       </div>
     </>
   );
-
 }
 SimpleMap.defaultProps = {
   center: {
@@ -180,11 +190,11 @@ SimpleMap.defaultProps = {
   },
   zoom: 17,
 };
-function MyMap({ restaurantId,getResaurantId}) {
+function MyMap({ restaurantId, getResaurantId }) {
   return (
     <div className="App">
       <SimpleMap placeId={restaurantId} setPlaceId={getResaurantId} />
     </div>
   );
 }
-export default MyMap
+export default MyMap;

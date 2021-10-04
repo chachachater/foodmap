@@ -1,7 +1,7 @@
 /* eslint-disable */
 import React from "react";
-import ReactDOMServer from 'react-dom/server';
-import { Parser } from 'html-to-react';
+import ReactDOMServer from "react-dom/server";
+import { Parser } from "html-to-react";
 import {
   ArticleContainer,
   ArticleImage,
@@ -11,7 +11,7 @@ import {
 } from "./ArticleStyle";
 
 function ArticleInfo({ postsData }) {
-  console.log(postsData)
+  console.log(postsData);
 
   return postsData.map((post, index) => {
     const htmlInput = post.content;

@@ -2,7 +2,6 @@ import React from "react";
 import ImgsViewer from "react-images-viewer";
 import PropTypes from "prop-types";
 
-
 function ReactImageViewer(props) {
   return (
     <>
@@ -26,6 +25,5 @@ ReactImageViewer.propTypes = {
   onClickPrev: PropTypes.func,
   onClickNext: PropTypes.func,
 };
-
 
 export default ReactImageViewer;

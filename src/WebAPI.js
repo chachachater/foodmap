@@ -63,6 +63,19 @@ export function fetchLogout() {
       console.log(err);
     });
 }
+export function fetchPostsAndPicturesByPlaceId(limit, offset, placeId, filter) {
+  return fetch(
+    `${baseUrl}/api/map?limit=${limit}&offset=${offset}&place_id=${placeId}&order=${filter}`,
+    {
+      method: "GET",
+    }
+  )
+    .then((res) => res.json())
+    .catch((err) => {
+      alert("操作失敗，發生錯誤");
+      console.log(err.message);
+    });
+}
 
 export function fetchAddPost(postData) {
   console.log(postData);
@@ -116,7 +129,7 @@ export function fetchEditPost(postData, id) {
       console.log(err);
     });
 }
-export function fecthPostsByUserId(userId, order) {
+export function fetchPostsByUserId(userId, order) {
   return fetch(
     `${baseUrl}/api/post/user/${userId}?limit=1&offset=0&order=${order}`,
     {
@@ -130,7 +143,7 @@ export function fecthPostsByUserId(userId, order) {
       console.log(err.message);
     });
 }
-export function fecthPostByPostId(id) {
+export function fetchPostByPostId(id) {
   return fetch(`${baseUrl}/api/post/${id}`, {
     method: "GET",
     credentials: "include",

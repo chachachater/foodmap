@@ -1,13 +1,42 @@
 import styled from "styled-components";
 import { COLOR, FONT } from "../../../constants/style";
-
+import { MarkerImg } from "../SearchPage/SearchPageStyle";
+import React from "react";
+import PropTypes from "prop-types";
 export const Map = styled.div`
   width: 100%;
-  height: 400px;
-  background: ${COLOR.text_gray};
-  margin-bottom: 48px;
+  height: 500px;
+  margin-bottom: 24px;
+  display: flex;
 `;
-
+export const MarginContainer = styled.div`
+  margin-left: 60px;
+  display: flex;
+  flex-direction: column;
+`;
+export function Marker({ text, placeId, handleMarkerClickedAndSearch }) {
+  return (
+    <div
+      onClick={() => {
+        handleMarkerClickedAndSearch(placeId, text);
+      }}
+    >
+      <MarkerImg
+        alt={"marker"}
+        style={{ maxHeight: "30px", background: "transparent" }}
+        src={
+          "https://www.pinclipart.com/picdir/big/126-1269086_google-map-marker-red-peg-png-image-red.png"
+        }
+      />
+      <div>{text}</div>
+    </div>
+  );
+}
+Marker.propTypes = {
+  text: PropTypes.string,
+  handleMarkerClickedAndSearch: PropTypes.func,
+  placeId: PropTypes.string,
+};
 export const Luck = styled.div`
   display: flex;
   flex-direction: column;
