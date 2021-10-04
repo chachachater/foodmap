@@ -118,7 +118,7 @@ export function fetchEditPost(postData, id) {
 }
 export function fecthPostsByUserId(userId, order) {
   return fetch(
-    `${baseUrl}/api/post/user/${userId}?limit=1&offset=0&order=${order}`,
+    `${baseUrl}/api/post/user/${userId}?limit=10&offset=0&order=${order}`,
     {
       method: "GET",
       credentials: "include",
@@ -169,5 +169,17 @@ export function fetchEditUserData(data, userId) {
     .catch((err) => {
       alert("操作失敗，發生錯誤");
       console.log(err);
+    });
+}
+
+export function fetchDletePost(id) {
+  return fetch(`${baseUrl}/api/post/${id}`, {
+    method: "DELETE",
+    credentials: "include",
+  })
+    .then((res) => res.json())
+    .catch((err) => {
+      alert("操作失敗，發生錯誤");
+      console.log(err)
     });
 }

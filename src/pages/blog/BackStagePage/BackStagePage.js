@@ -12,7 +12,7 @@ import {
 } from "./BackStagStyled";
 import { useSelector } from "react-redux";
 import { selectUser } from "../../../redux/reducers/userReducer";
-import { FecthGetUserPosts, fetchDletePost } from "../../../webAPI/ArticleAPI";
+import { fecthPostsByUserId, fetchDletePost } from "../../../WebAPI";
 
 export default function BackStagePage() {
   const [posts, setPosts] = useState([]);
@@ -21,10 +21,11 @@ export default function BackStagePage() {
   const [postState, setPostState] = useState("published");
 
   const userState = useSelector(selectUser);
-  const { userId } = userState.data.data;
+  const { userId } = userState.result.data;
+  const order = 'DESC'
 
   useEffect(() => {
-    FecthGetUserPosts(userId).then((userPost) => {
+    fecthPostsByUserId(userId, order).then((userPost) => {
       if (!userPost) {
         console.log(userPost.message);
         return;
@@ -34,7 +35,11 @@ export default function BackStagePage() {
 
       setPosts(posts);
       setUserImgs(images);
+
+      console.log(userPost);
     });
+    
+    console.log(posts)
   }, [userId]);
 
   const handlePublishValue = () => {
