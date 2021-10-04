@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { useCallback, useState, useEffect, useMemo } from "react";
 import { Wrapper } from "../../../constants/globalStyle";
 import { Navbar } from "../../../components/Navbar";
