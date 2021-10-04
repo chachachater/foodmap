@@ -29,7 +29,7 @@ function Post({ post, user }) {
         <PostTitle>{post.post && post.post.title}</PostTitle>
         <PostContent>{post.post && post.post.content}</PostContent>
         <PostImg>
-          <ImageViewer photos={post.images} /> 
+          <ImageViewer photos={post.images} />
         </PostImg>
       </PostContainer>
     </PostWrapper>
@@ -48,13 +48,14 @@ function ArticlePage() {
 
   useEffect(() => {
     FetchGetPost(id).then((post) => {
+      console.log(post);
       if (!post) {
         console.log(post.message);
         return;
       }
       setPost(post);
-      
-      const userId = post.post.user_id
+
+      const userId = post.post.user_id;
 
       FetchGetUser(userId).then((user) => {
         if (!user) {
@@ -63,7 +64,7 @@ function ArticlePage() {
         }
         setUser(user.data);
       });
-    });    
+    });
   }, [id]);
 
   return (
