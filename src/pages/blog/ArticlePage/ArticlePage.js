@@ -18,6 +18,11 @@ import { useParams } from "react-router-dom";
 
 function Post({ post, user }) {
   if (!post) return null;
+  let arr = [];
+  post.images.map((post) => {
+    let src = post;
+    arr.push({ src });
+  });
 
   return (
     <PostWrapper>
@@ -29,7 +34,7 @@ function Post({ post, user }) {
         <PostTitle>{post.post && post.post.title}</PostTitle>
         <PostContent>{post.post && post.post.content}</PostContent>
         <PostImg>
-          <ImageViewer photos={post.images} /> 
+          <ImageViewer photos={arr} /> 
         </PostImg>
       </PostContainer>
     </PostWrapper>

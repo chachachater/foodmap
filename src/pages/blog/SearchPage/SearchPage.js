@@ -137,6 +137,7 @@ function SearchPage(props) {
   useEffect(() => {
     if (!focused) setRestaurantList([]);
   }, [focused]);
+  console.log(photos)
   return (
     <Wrapper>
       <Navbar />
