@@ -50,7 +50,7 @@ function ImageViewer(props) {
             onClick={() => {
               handleImageClick(index);
             }}
-            src={img}
+            src={img.src}
           />
         ))}
       </Carousel>
