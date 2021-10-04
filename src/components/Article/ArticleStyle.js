@@ -80,6 +80,11 @@ export const ArticleTitle = styled.div`
 export const ArticleDesc = styled.div`
   height: 50%;
   justify-content: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
   ${MEDIA_QUERY.md} {
     display: none;
   }
