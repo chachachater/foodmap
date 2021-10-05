@@ -1,4 +1,3 @@
-/* eslint-disable */
 import React, { useEffect } from "react";
 import { useLocation, useParams } from "react-router-dom";
 import { Wrapper } from "../../../constants/globalStyle";
@@ -68,8 +67,8 @@ function EditPage() {
     if (!images.length) return;
     return images.map((each) => {
       return (
-        <ImgBox>
-          <Img src={each} key={each} />
+        <ImgBox key={each}>
+          <Img src={each} />
         </ImgBox>
       );
     });
