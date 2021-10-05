@@ -3,7 +3,6 @@ import ImgsViewer from "react-images-viewer";
 import PropTypes from "prop-types";
 
 function ReactImageViewer(props) {
-  console.log(props.imgs)
   return (
     <>
       <ImgsViewer
