@@ -10,7 +10,6 @@ import {
   FormUserTerms,
   FormButton,
   SubmitButton,
-  LinkButton,
 } from "./FormStyle";
 
 function Form(props) {
@@ -55,7 +54,6 @@ function Form(props) {
           <div>{props.errorMessage}</div>
           <FormButton>
             <SubmitButton>{props.submitValue}</SubmitButton>
-            <LinkButton>{props.linkValue}</LinkButton>
           </FormButton>
         </FormContainer>
       </UserForm>

@@ -62,12 +62,6 @@ function App() {
         <Route path="/register">
           <RegisterPage />
         </Route>
-        <Route path="/forget">
-          <SendEmailPage />
-        </Route>
-        <Route path="/reset-password">
-          <ResetPasswordPage />
-        </Route>
         <Route path="/user/:id">
           <ProfilePage />
         </Route>

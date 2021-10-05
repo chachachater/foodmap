@@ -12,7 +12,7 @@ export default function usePost() {
   const [title, setTitle] = useState('')
   const [content, setContent] = useState('')
   const [visitedDate, setVisitedDate] = useState('')
-  const [isPublished, setIsPublished] = useState(false)
+  const [isPublished, setIsPublished] = useState(true)
   const [postId, setPostId] = useState('')
   const userState = useSelector(selectUser);
 
