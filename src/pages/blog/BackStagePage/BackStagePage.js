@@ -12,7 +12,7 @@ import {
 } from "./BackStagStyled";
 import { useSelector } from "react-redux";
 import { selectUser } from "../../../redux/reducers/userReducer";
-import { FecthGetUserPosts, fetchDletePost } from "../../../webAPI/ArticleAPI";
+import { fetchPostsByUserId, fetchDeletePost } from "../../../WebAPI";
 
 export default function BackStagePage() {
   const [posts, setPosts] = useState([]);
@@ -22,10 +22,10 @@ export default function BackStagePage() {
 
   const userState = useSelector(selectUser);
   const { userId } = userState.result.data;
-  const order = 'createdAt'
+  const order = "createdAt";
 
   useEffect(() => {
-    FecthGetUserPosts(userId, order).then((userPost) => {
+    fetchPostsByUserId(userId, order).then((userPost) => {
       if (!userPost) {
         console.log(userPost.message);
         return;
@@ -39,17 +39,33 @@ export default function BackStagePage() {
   }, [userId]);
 
   const handlePublishValue = () => {
+    if (postState === "unPublished") {
+      setIsPublished((isPublished) => !isPublished);
+    }
     setPostState("published");
-    setIsPublished((isPublished) => !isPublished);
   };
 
   const handleUnPublishValue = () => {
+    if (postState === "published") {
+      setIsPublished((isPublished) => !isPublished);
+    }
     setPostState("unPublished");
-    setIsPublished((isPublished) => !isPublished);
-  }
+  };
 
   const handleDelete = (id) => {
-    fetchDletePost(id)
+    fetchDeletePost(id).then(() => {
+      fetchPostsByUserId(userId, order).then((userPost) => {
+        if (!userPost) {
+          console.log(userPost.message);
+          return;
+        }
+
+        const { posts, images } = userPost;
+
+        setPosts(posts);
+        setUserImgs(images);
+      });
+    })
   };
 
   return (

@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import { FONT, COLOR, MEDIA_QUERY } from "../../../constants/style";
 import {
-  ArticleContainer,
   ArticleImage,
   ArticleContent,
   ArticleTitle,
@@ -104,21 +103,44 @@ const DeleteBtn = styled(EditBtn)`
   }
 `;
 
-
 const BackStageImage = styled(ArticleImage)`
   background: ${(props) => `url(${props.$link}) center/cover`};
 `;
 
-const BackStageContainer = styled(ArticleContainer)`
+const BackStageContainer = styled.div`
+  color: black;
+  display: flex;
+  margin: 0 auto;
+  width: 100%;
+  height: 200px;
+  margin-bottom: 60px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid ${COLOR.text_gray};
+
   ${MEDIA_QUERY.lg} {
     max-width: 768px;
   }
+
+  ${MEDIA_QUERY.md} {
+    margin-bottom: 20px;
+  }
+
+  ${MEDIA_QUERY.sm} {
+    flex-direction: column;
+    justify-content: center;
+    algin-items: center;
+    height: 300px;
+    width: 100%;
+    margin: 0;
+    margin-bottom: 20px;
+  }
 `;
+
 export function BackStageArticle({ userPost, userImgs, onDelete }) {
   const onDeletePost = () => {
-    onDelete(userPost.id)
-  }
-  
+    onDelete(userPost.id);
+  };
+
   return (
     <BackStageContainer>
       <ArticleImage>

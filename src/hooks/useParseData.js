@@ -7,7 +7,7 @@ export default function useParseData() {
   function parseData(data) {
     const result = []
     data.posts.forEach((each, index) => {
-      each.Pictures = [{ food_picture_url: data.images[index].link }]
+      each.Pictures = [{ food_picture_url: data.images[index].link}]
       result.push(each)
     })
     return result
