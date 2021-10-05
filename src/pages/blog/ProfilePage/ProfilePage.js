@@ -15,7 +15,6 @@ import {
   EditingGroup,
   BtnContainer,
   SaveBtn,
-  CancelBtn,
   ArticleCounter,
   FileInput,
   NoBorderLabel,
@@ -115,10 +114,7 @@ function ProfilePage() {
                   onChange={handleInputChange(setNickname)}
                 />
               </EditLabel>
-              <BtnContainer>
                 <SaveBtn onClick={handleSubmit}>儲存</SaveBtn>
-                <CancelBtn>取消</CancelBtn>
-              </BtnContainer>
             </EditingGroup>
           )}
           <ArticleCounter>共有 {postCounts} 篇食記</ArticleCounter>

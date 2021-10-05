@@ -28,9 +28,7 @@ export default function useRegister() {
     dispatch(registerAsync(userData))
     .then((result) => {
       console.log(result)
-      if (!result.payload.ok) {
-        return setErrorMessage(result.payload.message);
-      }
+      if (!result.payload.ok) return setErrorMessage(result.payload.message);
       setErrorMessage("");
       history.push("/home");
     });
