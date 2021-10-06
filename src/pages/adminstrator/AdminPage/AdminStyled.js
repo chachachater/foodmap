@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import { FONT, COLOR, MEDIA_QUERY } from "../../../constants/style";
-import React from "react";
 
 export const BackStageWrapper = styled.div`
   padding: 0 16px;
@@ -17,6 +16,7 @@ export const BackStageTitle = styled.div`
     font-size: ${FONT.logo};
   }
 `;
+
 export const SearchContainer = styled.div`
   display: flex;
   align-items: center;
@@ -46,6 +46,7 @@ export const SearchInput = styled.input`
     font-size: ${FONT.h4};
   }
 `;
+
 export const SearchBtn = styled.button`
   color: black;
   border: 2px solid ${COLOR.secondary};
@@ -64,7 +65,8 @@ export const SearchBtn = styled.button`
     width: 100px;
   }
 `;
-const Table = styled.table`
+
+export const Table = styled.table`
   margin: 0 auto;
   width: 768px;
   text-align: center;
@@ -105,13 +107,15 @@ const Table = styled.table`
     }
   }
 `;
-const TdFlex = styled.td`
+
+export const TdFlex = styled.td`
   ${MEDIA_QUERY.md} {
     display: flex;
     flex-direction: column;
   }
-`
-const BanBtn = styled.button`
+`;
+
+export const BanBtn = styled.button`
   background-color: #dc3545;
   color: ${COLOR.white};
   padding: 8px 16px;
@@ -130,47 +134,7 @@ const BanBtn = styled.button`
     padding: 8px 10px;
   }
 `;
-const UnbanBtn = styled(BanBtn)`
+
+export const UnbanBtn = styled(BanBtn)`
   background-color: #28a745;
 `;
-export function UserTable() {
-  return (
-    <Table>
-      <thead>
-        <tr>
-          <th>Username</th>
-          <th>暱稱</th>
-          <th>是否停權</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>dicksonWang</td>
-          <td>王大明的分身</td>
-          <TdFlex>
-            <span>no</span>
-            <BanBtn>Ban</BanBtn>
-          </TdFlex>
-        </tr>
-        <tr>
-          <td>aszx1314520</td>
-          <td>愛情的一縷煙</td>
-          <TdFlex>
-            <span>no</span>
-            <BanBtn>Ban</BanBtn>
-          </TdFlex>
-        </tr>
-        <tr>
-          <td>
-            nick:acasasdnick:sacasasdnick:acasasdnick:sacasasdnick:acasasdnick:sacasasdnick:acasasdnick:sacasasdnick:acasasdnick:sacasasdnick:acasasdnick:sacasasdnick:acasasdnick:sacasasdnick:acasasdnick:sacasasdnick:acasasdnick:sacasasdnick:acasasdnick:sacasasd
-          </td>
-          <td>hacker32</td>
-          <td>
-            yes
-            <UnbanBtn>Unban</UnbanBtn>
-          </td>
-        </tr>
-      </tbody>
-    </Table>
-  );
-}
