@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { COLOR, FONT } from "../../../constants/style";
+import { COLOR, FONT, MEDIA_QUERY } from "../../../constants/style";
 import { MarkerImg } from "../SearchPage/SearchPageStyle";
 import React from "react";
 import PropTypes from "prop-types";
@@ -8,6 +8,10 @@ export const Map = styled.div`
   height: 500px;
   margin-bottom: 24px;
   display: flex;
+  ${MEDIA_QUERY.md} {
+    height: 1000px;
+    flex-direction: column;
+  }
 `;
 export const MarginContainer = styled.div`
   margin-left: 60px;

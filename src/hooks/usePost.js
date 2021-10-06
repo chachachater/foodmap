@@ -73,10 +73,6 @@ export default function usePost() {
       return fetchEditPost(postData, postId).then(() => history.push("/home"));
     }
     return fetchAddPost(postData).then(() => {
-      // if (!data.ok) {
-      //   alert(`發生錯誤：${data.message}`);
-      //   return;
-      // }
       history.push("/home");
     });
   }
