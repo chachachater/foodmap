@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { selectUser } from "../../../redux/reducers/userReducer";
 import PropTypes from "prop-types";
+import { htmlToReactParser } from "../../../utils";
 import { Wrapper } from "../../../constants/globalStyle";
 import { Navbar } from "../../../components/Navbar";
 import {
@@ -17,13 +20,15 @@ import { fetchPostByPostId, fetchUserData } from "../../../WebAPI";
 import { useParams } from "react-router-dom";
 
 function Post({ post, user }) {
+  console.log(post)
   if (!post) return null;
   let arr = [];
   post.images.map((post) => {
     let src = post;
     arr.push({ src });
   });
-
+  const htmlInput = post.post.content;
+  const reactElement = htmlToReactParser(htmlInput);
   return (
     <PostWrapper>
       <PostContainer>
@@ -32,7 +37,7 @@ function Post({ post, user }) {
           <AuthorName>{user && user.nickname}</AuthorName>
         </PostAuthor>
         <PostTitle>{post.post && post.post.title}</PostTitle>
-        <PostContent>{post.post && post.post.content}</PostContent>
+        <PostContent>{post.post && reactElement}</PostContent>
         <PostImg>
           <ImageViewer photos={arr} />
         </PostImg>
@@ -47,12 +52,13 @@ Post.propTypes = {
 };
 
 function ArticlePage() {
+  const userState = useSelector(selectUser);
   const { id } = useParams();
   const [post, setPost] = useState();
   const [user, setUser] = useState();
 
   useEffect(() => {
-    fetchPostByPostId(id).then((post) => {
+    fetchPostByPostId(id, userState.result.data.userId).then((post) => {
       if (!post) {
         console.log(post.message);
         return;

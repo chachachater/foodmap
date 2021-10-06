@@ -1,4 +1,3 @@
-/* eslint-disable */
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import {
   fetchRegister,
@@ -33,7 +32,7 @@ export const successAsync = createAsyncThunk("user/success", async () => {
   return result;
 });
 
-export const logoutAsync = createAsyncThunk("user/logout", async (userData) => {
+export const logoutAsync = createAsyncThunk("user/logout", async () => {
   await fetchLogout();
   return "";
 });
