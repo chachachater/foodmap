@@ -1,5 +1,7 @@
 import React, { useEffect } from "react";
 import { useLocation, useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { selectUser } from "../../../redux/reducers/userReducer";
 import { Wrapper } from "../../../constants/globalStyle";
 import { Navbar } from "../../../components/Navbar";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
@@ -27,6 +29,7 @@ function EditPage() {
   let pathname = useLocation().pathname;
   console.log(location.pathname);
   const { id } = useParams();
+  const userState = useSelector(selectUser);
   const {
     images,
     uploadImages,
@@ -40,7 +43,7 @@ function EditPage() {
     setIsPublished,
     restaurantId,
     setRestaurantId,
-    getResaurantId,
+    getRestaurantId,
     setPostId,
     handleInputChange,
     handleSubmit,
@@ -48,7 +51,7 @@ function EditPage() {
   useEffect(() => {
     if (pathname.includes("edit")) {
       setPostId(id);
-      fetchPostByPostId(id).then((result) => {
+      fetchPostByPostId(id, userState.result.data.userId).then((result) => {
         console.log(result);
         setImages(result.images);
         setTitle(result.post.title);
@@ -60,7 +63,7 @@ function EditPage() {
     }
   }, []);
   const handleDraft = async () => {
-    setIsPublished(false);
+    await setIsPublished(false);
     return handleSubmit();
   };
   const renderImages = () => {
@@ -109,7 +112,7 @@ function EditPage() {
             <PopUp
               placeHolder="選擇餐廳"
               restaurantId={restaurantId}
-              getResaurantId={getResaurantId(setRestaurantId)}
+              getRestaurantId={getRestaurantId(setRestaurantId)}
             />
           </EditLabel>
           <EditLabel>

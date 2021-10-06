@@ -10,7 +10,7 @@ export async function fetchRegister(userData) {
     body: JSON.stringify({
       username: userData.username,
       password: userData.password,
-      checkedPassword: userData.checkedpassword,
+      checkedPassword: userData.checkedPassword,
       email: userData.email,
     }),
   })
@@ -140,7 +140,7 @@ export function fetchAddPost(postData) {
       console.log(err);
     });
 }
-export function fetchEditPost(postData, id) {
+export function fetchEditPost(postData, postId) {
   console.log(postData);
   const formData = new FormData();
   for (const name in postData) {
@@ -155,7 +155,7 @@ export function fetchEditPost(postData, id) {
     console.log(formData.get("images"));
   }
 
-  return fetch(`${baseUrl}/api/post/${id}`, {
+  return fetch(`${baseUrl}/api/post/${postId}`, {
     method: "PATCH",
     credentials: "include",
     body: formData,
@@ -191,8 +191,8 @@ export function fetchAllPosts(offset) {
       console.log(err.message);
     });
 }
-export function fetchPostByPostId(id) {
-  return fetch(`${baseUrl}/api/post/${id}`, {
+export function fetchPostByPostId(id, userId) {
+  return fetch(`${baseUrl}/api/post/${id}?user_id=${userId}`, {
     method: "GET",
     credentials: "include",
   })

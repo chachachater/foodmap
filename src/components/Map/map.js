@@ -84,6 +84,7 @@ function SimpleMap(props) {
   }
 
   function handleSetPlaceId(place_id) {
+    console.log(props.setPlaceId);
     props.setPlaceId(place_id);
   }
   return (
@@ -139,15 +140,16 @@ SimpleMap.propTypes = {
   zoom: PropTypes.number,
 };
 
-function MyMap({ restaurantId, getResaurantId }) {
+function MyMap({ restaurantId, getRestaurantId }) {
+  console.log(getRestaurantId);
   return (
     <div className="App">
-      <SimpleMap placeId={restaurantId} setPlaceId={getResaurantId} />
+      <SimpleMap placeId={restaurantId} setPlaceId={getRestaurantId} />
     </div>
   );
 }
 MyMap.propTypes = {
   restaurantId: PropTypes.string,
-  getResaurantId: PropTypes.func,
+  getRestaurantId: PropTypes.func,
 };
 export default MyMap;

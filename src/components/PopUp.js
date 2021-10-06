@@ -1,11 +1,10 @@
-/* eslint-disable */
-import React, { useState } from "react";
+import React from "react";
 import Popup from "reactjs-popup";
 import "reactjs-popup/dist/index.css";
 import MyMap from "../components/Map/map";
 import PropTypes from "prop-types";
 
-function PopUp({ placeHolder, restaurantId, getResaurantId }) {
+function PopUp({ placeHolder, restaurantId, getRestaurantId }) {
   return (
     <Popup
       trigger={<button className="button">{placeHolder}</button>}
@@ -21,7 +20,7 @@ function PopUp({ placeHolder, restaurantId, getResaurantId }) {
           <div className="content">
             <MyMap
               restaurantId={restaurantId}
-              getResaurantId={getResaurantId}
+              getRestaurantId={getRestaurantId}
             />
           </div>
           <div className="actions">
@@ -42,7 +41,8 @@ function PopUp({ placeHolder, restaurantId, getResaurantId }) {
 
 PopUp.propTypes = {
   placeHolder: PropTypes.string,
-  getResaurantId: PropTypes.func,
+  restaurantId: PropTypes.string,
+  getRestaurantId: PropTypes.func,
 };
 
 export default PopUp;

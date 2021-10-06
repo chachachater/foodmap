@@ -1,5 +1,5 @@
-/* eslint-disable */
 import { Navbar } from "../../../components/Navbar";
+import { useHistory } from "react-router-dom";
 import { Wrapper } from "../../../constants/globalStyle";
 import React, { useState, useEffect } from "react";
 import {
@@ -15,13 +15,13 @@ import { selectUser } from "../../../redux/reducers/userReducer";
 import { fetchPostsByUserId, fetchDeletePost } from "../../../WebAPI";
 
 export default function BackStagePage() {
+  const history = useHistory();
+  const userState = useSelector(selectUser);
+  const { userId } = userState.result.data;
   const [posts, setPosts] = useState([]);
   const [userImgs, setUserImgs] = useState([]);
   const [isPublished, setIsPublished] = useState(true);
   const [postState, setPostState] = useState("published");
-
-  const userState = useSelector(selectUser);
-  const { userId } = userState.result.data;
   const order = "createdAt";
 
   useEffect(() => {
@@ -67,7 +67,8 @@ export default function BackStagePage() {
       });
     });
   };
-
+  const toEditPage = (id) => () => history.push(`/edit/${id}`);
+  console.log(userImgs);
   return (
     <Wrapper>
       <Navbar userId={userId} />
@@ -101,6 +102,7 @@ export default function BackStagePage() {
                 userPost={post}
                 userImgs={userImgs}
                 onDelete={handleDelete}
+                toEditPage={toEditPage(post.id)}
               />
             ))}
         {postState === "unPublished" &&
@@ -113,6 +115,7 @@ export default function BackStagePage() {
                 userPost={post}
                 userImgs={userImgs}
                 onDelete={handleDelete}
+                toEditPage={toEditPage(post.id)}
               />
             ))}
       </BackStageWrapper>
