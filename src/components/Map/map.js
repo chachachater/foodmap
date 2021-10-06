@@ -1,6 +1,5 @@
 /* eslint-disable */
 import React, { useCallback, useState, useEffect, useMemo } from "react";
-// import mapApiKey from "./key"; // 引入 API key
 import GoogleMapReact from "google-map-react";
 import _ from "lodash";
 const mapApiKey = process.env.REACT_APP_MAP_KEY;
@@ -36,12 +35,13 @@ const SearchBox = ({
         flexDirection: "column",
         position: "absolute",
         zIndex: "999",
-        marginLeft: "30px",
+        border: "solid gray 1px",
       }}
     >
       <div>
         <input
           type="text"
+          placeholder="選擇餐廳"
           value={inputText}
           onChange={(e) => {
             handleInputChange(e);
@@ -52,7 +52,7 @@ const SearchBox = ({
         {restaurantList.map((data, index) => {
           return (
             <div
-              style={{ background: "white" }}
+              style={{ background: "white", fontSize: "16px" }}
               key={index}
               onClick={() => {
                 handleSearchRestaurant(

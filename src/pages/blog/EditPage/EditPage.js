@@ -135,7 +135,7 @@ function EditPage() {
         <CKEditor
           editor={Editor}
           config={editorConfiguration}
-          data={content ? content : "<p>Hello from FoodMap!</p>"}
+          data={content ? content : ""}
           onReady={(editor) => {
             editor.editing.view.change((writer) => {
               writer.setStyle(

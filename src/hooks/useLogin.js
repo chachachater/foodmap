@@ -23,11 +23,10 @@ export default function useLogin() {
     };
     dispatch(loginAsync(userData))
       .then((result) => {
-        console.log(result);
-        if (!result.payload.ok) {
-          return setErrorMessage(result.payload.message);
-        }
+        console.log(result)
+        if (!result.payload.ok) setErrorMessage(result.payload.message);
         setErrorMessage("");
+        console.log(result.payload.data)
         history.push("/home");
       })
       .catch((err) => console.log(err));
