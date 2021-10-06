@@ -58,6 +58,7 @@ function SearchPage(props) {
     lat: 24.953631,
     lng: 121.225591,
   });
+  const [isFold, setIsFold] = useState(true);
   const [filter, setFilter] = useState("createdAt");
   const [focused, setFocused] = useState(false);
   const handleApiLoaded = (map, maps) => {
@@ -137,7 +138,7 @@ function SearchPage(props) {
   useEffect(() => {
     if (!focused) setRestaurantList([]);
   }, [focused]);
-  console.log(photos)
+  console.log(isFold);
   return (
     <Wrapper>
       <Navbar />
@@ -181,7 +182,11 @@ function SearchPage(props) {
           </GoogleMapReact>
         </SearchMap>
         <SearchInfo>
-          <RestaurantInfoContainer restaurantInfo={restaurantInfo} />
+          <RestaurantInfoContainer
+            restaurantInfo={restaurantInfo}
+            isFold={isFold}
+            setIsFold={setIsFold}
+          />
           <InfoImg>
             <ImageViewer photos={photos} />
           </InfoImg>
