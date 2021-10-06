@@ -63,43 +63,6 @@ export function fetchLogout() {
       console.log(err);
     });
 }
-
-export function fetchAdmin() {
-  return fetch(`${baseUrl}/admin`, {
-    method: "GET",
-    credentials: "include",
-  })
-    .then((res) => res.json())
-    .catch((err) => {
-      alert("操作失敗，發生錯誤");
-      console.log(err);
-    });
-}
-
-export function fetchBanUser(userId) {
-  return fetch(`${baseUrl}/admin/ban/${userId}`, {
-    method: "PATCH",
-    credentials: "include",
-  })
-    .then((res) => res.json())
-    .catch((err) => {
-      alert("操作失敗，發生錯誤");
-      console.log(err);
-    });
-}
-
-export function fetchUnBanUser(userId) {
-  return fetch(`${baseUrl}/admin/unban/${userId}`, {
-    method: "PATCH",
-    credentials: "include",
-  })
-    .then((res) => res.json())
-    .catch((err) => {
-      alert("操作失敗，發生錯誤");
-      console.log(err);
-    });
-}
-
 export function fetchPostsAndPicturesByPlaceId(limit, offset, placeId, filter) {
   return fetch(
     `${baseUrl}/api/map?limit=${limit}&offset=${offset}&place_id=${placeId}&order=${filter}`,
@@ -168,23 +131,12 @@ export function fetchEditPost(postData, id) {
 }
 export function fetchPostsByUserId(userId, order) {
   return fetch(
-    `${baseUrl}/api/post/user/${userId}?limit=10&offset=0&order=${order}`,
+    `${baseUrl}/api/post/user/${userId}?limit=1&offset=0&order=${order}`,
     {
       method: "GET",
       credentials: "include",
     }
   )
-    .then((res) => res.json())
-    .catch((err) => {
-      alert("操作失敗，發生錯誤");
-      console.log(err.message);
-    });
-}
-export function fetchAllPosts(offset) {
-  return fetch(`${baseUrl}/api/post/?limit=5&offset=${offset}`, {
-    method: "GET",
-    credentials: "include",
-  })
     .then((res) => res.json())
     .catch((err) => {
       alert("操作失敗，發生錯誤");
@@ -230,16 +182,5 @@ export function fetchEditUserData(data, userId) {
     .catch((err) => {
       alert("操作失敗，發生錯誤");
       console.log(err);
-    });
-}
-export function fetchDeletePost(id) {
-  return fetch(`${baseUrl}/api/post/${id}`, {
-    method: "DELETE",
-    credentials: "include",
-  })
-    .then((res) => res.json())
-    .catch((err) => {
-      alert("操作失敗，發生錯誤");
-      console.log(err.message);
     });
 }

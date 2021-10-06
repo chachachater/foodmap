@@ -13,7 +13,7 @@ import {
   PostImg,
 } from "./ArticlePageStyle";
 import ImageViewer from "../../../components/ImageViewer";
-import { fetchPostByPostId, fetchUserData } from "../../../WebAPI";
+import { FetchGetPost, FetchGetUser } from "../../../webAPI/ArticleAPI";
 import { useParams } from "react-router-dom";
 
 function Post({ post, user }) {
@@ -52,12 +52,8 @@ function ArticlePage() {
   const [user, setUser] = useState();
 
   useEffect(() => {
-<<<<<<< HEAD
     FetchGetPost(id).then((post) => {
       console.log(post);
-=======
-    fetchPostByPostId(id).then((post) => {
->>>>>>> 8136dee41f723db5dfadb9321b5ab3fc2ffef2f9
       if (!post) {
         console.log(post.message);
         return;
@@ -66,7 +62,7 @@ function ArticlePage() {
 
       const userId = post.post.user_id;
 
-      fetchUserData(userId).then((user) => {
+      FetchGetUser(userId).then((user) => {
         if (!user) {
           console.log(user.message);
           return;

@@ -11,8 +11,9 @@ import {
 } from "./ArticleStyle";
 
 function ArticleInfo({ postsData }) {
+  console.log(postsData);
 
-  return  postsData.map((post, index) => {
+  return postsData.map((post, index) => {
     const htmlInput = post.content;
     const htmlToReactParser = new Parser();
     const reactElement = htmlToReactParser.parse(htmlInput);

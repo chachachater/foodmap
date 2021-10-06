@@ -1,6 +1,6 @@
 /* eslint-disable */
 import React, { useState, useEffect } from "react";
-import { useLocation, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { Navbar } from "../../../components/Navbar";
 import { Wrapper } from "../../../constants/globalStyle";
 import {
@@ -29,7 +29,6 @@ import useConfirmUser from "../../../hooks/useConfirmUser";
 import useParseData from "../../../hooks/useParseData";
 
 function ProfilePage() {
-  let pathname = useLocation().pathname;
   const { id } = useParams();
   let confirmUser = useConfirmUser(id);
   const {
