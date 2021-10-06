@@ -85,7 +85,7 @@ export const Table = styled.table`
     border-bottom: 1px solid ${COLOR.text_gray};
     font-size: ${FONT.h3};
     padding: 30px;
-    max-width: 300px;
+    //max-width: 300px;
     word-wrap: break-word;
     line-height: 28px;
   }
@@ -96,8 +96,6 @@ export const Table = styled.table`
 
     td {
       padding: 10px;
-      max-width: 150px;
-      width: 100%;
     }
   }
 
@@ -112,8 +110,15 @@ export const TdFlex = styled.td`
   ${MEDIA_QUERY.md} {
     display: flex;
     flex-direction: column;
+    align-content: center;
   }
 `;
+
+export const Span = styled.span`
+  width: 50px;
+  margin: 0 auto;
+  display: inline-block;
+`
 
 export const BanBtn = styled.button`
   background-color: #dc3545;
@@ -122,6 +127,7 @@ export const BanBtn = styled.button`
   border-radius: 40px;
   font-size: 18px;
   margin-left: 12px;
+  width: 100px;
 
   &: hover {
     background: ${COLOR.btn};
@@ -129,8 +135,7 @@ export const BanBtn = styled.button`
   }
 
   ${MEDIA_QUERY.md} {
-    margin-left: 0;
-    margin-top: 12px;
+    margin: 12px auto 0;
     padding: 8px 10px;
   }
 `;

@@ -23,7 +23,7 @@ export default function AdminPage() {
     setBanUser(false)
   }, [isBanUser]);
 
-  const handleBanUser = (id) => {
+  const handleBanUser = (id) => {  
     fetchBanUser(id)
     setBanUser(true)
   }
@@ -33,7 +33,6 @@ export default function AdminPage() {
     setBanUser(true)
   }
 
-console.log(userData)
   return (
     <Wrapper>
       <Navbar />
