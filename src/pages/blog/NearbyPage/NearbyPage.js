@@ -30,7 +30,7 @@ const MyPosition = ({ text }) => {
           "https://icon-library.com/images/my-location-icon/my-location-icon-29.jpg"
         }
       />
-      <div>{text}</div>
+      <div style={{ display: "flex" }}>{text}</div>
     </div>
   );
 };
@@ -48,7 +48,8 @@ function NearbyPage(props) {
   });
   const [focused, setFocused] = useState(false);
   const [currentCenter, setCurrentCenter] = useState(myPosition);
-  const [photos, setPhotos] = useState([]);
+  const [photos, setPhotos] = useState(null);
+  const [isFold, setIsFold] = useState(true);
   const handleApiLoaded = (map, maps) => {
     setMapInstance(map);
     setMapApi(maps);
@@ -163,7 +164,7 @@ function NearbyPage(props) {
     });
   }
   useEffect(() => {
-    if (restaurantInfo.photos === undefined) return;
+    if (!restaurantInfo.photos) return;
     let arr = [];
     restaurantInfo.photos.map((photo) => {
       arr.push({ src: photo.getUrl() });
@@ -214,8 +215,12 @@ function NearbyPage(props) {
             ))}
           </GoogleMapReact>
           <MarginContainer>
-            <RestaurantInfoContainer restaurantInfo={restaurantInfo} />
-            <ImageViewer photos={photos} />
+            <RestaurantInfoContainer
+              restaurantInfo={restaurantInfo}
+              isFold={isFold}
+              setIsFold={setIsFold}
+            />
+            {photos && <ImageViewer photos={photos} />}
           </MarginContainer>
         </Map>
         <Luck>

@@ -116,6 +116,9 @@ export const BtnContainer = styled.div`
   margin-bottom: 40px;
 `;
 export const SaveBtn = styled.button`
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 40px;
   font-size: ${FONT.h3};
   color: ${COLOR.primary};
   overflow: hidden;
@@ -129,27 +132,3 @@ export const CancelBtn = styled(SaveBtn)`
   color: ${COLOR.text_gray};
   margin-left: 40px;
 `;
-// export function Profile() {
-//   return (
-//     <ProfileContainer>
-//       <Banner>
-//         <AddBanner />
-//       </Banner>
-//       <InfoContainer>
-//         <AvatarContainer>
-//           <Avatar />
-//           <AddAvatar />
-//         </AvatarContainer>
-//         <Name>rich</Name>
-//         <EditingGroup>
-//           <EditName>編輯名稱</EditName>
-//           <BtnContainer>
-//             <SaveBtn>儲存</SaveBtn>
-//             <CancelBtn>取消</CancelBtn>
-//           </BtnContainer>
-//         </EditingGroup>
-//         <ArticleCounter>共有 1 篇食記</ArticleCounter>
-//       </InfoContainer>
-//     </ProfileContainer>
-//   );
-// }

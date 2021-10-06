@@ -28,19 +28,26 @@ export const SearchMap = styled.div`
 
 export const SearchInfo = styled.div`
   display: flex;
+  height: 100%;
   justify-content: space-between;
   padding: 0 24px;
   margin-bottom: 48px;
 
-  ${MEDIA_QUERY.sm} {
+  @media screen and (max-width: 600px) {
     flex-direction: column;
     align-items: center;
+  }
+  ${MEDIA_QUERY.sm} {
   }
 `;
 
 const RestaurantInfo = styled.div`
+  display: flex;
+  flex-direction: column;
   margin-right: 24px;
-  height: 300px;
+  @media screen and (max-width: 600px) {
+    justify-content: center;
+  }
 `;
 
 const InfoTitle = styled.h3`
@@ -63,8 +70,19 @@ const InfoText = styled.div`
   & + & {
     margin-top: 14px;
   }
+  .hidden {
+    display: none;
+    transition: 0.3s all;
+  }
 `;
-
+const BusinessTime = styled.li``;
+const WebsiteLink = styled.a`
+  color: black;
+  text-decoration: none;
+  :hover {
+    text-decoration: underline;
+  }
+`;
 const AddLogo = styled.span`
   background: url(${addLogo}) center/cover;
   display: inline-block;
@@ -95,6 +113,12 @@ export const MarkerImg = styled.img`
   max-height: 30px;
   background: transparent;
 `;
+const MarkerText = styled.div`
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: "100px";
+  white-pace: "nowrap";
+`;
 export function Marker({ text }) {
   return (
     <div>
@@ -105,7 +129,7 @@ export function Marker({ text }) {
           "https://www.pinclipart.com/picdir/big/126-1269086_google-map-marker-red-peg-png-image-red.png"
         }
       />
-      <div>{text}</div>
+      <MarkerText>{text}</MarkerText>
     </div>
   );
 }
@@ -113,26 +137,47 @@ Marker.propTypes = {
   text: PropTypes.string,
   placeId: PropTypes.string,
 };
-export function RestaurantInfoContainer({ restaurantInfo }) {
+export function RestaurantInfoContainer({ restaurantInfo, isFold, setIsFold }) {
+  const { name, formatted_address, opening_hours, website } = restaurantInfo;
   return (
     <RestaurantInfo>
-      <InfoTitle>{restaurantInfo.name}</InfoTitle>
+      <InfoTitle>{name}</InfoTitle>
       <InfoContent>
-        {restaurantInfo.formatted_address && <AddLogo />}
-        <InfoText>{restaurantInfo.formatted_address}</InfoText>
+        {formatted_address && <AddLogo />}
+        <InfoText>{formatted_address}</InfoText>
       </InfoContent>
       <InfoContent>
-        {restaurantInfo.opening_hours && <BhLogo />}
-        <InfoText>
-          {restaurantInfo.opening_hours &&
-            restaurantInfo.opening_hours.weekday_text.map((item, index) => {
-              return <div key={index}>{item}</div>;
+        {opening_hours && <BhLogo />}
+        <InfoText
+          as="ul"
+          onClick={() => {
+            setIsFold(!isFold);
+          }}
+        >
+          {opening_hours === undefined
+            ? ""
+            : opening_hours.isOpen()
+            ? "營業中"
+            : "休息中"}
+          {opening_hours &&
+            opening_hours.weekday_text.map((item, index) => {
+              return (
+                <BusinessTime className={isFold ? "hidden" : ""} key={index}>
+                  {item}
+                </BusinessTime>
+              );
             })}
         </InfoText>
       </InfoContent>
       <InfoContent>
-        {restaurantInfo.website && <UrlLogo />}
-        <InfoText>{restaurantInfo.website}</InfoText>
+        {website && <UrlLogo />}
+        <InfoText>
+          {website && (
+            <WebsiteLink href={website} target="_blank">
+              網站
+            </WebsiteLink>
+          )}
+        </InfoText>
       </InfoContent>
     </RestaurantInfo>
   );
@@ -140,4 +185,6 @@ export function RestaurantInfoContainer({ restaurantInfo }) {
 
 RestaurantInfoContainer.propTypes = {
   restaurantInfo: PropTypes.object,
+  isFold: PropTypes.bool,
+  setIsFold: PropTypes.func,
 };
