@@ -6,13 +6,13 @@ import { selectUser } from "../redux/reducers/userReducer";
 
 export default function usePost() {
   const history = useHistory();
-  const [images, setImages] = useState([]);
-  const [restaurantId, setRestaurantId] = useState("999");
-  const [title, setTitle] = useState("");
-  const [content, setContent] = useState("");
-  const [visitedDate, setVisitedDate] = useState("");
-  const [isPublished, setIsPublished] = useState(false);
-  const [postId, setPostId] = useState("");
+  const [images, setImages] = useState([])
+  const [restaurantId, setRestaurantId] = useState('999')
+  const [title, setTitle] = useState('')
+  const [content, setContent] = useState('')
+  const [visitedDate, setVisitedDate] = useState('')
+  const [isPublished, setIsPublished] = useState(true)
+  const [postId, setPostId] = useState('')
   const userState = useSelector(selectUser);
 
   const { userId } = userState.result.data;
