@@ -85,7 +85,6 @@ export const Table = styled.table`
     border-bottom: 1px solid ${COLOR.text_gray};
     font-size: ${FONT.h3};
     padding: 30px;
-    //max-width: 300px;
     word-wrap: break-word;
     line-height: 28px;
   }
@@ -118,7 +117,7 @@ export const Span = styled.span`
   width: 50px;
   margin: 0 auto;
   display: inline-block;
-`
+`;
 
 export const BanBtn = styled.button`
   background-color: #dc3545;

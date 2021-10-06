@@ -24,11 +24,6 @@ export default function UserTable({
               <tr key={data.id}>
                 <td>{data.username}</td>
                 <td>{data.nickname}</td>
-                {/* <TdBan
-                  userId={data.id}
-                  handleBanUser={handleBanUser}
-                  handleUnBanUser={handleUnBanUser}
-                /> */}
                 {data.user_level === 1 ? (
                   <TdFlex>
                     <Span>no</Span>
@@ -59,3 +54,9 @@ export default function UserTable({
     </Table>
   );
 }
+
+UserTable.propTypes = {
+  userData: PropTypes.object,
+  handleBanUser: PropTypes.func,
+  handleUnBanUser: PropTypes.func,
+};
