@@ -11,7 +11,7 @@ import HomePage from "./pages/blog/HomePage";
 import ProfilePage from "./pages/blog/ProfilePage";
 import RegisterPage from "./pages/user/RegisterPage";
 import LoginPage from "./pages/user/LoginPage";
-import AdminPage from "./components/Admin";
+import AdminPage from "./pages/adminstrator/AdminPage";
 import BackStagePage from "./pages/blog/BackStagePage";
 import ArticlePage from "./pages/blog/ArticlePage";
 import SearchPage from "./pages/blog/SearchPage";
