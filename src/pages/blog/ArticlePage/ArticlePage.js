@@ -52,12 +52,7 @@ function ArticlePage() {
   const [user, setUser] = useState();
 
   useEffect(() => {
-<<<<<<< HEAD
-    FetchGetPost(id).then((post) => {
-      console.log(post);
-=======
     fetchPostByPostId(id).then((post) => {
->>>>>>> 8136dee41f723db5dfadb9321b5ab3fc2ffef2f9
       if (!post) {
         console.log(post.message);
         return;
