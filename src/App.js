@@ -1,8 +1,9 @@
 /* eslint-disable */
 import React from "react";
 import { useDispatch } from "react-redux";
-import { successAsync, logoutAsync } from "./redux/reducers/userReducer";
+import { setMe } from "./redux/reducers/userReducer";
 import { HashRouter as Router, Switch, Route, Link } from "react-router-dom";
+import Cookies from 'universal-cookie';
 import { GlobalStyle } from "./constants/globalStyle";
 import BackToTopBtn from "./components/BackToTop";
 import Footer from "./components/Footer";
@@ -16,25 +17,15 @@ import ArticlePage from "./pages/blog/ArticlePage";
 import SearchPage from "./pages/blog/SearchPage";
 import NearbyPage from "./pages/blog/NearbyPage";
 import EditPage from "./pages/blog/EditPage";
-import { SendEmailPage, ResetPasswordPage } from "./pages/user/PasswordPage";
 import { ScrollToTop } from "./constants/units";
 
 function App() {
   const dispatch = useDispatch();
-  function handleClick() {
-    dispatch(successAsync()).catch((err) => {
-      console.log(err);
-    });
-  }
-  function handleLogout() {
-    dispatch(logoutAsync()).catch((err) => {
-      console.log(err);
-    });
-  }
+  const cookies = new Cookies();
+  const getMe = cookies.get('getMe')
+  if (getMe) dispatch(setMe({ data: getMe }))
   return (
     <Router>
-      <button onClick={handleClick}>test success</button>
-      <button onClick={handleLogout}>test logout</button>
       <GlobalStyle />
       <ScrollToTop />
       <BackToTopBtn />
@@ -61,12 +52,6 @@ function App() {
         </Route>
         <Route path="/register">
           <RegisterPage />
-        </Route>
-        <Route path="/forget">
-          <SendEmailPage />
-        </Route>
-        <Route path="/reset-password">
-          <ResetPasswordPage />
         </Route>
         <Route path="/user/:id">
           <ProfilePage />

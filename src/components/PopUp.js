@@ -1,53 +1,48 @@
 /* eslint-disable */
 import React, { useState } from "react";
-import Popup from 'reactjs-popup';
-import 'reactjs-popup/dist/index.css';
+import Popup from "reactjs-popup";
+import "reactjs-popup/dist/index.css";
 import MyMap from "../components/Map/map";
+import PropTypes from "prop-types";
 
-function PopUp({ placeHolder, restaurantId, getResaurantId}) {
+function PopUp({ placeHolder, restaurantId, getResaurantId }) {
   return (
     <Popup
       trigger={<button className="button">{placeHolder}</button>}
       modal
       nested
     >
-      {close => (
+      {(close) => (
         <div className="modal">
           <button className="close" onClick={close}>
             &times;
-        </button>
-          <div className="header"> Modal Title </div>
+          </button>
+          <div className="header"> 選擇餐廳 </div>
           <div className="content">
-            <MyMap restaurantId={restaurantId} getResaurantId={getResaurantId}/>
+            <MyMap
+              restaurantId={restaurantId}
+              getResaurantId={getResaurantId}
+            />
           </div>
           <div className="actions">
-            <Popup
-              trigger={<button className="button"> Trigger !!</button>}
-              position="top center"
-              nested
-            >
-              <span>123
-            </span>
-            </Popup>
             <button
               className="button"
               onClick={() => {
-                console.log('modal closed ');
                 close();
               }}
             >
-              Close modal
-          </button>
+              送出選擇
+            </button>
           </div>
         </div>
       )}
     </Popup>
-  )
+  );
 }
 
 PopUp.propTypes = {
-  placeHolder: String,
-  getResaurantId: Function,
-}
+  placeHolder: PropTypes.string,
+  getResaurantId: PropTypes.func,
+};
 
-export default PopUp
+export default PopUp;
