@@ -1,8 +1,33 @@
 import styled from "styled-components";
 import { COLOR, FONT, MEDIA_QUERY } from "../../../constants/style";
-import { MarkerImg } from "../SearchPage/SearchPageStyle";
+import {
+  ImgMarker,
+  MarkerText,
+  MarkerPicURL,
+} from "../../../components/Map/mapComponents";
 import React from "react";
 import PropTypes from "prop-types";
+const MyMarkerImg = styled.img`
+  height: 35px;
+  width: 35px;
+  background: transparent;
+`;
+export const MyPosition = ({ text }) => {
+  return (
+    <div>
+      <MyMarkerImg
+        alt={"current position"}
+        src={
+          "https://icon-library.com/images/my-location-icon/my-location-icon-29.jpg"
+        }
+      />
+      <MarkerText>{text}</MarkerText>
+    </div>
+  );
+};
+MyPosition.propTypes = {
+  text: PropTypes.string,
+};
 export const Map = styled.div`
   width: 100%;
   height: 500px;
@@ -18,25 +43,19 @@ export const MarginContainer = styled.div`
   display: flex;
   flex-direction: column;
 `;
-export function Marker({ text, placeId, handleMarkerClickedAndSearch }) {
+export function NearbyMarker({ text, placeId, handleMarkerClickedAndSearch }) {
   return (
     <div
       onClick={() => {
         handleMarkerClickedAndSearch(placeId, text);
       }}
     >
-      <MarkerImg
-        alt={"marker"}
-        style={{ maxHeight: "30px", background: "transparent" }}
-        src={
-          "https://www.pinclipart.com/picdir/big/126-1269086_google-map-marker-red-peg-png-image-red.png"
-        }
-      />
-      <div>{text}</div>
+      <ImgMarker alt={"marker"} src={MarkerPicURL} />
+      <MarkerText>{text}</MarkerText>
     </div>
   );
 }
-Marker.propTypes = {
+NearbyMarker.propTypes = {
   text: PropTypes.string,
   handleMarkerClickedAndSearch: PropTypes.func,
   placeId: PropTypes.string,

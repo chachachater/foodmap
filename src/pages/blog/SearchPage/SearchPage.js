@@ -1,4 +1,3 @@
-/* eslint-disable */
 import React, { useCallback, useState, useEffect, useMemo } from "react";
 import { Wrapper } from "../../../constants/globalStyle";
 import { Navbar } from "../../../components/Navbar";
@@ -16,8 +15,8 @@ import {
   SearchInfo,
   RestaurantInfoContainer,
   InfoImg,
-  Marker,
 } from "./SearchPageStyle";
+import { Marker } from "../../../components/Map/mapComponents";
 const mapApiKey = process.env.REACT_APP_MAP_KEY;
 
 function SearchPage(props) {
@@ -130,8 +129,15 @@ function SearchPage(props) {
       let src = post.Pictures[0].food_picture_url;
       arr.push({ src });
     });
-    if (postsData.length) setPhotos(arr);
-  }, [postsData]);
+    if (postsData.length) return setPhotos(arr);
+    if (!restaurantInfo.photos) return;
+    arr = [];
+    restaurantInfo.photos.map((photo) => {
+      let src = photo.getUrl();
+      arr.push({ src });
+    });
+    setPhotos(arr);
+  }, [postsData, restaurantInfo]);
   function handleInputChange(e) {
     setInputText(e.target.value);
   }

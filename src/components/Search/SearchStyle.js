@@ -55,6 +55,7 @@ const AutocompleteList = styled.div`
 const Input = styled.input`
   width: 100%;
   height: 100%;
+  background: transparent;
 `;
 export const SearchBox = ({
   text,

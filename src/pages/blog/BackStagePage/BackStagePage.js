@@ -65,7 +65,7 @@ export default function BackStagePage() {
         setPosts(posts);
         setUserImgs(images);
       });
-    })
+    });
   };
 
   return (

@@ -14,26 +14,26 @@ import { fetchAdmin, fetchBanUser, fetchUnBanUser } from "../../../WebAPI";
 
 export default function AdminPage() {
   const [userData, setUserData] = useState([]);
-  const [isBanUser, setBanUser] = useState(false)
+  const [isBanUser, setBanUser] = useState(false);
 
   useEffect(() => {
-    fetchAdmin().then((respone) => {
-      setUserData(respone.data)
-    }) 
-    setBanUser(false)
+    fetchAdmin().then((response) => {
+      setUserData(response.data);
+    });
+    setBanUser(false);
   }, [isBanUser]);
 
   const handleBanUser = (id) => {
-    fetchBanUser(id)
-    setBanUser(true)
-  }
+    fetchBanUser(id);
+    setBanUser(true);
+  };
 
   const handleUnBanUser = (id) => {
-    fetchUnBanUser(id)
-    setBanUser(true)
-  }
+    fetchUnBanUser(id);
+    setBanUser(true);
+  };
 
-console.log(userData)
+  console.log(userData);
   return (
     <Wrapper>
       <Navbar />
@@ -43,7 +43,11 @@ console.log(userData)
           <SearchInput placeholder="搜尋 Username" />
           <SearchBtn>搜尋</SearchBtn>
         </SearchContainer>
-        <UserTable userData={userData} handleBanUser={handleBanUser} handleUnBanUser={handleUnBanUser} />
+        <UserTable
+          userData={userData}
+          handleBanUser={handleBanUser}
+          handleUnBanUser={handleUnBanUser}
+        />
       </BackStageWrapper>
     </Wrapper>
   );
