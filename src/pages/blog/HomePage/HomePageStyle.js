@@ -37,3 +37,10 @@ export const HomeTiltle = styled.h1`
   text-align: center;
   margin-bottom: 48px;
 `;
+
+export const LoadMore = styled.div`
+  text-align: center;
+  color: ${COLOR.primary};
+  font-size: ${FONT.h4};
+  font-weight: 600;
+`
