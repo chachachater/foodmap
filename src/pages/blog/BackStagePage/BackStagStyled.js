@@ -136,7 +136,7 @@ const BackStageContainer = styled.div`
   }
 `;
 
-export function BackStageArticle({ userPost, userImgs, onDelete }) {
+export function BackStageArticle({ userPost, userImgs, toEditPage, onDelete }) {
   const onDeletePost = () => {
     onDelete(userPost.id);
   };
@@ -158,7 +158,7 @@ export function BackStageArticle({ userPost, userImgs, onDelete }) {
             {new Date(userPost.visited_time).toLocaleDateString()}
           </ArticleTime>
           <BtnContainer>
-            <EditBtn>編輯</EditBtn>
+            <EditBtn onClick={toEditPage}>編輯</EditBtn>
             <DeleteBtn onClick={onDeletePost}>刪除</DeleteBtn>
           </BtnContainer>
         </ArticleBottom>
@@ -169,5 +169,6 @@ export function BackStageArticle({ userPost, userImgs, onDelete }) {
 BackStageArticle.propTypes = {
   userPost: PropTypes.object,
   userImgs: PropTypes.array,
+  toEditPage: PropTypes.func,
   onDelete: PropTypes.func,
 };

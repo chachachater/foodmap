@@ -6,7 +6,7 @@ import { useHistory } from "react-router-dom";
 export default function useRegister() {
   const [username, setUsername] = useState();
   const [password, setPassword] = useState();
-  const [checkedpassword, setCheckedPassword] = useState();
+  const [checkedPassword, setCheckedPassword] = useState();
   const [email, setEmail] = useState();
   const [errorMessage, setErrorMessage] = useState();
   const history = useHistory();
@@ -22,7 +22,7 @@ export default function useRegister() {
     const userData = {
       username,
       password,
-      checkedpassword,
+      checkedPassword,
       email,
     };
     dispatch(registerAsync(userData))

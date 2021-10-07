@@ -7,19 +7,15 @@ import { selectUser } from "../redux/reducers/userReducer";
 export default function usePost() {
   const history = useHistory();
   const [images, setImages] = useState([])
-  const [restaurantId, setRestaurantId] = useState('999')
+  const [restaurantId, setRestaurantId] = useState('')
   const [title, setTitle] = useState('')
   const [content, setContent] = useState('')
   const [visitedDate, setVisitedDate] = useState('')
   const [isPublished, setIsPublished] = useState(true)
   const [postId, setPostId] = useState('')
   const userState = useSelector(selectUser);
-
   const { userId } = userState.result.data;
-  // let userId = 4
-  // if (userState.result) {
-  //   const { userId } = userState.result.data
-  // }
+
   function handleInputChange(setter) {
     return (e) => {
       setter(e.target.value);
@@ -47,13 +43,19 @@ export default function usePost() {
       Array.from(e.target.files).map((each) => URL.revokeObjectURL(each));
     };
   }
-  function getResaurantId(setter) {
+  function getRestaurantId(setter) {
     return (placeId) => {
       console.log(placeId);
       setter(placeId);
     };
   }
   async function handleSubmit() {
+    const checkedList = [restaurantId, title, content, visitedDate, userId]
+    console.log(checkedList)
+
+    if (!checkedList.every(every => every)) {
+      return alert(`請輸入全部欄位，尚未輸入${1}`)
+    }
     const postData = {};
     const blobArr = [];
     if (!images.length) return alert("至少上傳一張圖片");
@@ -70,10 +72,16 @@ export default function usePost() {
     postData.visited_time = visitedDate;
     postData.is_published = isPublished;
     if (postId) {
-      return fetchEditPost(postData, postId).then(() => history.push("/home"));
+      return fetchEditPost(postData, postId).then((result) => {
+        console.log('edit', result)
+        if (!result.ok) return alert(result.message);
+        history.push(`/posts/${postId}`)
+      });
     }
-    return fetchAddPost(postData).then(() => {
-      history.push("/home");
+    return fetchAddPost(postData).then((result) => {
+      if (!result.ok) return alert(result.message);
+      history.push(`/backstage/${userId}`)
+      // history.push(`/posts/${postId}`)
     });
   }
   return {
@@ -89,7 +97,7 @@ export default function usePost() {
     setIsPublished,
     restaurantId,
     setRestaurantId,
-    getResaurantId,
+    getRestaurantId,
     setPostId,
     handleInputChange,
     handleSubmit,

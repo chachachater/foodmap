@@ -1,7 +1,7 @@
 /* eslint-disable */
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import Cookies from "universal-cookie";
+import Cookies from 'universal-cookie';
 import { logoutAsync, selectUser } from "../../redux/reducers/userReducer";
 import {
   NavbarWrapper,
@@ -14,15 +14,15 @@ import {
 
 function Navbar() {
   const userState = useSelector(selectUser);
-  const user = userState.result;
+  const user = userState.result
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const cookies = new Cookies();
   const dispatch = useDispatch();
   const handleLogout = () => {
-    dispatch(logoutAsync());
-    cookies.remove("getMe");
-  };
-   return (
+    dispatch(logoutAsync())
+    cookies.remove('getMe')
+  }
+  return (
     <NavbarWrapper>
       <LogoText to="/home">吃貨地圖</LogoText>
       <HamburgerIcon

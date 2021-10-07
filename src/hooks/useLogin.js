@@ -15,7 +15,7 @@ export default function useLogin() {
       setter(e.target.value);
     };
   }
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
     const userData = {
       username,
@@ -24,7 +24,7 @@ export default function useLogin() {
     dispatch(loginAsync(userData))
       .then((result) => {
         console.log(result)
-        if (!result.payload.ok) setErrorMessage(result.payload.message);
+        if (!result.payload.ok) return setErrorMessage(result.payload.message);
         setErrorMessage("");
         console.log(result.payload.data)
         history.push("/home");
