@@ -39,7 +39,7 @@ function Post({ post, user }) {
         <PostTitle>{post.post && post.post.title}</PostTitle>
         <PostContent>{post.post && reactElement}</PostContent>
         <PostImg>
-          <ImageViewer photos={arr} /> 
+          <ImageViewer photos={arr} />
         </PostImg>
       </PostContainer>
     </PostWrapper>
