@@ -26,10 +26,10 @@ export default function useLogin() {
         console.log(result)
         if (!result.payload.ok) return setErrorMessage(result.payload.message);
         setErrorMessage("");
-        console.log(result.payload.data)
         history.push("/home");
       })
       .catch((err) => console.log(err));
+    
   }
   return {
     errorMessage,
