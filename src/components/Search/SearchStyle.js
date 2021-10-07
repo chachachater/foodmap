@@ -39,7 +39,7 @@ export const ButtonImg = styled.div`
   width: 25px;
   height: 25px;
 `;
-const SearchBoxContainer = styled.div`
+export const SearchBoxContainer = styled.div`
   width: 80%;
   display: flex;
   flex-direction: column;
@@ -52,7 +52,7 @@ const AutocompleteList = styled.div`
   position: absolute;
   top: 20px;
 `;
-const Input = styled.input`
+export const Input = styled.input`
   width: 100%;
   height: 100%;
   background: transparent;
