@@ -1,4 +1,3 @@
-/* eslint-disable */
 import { useState } from "react";
 import { fetchEditUserData } from "../WebAPI";
 import { useSelector } from "react-redux";
@@ -9,7 +8,7 @@ export default function useEditUserData() {
   const [banner, setBanner] = useState('')
   const [nickname, setNickname] = useState('')
   const userState = useSelector(selectUser);
-  let userId = 4
+  let userId = ''
   if (userState.result) {
    userId = userState.result.data.userId
   }

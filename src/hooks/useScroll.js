@@ -1,5 +1,4 @@
-/* eslint-disable */
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 
 export default function useScroll() {
    const [scroll, setScroll] = useState({
@@ -8,7 +7,7 @@ export default function useScroll() {
     direction: ''
   })
 
-  const listener = (e) => {
+  const listener = () => {
    setScroll(prev => ({
       x: window.scrollX,
       y: window.scrollY,
