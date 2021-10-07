@@ -1,5 +1,20 @@
 const baseUrl = "http://localhost:5001";
 
+export function fetchLoginStatus() {
+  return fetch(`${baseUrl}/get-me`, {
+    method: "GET",
+    credentials: "include",
+    headers: {
+      "content-type": "application/json",
+    }
+  })
+    .then((res) => res.json())
+    .catch((err) => {
+      alert("操作失敗，發生錯誤");
+      console.log(err);
+    });
+}
+
 export async function fetchRegister(userData) {
   return fetch(`${baseUrl}/register`, {
     method: "POST",
@@ -32,18 +47,6 @@ export function fetchLogin(userData) {
       username: userData.username,
       password: userData.password,
     }),
-  })
-    .then((res) => res.json())
-    .catch((err) => {
-      alert("操作失敗，發生錯誤");
-      console.log(err);
-    });
-}
-
-export function fetchSuccess() {
-  return fetch(`${baseUrl}/success`, {
-    method: "GET",
-    credentials: "include",
   })
     .then((res) => res.json())
     .catch((err) => {

@@ -1,9 +1,7 @@
-/* eslint-disable */
-import React from "react";
+import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { setMe } from "./redux/reducers/userReducer";
+import { getMe } from "./redux/reducers/userReducer";
 import { HashRouter as Router, Switch, Route, Link } from "react-router-dom";
-import Cookies from 'universal-cookie';
 import { GlobalStyle } from "./constants/globalStyle";
 import BackToTopBtn from "./components/BackToTop";
 import Footer from "./components/Footer";
@@ -18,14 +16,16 @@ import SearchPage from "./pages/blog/SearchPage";
 import NearbyPage from "./pages/blog/NearbyPage";
 import EditPage from "./pages/blog/EditPage";
 import { ScrollToTop } from "./constants/units";
-
+import Loading from "./components/Loading/Loading"
 function App() {
   const dispatch = useDispatch();
-  const cookies = new Cookies();
-  const getMe = cookies.get('getMe')
-  if (getMe) dispatch(setMe({ data: getMe }))
+  useEffect(() => {
+    dispatch(getMe())
+  }, [])
   return (
     <Router>
+      <Loading />
+
       <GlobalStyle />
       <ScrollToTop />
       <BackToTopBtn />
