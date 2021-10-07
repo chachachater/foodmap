@@ -56,7 +56,7 @@ export default function UserTable({
 }
 
 UserTable.propTypes = {
-  userData: PropTypes.object,
+  userData: PropTypes.array,
   handleBanUser: PropTypes.func,
   handleUnBanUser: PropTypes.func,
 };
