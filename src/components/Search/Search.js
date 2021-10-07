@@ -1,10 +1,12 @@
 import React from "react";
 import PropTypes from "prop-types";
 import {
+  Input,
   SearchBox,
   SearchWrapper,
   SearchButton,
   ButtonImg,
+  SearchBoxContainer,
 } from "./SearchStyle";
 
 function Search({
@@ -25,6 +27,18 @@ function Search({
         handleSearchRestaurant={handleSearchRestaurant}
         setFocused={setFocused}
       />
+      <SearchButton>
+        <ButtonImg></ButtonImg>
+      </SearchButton>
+    </SearchWrapper>
+  );
+}
+export function HomePageSearch() {
+  return (
+    <SearchWrapper>
+      <SearchBoxContainer>
+        <Input placeholder={"想吃什麼？"} />
+      </SearchBoxContainer>
       <SearchButton>
         <ButtonImg></ButtonImg>
       </SearchButton>

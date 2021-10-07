@@ -1,74 +1,10 @@
-/* eslint-disable */
 import React, { useCallback, useState, useEffect, useMemo } from "react";
 import GoogleMapReact from "google-map-react";
+import { Marker } from "./mapComponents";
+import PropTypes from "prop-types";
 import _ from "lodash";
+import { SearchBox } from "../Search/SearchStyle";
 const mapApiKey = process.env.REACT_APP_MAP_KEY;
-
-const Marker = ({ text, handleSetPlaceId, placeId }) => {
-  return (
-    <div
-      onClick={() => {
-        handleSetPlaceId(placeId);
-      }}
-    >
-      <img
-        alt={"marker"}
-        style={{ maxHeight: "30px", background: "transparent" }}
-        src={
-          "https://www.pinclipart.com/picdir/big/126-1269086_google-map-marker-red-peg-png-image-red.png"
-        }
-      />
-      <div>{text}</div>
-    </div>
-  );
-};
-const SearchBox = ({
-  handleInputChange,
-  inputText,
-  restaurantList,
-  handleSearchRestaurant,
-}) => {
-  return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        position: "absolute",
-        zIndex: "999",
-        border: "solid gray 1px",
-      }}
-    >
-      <div>
-        <input
-          type="text"
-          placeholder="選擇餐廳"
-          value={inputText}
-          onChange={(e) => {
-            handleInputChange(e);
-          }}
-        />
-      </div>
-      <div>
-        {restaurantList.map((data, index) => {
-          return (
-            <div
-              style={{ background: "white", fontSize: "16px" }}
-              key={index}
-              onClick={() => {
-                handleSearchRestaurant(
-                  data.place_id,
-                  data.structured_formatting.main_text
-                );
-              }}
-            >
-              {data.terms[0].value}
-            </div>
-          );
-        })}
-      </div>
-    </div>
-  );
-};
 
 function SimpleMap(props) {
   const [mapApiLoaded, setMapApiLoaded] = useState(false);
@@ -77,6 +13,7 @@ function SimpleMap(props) {
   const [places, setPlaces] = useState([]);
   const [restaurantList, setRestaurantList] = useState([]);
   const [inputText, setInputText] = useState("");
+  const [focused, setFocused] = useState(false);
   const [myPosition, setMyPosition] = useState({
     lat: 24.953631,
     lng: 121.225591,
@@ -86,6 +23,9 @@ function SimpleMap(props) {
     setMapApi(maps);
     setMapApiLoaded(true);
   };
+  useEffect(() => {
+    if (!focused) setRestaurantList([]);
+  }, [focused]);
   useEffect(() => {
     if (props.placeId) {
       handleSearchRestaurant(props.placeId);
@@ -144,17 +84,19 @@ function SimpleMap(props) {
   }
 
   function handleSetPlaceId(place_id) {
-    console.log(props.setPlaceId)
+    console.log(props.setPlaceId);
     props.setPlaceId(place_id);
   }
   return (
     // Important! Always set the container height explicitly
     <>
       <SearchBox
+        text={"在哪裡吃的？"}
         handleInputChange={handleInputChange}
         inputText={inputText}
         restaurantList={restaurantList}
         handleSearchRestaurant={handleSearchRestaurant}
+        setFocused={setFocused}
       />
       <div style={{ height: "80vh", width: "100%" }}>
         <GoogleMapReact
@@ -191,12 +133,23 @@ SimpleMap.defaultProps = {
   },
   zoom: 17,
 };
+SimpleMap.propTypes = {
+  placeId: PropTypes.string,
+  setPlaceId: PropTypes.func,
+  center: PropTypes.object,
+  zoom: PropTypes.number,
+};
+
 function MyMap({ restaurantId, getRestaurantId }) {
-  console.log(getRestaurantId)
+  console.log(getRestaurantId);
   return (
     <div className="App">
       <SimpleMap placeId={restaurantId} setPlaceId={getRestaurantId} />
     </div>
   );
 }
+MyMap.propTypes = {
+  restaurantId: PropTypes.string,
+  getRestaurantId: PropTypes.func,
+};
 export default MyMap;

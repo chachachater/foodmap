@@ -37,8 +37,6 @@ export const SearchInfo = styled.div`
     flex-direction: column;
     align-items: center;
   }
-  ${MEDIA_QUERY.sm} {
-  }
 `;
 
 const RestaurantInfo = styled.div`
@@ -66,6 +64,7 @@ const InfoText = styled.div`
   font-size: ${FONT.h4};
   margin-left: 8px;
   line-height: 1.4;
+  cursor: pointer;
 
   & + & {
     margin-top: 14px;
@@ -113,30 +112,6 @@ export const MarkerImg = styled.img`
   max-height: 30px;
   background: transparent;
 `;
-const MarkerText = styled.div`
-  overflow: hidden;
-  text-overflow: ellipsis;
-  width: "100px";
-  white-pace: "nowrap";
-`;
-export function Marker({ text }) {
-  return (
-    <div>
-      <MarkerImg
-        alt={"marker"}
-        style={{ maxHeight: "30px", background: "transparent" }}
-        src={
-          "https://www.pinclipart.com/picdir/big/126-1269086_google-map-marker-red-peg-png-image-red.png"
-        }
-      />
-      <MarkerText>{text}</MarkerText>
-    </div>
-  );
-}
-Marker.propTypes = {
-  text: PropTypes.string,
-  placeId: PropTypes.string,
-};
 export function RestaurantInfoContainer({ restaurantInfo, isFold, setIsFold }) {
   const { name, formatted_address, opening_hours, website } = restaurantInfo;
   return (

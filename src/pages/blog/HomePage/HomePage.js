@@ -1,5 +1,4 @@
-/* eslint-disable */
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { Wrapper } from "../../../constants/globalStyle";
 import { Navbar } from "../../../components/Navbar";
 import {
@@ -7,10 +6,10 @@ import {
   BannerBg,
   BannerInfo,
   BannerText,
-  HomeTiltle,
+  HomeTitle,
   LoadMore,
 } from "./HomePageStyle";
-import Search from "../../../components/Search";
+import { HomePageSearch } from "../../../components/Search/Search";
 import { fetchAllPosts } from "../../../WebAPI";
 import { UserAllArticle } from "../../../components/Article/ArticleStyle";
 import { ArticleInfo } from "../../../components/Article";
@@ -27,9 +26,11 @@ function HomePage() {
   );
 
   useEffect(() => {
-    fetchAllPosts(offset).then((result) => {
-      setPostCounts(result.postCounts);
-      setParseResult(parseData(result));
+    fetchAllPosts(offset).then((results) => {
+      console.log(results);
+      if (!results) return;
+      setPostCounts(results.postCounts);
+      setParseResult(parseData(results));
       setOffset(offset + 5);
     });
   }, []);
@@ -55,10 +56,10 @@ function HomePage() {
         <BannerBg></BannerBg>
         <BannerInfo>
           <BannerText>吃貨地圖，探索你想吃的美食餐廳</BannerText>
-          <Search text="搜尋餐廳" />
+          <HomePageSearch />
         </BannerInfo>
       </HomeBanner>
-      <HomeTiltle>最新文章</HomeTiltle>
+      <HomeTitle>最新文章</HomeTitle>
       <UserAllArticle>
         <ArticleInfo postsData={parseResult} />
       </UserAllArticle>

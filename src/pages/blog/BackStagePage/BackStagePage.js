@@ -17,6 +17,11 @@ import { fetchPostsByUserId, fetchDeletePost } from "../../../WebAPI";
 export default function BackStagePage() {
   const history = useHistory();
   const userState = useSelector(selectUser);
+  if (!userState.result) {
+    alert("Please login");
+    history.push("/home");
+    return null;
+  }
   const { userId } = userState.result.data;
   const [posts, setPosts] = useState([]);
   const [userImgs, setUserImgs] = useState([]);
@@ -26,13 +31,8 @@ export default function BackStagePage() {
 
   useEffect(() => {
     fetchPostsByUserId(userId, order).then((userPost) => {
-      if (!userPost) {
-        console.log(userPost.message);
-        return;
-      }
-
+      if (!userPost) return console.log(userPost.message);
       const { posts, images } = userPost;
-
       setPosts(posts);
       setUserImgs(images);
     });

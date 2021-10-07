@@ -246,3 +246,14 @@ export function fetchDeletePost(id) {
       console.log(err.message);
     });
 }
+export function adminSearchUser(username) {
+  return fetch(`${baseUrl}/admin?username=${username}`, {
+    method: "GET",
+    credentials: "include",
+  })
+    .then((res) => res.json())
+    .catch((err) => {
+      alert("操作失敗，發生錯誤");
+      console.log(err.message);
+    });
+}
