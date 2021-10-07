@@ -73,7 +73,7 @@ function ArticlePage() {
         }
         setUser(user.data);
       });
-    });    
+    });
   }, [id]);
 
   return (
