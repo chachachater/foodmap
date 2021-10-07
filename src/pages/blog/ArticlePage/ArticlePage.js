@@ -64,8 +64,7 @@ function ArticlePage() {
         return;
       }
       setPost(post);
-
-      const userId = post.post.user_id;
+      const userId = post.post.user_id
 
       fetchUserData(userId).then((user) => {
         if (!user) {

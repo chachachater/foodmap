@@ -1,21 +1,13 @@
 /* eslint-disable */
 import React from "react";
-import { Table, TdFlex, BanBtn, UnbanBtn } from "./AdminStyled";
+import { Table, TdFlex, BanBtn, UnbanBtn, Span } from "./AdminStyled";
 import PropTypes from "prop-types";
 
-export default function UserTable({ userData, handleBanUser, handleUnBanUser }) {
-  console.log(userData[0].id)
-  const banUser = ()=> {
-    
-    console.log(userData.id)
-    handleBanUser(userData.id)
-  }
-
-  const UnBanUser = ()=> {
-    console.log(userData.id)
-    handleUnBanUser(userData.id)
-  }
-  
+export default function UserTable({
+  userData,
+  handleBanUser,
+  handleUnBanUser,
+}) {
   return (
     <Table>
       <thead>
@@ -34,13 +26,25 @@ export default function UserTable({ userData, handleBanUser, handleUnBanUser }) 
                 <td>{data.nickname}</td>
                 {data.user_level === 1 ? (
                   <TdFlex>
-                    <span>no</span>
-                    <BanBtn onClick={() => {}}>Ban</BanBtn>
+                    <Span>no</Span>
+                    <BanBtn
+                      onClick={() => {
+                        handleBanUser(data.id);
+                      }}
+                    >
+                      Ban
+                    </BanBtn>
                   </TdFlex>
                 ) : (
                   <TdFlex>
-                    <span>yes</span>
-                    <UnbanBtn onClick={UnBanUser}>Unban</UnbanBtn>
+                    <Span>yes</Span>
+                    <UnbanBtn
+                      onClick={() => {
+                        handleUnBanUser(data.id);
+                      }}
+                    >
+                      Unban
+                    </UnbanBtn>
                   </TdFlex>
                 )}
               </tr>
@@ -50,3 +54,9 @@ export default function UserTable({ userData, handleBanUser, handleUnBanUser }) 
     </Table>
   );
 }
+
+UserTable.propTypes = {
+  userData: PropTypes.object,
+  handleBanUser: PropTypes.func,
+  handleUnBanUser: PropTypes.func,
+};
