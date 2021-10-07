@@ -26,13 +26,8 @@ export default function BackStagePage() {
 
   useEffect(() => {
     fetchPostsByUserId(userId, order).then((userPost) => {
-      if (!userPost) {
-        console.log(userPost.message);
-        return;
-      }
-
+      if (!userPost) return console.log(userPost.message);
       const { posts, images } = userPost;
-
       setPosts(posts);
       setUserImgs(images);
     });
