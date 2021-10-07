@@ -5,10 +5,11 @@ import { Wrapper } from "../../../constants/globalStyle";
 import useLogin from "../../../hooks/useLogin";
 import { selectUser } from "../../../redux/reducers/userReducer";
 import { useSelector } from "react-redux";
-// import Loading from "../../../components/Loading/Loading"
+import Loading from "../../../components/Loading/Loading"
 function LoginPage() {
   const userState = useSelector(selectUser)
   const [isLoading, setIsLoading] = useState(false)
+  console.log(isLoading)
   useEffect(() => {
     console.log(userState.status)
     setIsLoading(!isLoading)
@@ -23,7 +24,7 @@ function LoginPage() {
   return (
     <Wrapper>
       <UserNavbar />
-      {/* {!isLoading && <Loading />} */}
+      {!isLoading && <Loading />}
       <Form
         title="登入"
         username="用戶名稱 / Email"

@@ -16,7 +16,6 @@ import SearchPage from "./pages/blog/SearchPage";
 import NearbyPage from "./pages/blog/NearbyPage";
 import EditPage from "./pages/blog/EditPage";
 import { ScrollToTop } from "./constants/units";
-import Loading from "./components/Loading/Loading"
 function App() {
   const dispatch = useDispatch();
   useEffect(() => {
@@ -24,8 +23,6 @@ function App() {
   }, [])
   return (
     <Router>
-      <Loading />
-
       <GlobalStyle />
       <ScrollToTop />
       <BackToTopBtn />
