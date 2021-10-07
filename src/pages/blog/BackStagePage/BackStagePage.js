@@ -17,6 +17,11 @@ import { fetchPostsByUserId, fetchDeletePost } from "../../../WebAPI";
 export default function BackStagePage() {
   const history = useHistory();
   const userState = useSelector(selectUser);
+  if (!userState.result) {
+    alert("Please login");
+    history.push("/home");
+    return null;
+  }
   const { userId } = userState.result.data;
   const [posts, setPosts] = useState([]);
   const [userImgs, setUserImgs] = useState([]);
