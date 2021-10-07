@@ -1,7 +1,7 @@
-/* eslint-disable */
 import React, { useState, useEffect } from "react";
 import { Navbar } from "../../../components/Navbar";
 import { Wrapper } from "../../../constants/globalStyle";
+import { useHistory } from "react-router-dom";
 import UserTable from "./UserTable";
 import {
   BackStageTitle,
@@ -15,9 +15,13 @@ import { fetchAdmin, fetchBanUser, fetchUnBanUser } from "../../../WebAPI";
 export default function AdminPage() {
   const [userData, setUserData] = useState([]);
   const [isBanUser, setBanUser] = useState(false);
-
+  let history = useHistory();
   useEffect(() => {
     fetchAdmin().then((response) => {
+      if (!response.ok) {
+        alert(response.message);
+        return history.push("/home");
+      }
       setUserData(response.data);
     });
     setBanUser(false);
