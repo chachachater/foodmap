@@ -9,17 +9,19 @@ import HomePage from "./pages/blog/HomePage";
 import ProfilePage from "./pages/blog/ProfilePage";
 import RegisterPage from "./pages/user/RegisterPage";
 import LoginPage from "./pages/user/LoginPage";
-import AdminPage from "./pages/administrator/administrator";
+import AdminPage from "./pages/administrator/AdminPage";
 import BackStagePage from "./pages/blog/BackStagePage";
 import ArticlePage from "./pages/blog/ArticlePage";
 import SearchPage from "./pages/blog/SearchPage";
 import NearbyPage from "./pages/blog/NearbyPage";
 import EditPage from "./pages/blog/EditPage";
-import { ScrollToTop } from "./constants/units";
-import Loading from "./components/Loading/Loading"
+import { ScrollToTop } from "./utils";
+
 function App() {
+  console.log('mad')
   const dispatch = useDispatch();
   useEffect(() => {
+    console.log('mad again')
     dispatch(getMe())
   }, [])
   return (

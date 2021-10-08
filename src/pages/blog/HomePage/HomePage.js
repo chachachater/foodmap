@@ -24,6 +24,7 @@ function HomePage() {
   const scroll = useScroll();
   const [offset, setOffset] = useState(0);
   const [postCounts, setPostCounts] = useState(0);
+  const [inputText, setInputText] = useState("");
   const [clientHeight, setClientHeight] = useState(
     document.documentElement.clientHeight
   );
@@ -58,7 +59,7 @@ function HomePage() {
         <BannerBg></BannerBg>
         <BannerInfo>
           <BannerText>吃貨地圖，探索你想吃的美食餐廳</BannerText>
-          <HomePageSearch />
+          <HomePageSearch inputText={inputText} setInputText={setInputText} />
         </BannerInfo>
       </HomeBanner>
       <HomeTitle>最新文章</HomeTitle>

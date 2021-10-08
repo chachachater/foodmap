@@ -25,6 +25,7 @@ import { fetchUserData, fetchPostsByUserId } from "../../../WebAPI";
 import useEditUserData from "../../../hooks/useEditUserData";
 import useConfirmUser from "../../../hooks/useConfirmUser";
 import useParseData from "../../../hooks/useParseData";
+import useScroll from "../../../hooks/useScroll";
 import useLoading from "../../../hooks/useLoading";
 import Loading from "../../../components/Loading/Loading";
 
@@ -44,36 +45,61 @@ function ProfilePage() {
     handleSubmit,
   } = useEditUserData();
   const { parseResult, setParseResult, parseData } = useParseData();
+  const scroll = useScroll();
   const [defaultBanner, setDefaultBanner] = useState("");
   const [defaultAvatar, setDefaultAvatar] = useState("");
   const [postCounts, setPostCounts] = useState("");
   const [filter, setFilter] = useState("createdAt");
-
+  const [offset, setOffset] = useState(0);
+  const [clientHeight, setClientHeight] = useState(document.body.clientHeight);
+  const screenHeight = window.screen.availHeight;
   useEffect(() => {
+    if (isLoading) return;
     setIsLoading(true);
     fetchUserData(id).then((result) => {
-      console.log(result);
       setNickname(result.data.nickname);
-      if (result.data.background_pic_url) setDefaultBanner(result.data.background_pic_url);
+      if (result.data.background_pic_url)
+        setDefaultBanner(result.data.background_pic_url);
       if (result.data.picture_url) setDefaultAvatar(result.data.picture_url);
       setIsLoading(false);
     });
-    fetchPostsByUserId(id, filter).then((result) => {
+    fetchPostsByUserId(id, offset, filter).then((result) => {
       setPostCounts(result.postCounts);
-      console.log(result);
+      //console.log(result);
       // 這邊等後端改成 left join 會更好處理
       setParseResult(parseData(result));
     });
   }, []);
 
   useEffect(async () => {
-    fetchPostsByUserId(id, filter).then((result) => {
+    fetchPostsByUserId(id, 0, filter).then((result) => {
       console.log(result);
-      // 這邊等後端改成 left join 會更好處理
       setParseResult(parseData(result));
+      //setParseResult(parseResult.concat(parseData(result)));
+      setOffset(0);
     });
+    console.log(filter);
   }, [filter]);
+  useEffect(() => {
+    if (offset === 0) return;
+    fetchPostsByUserId(id, offset, filter).then((result) => {
+      console.log(result);
+      setParseResult(parseResult.concat(parseData(result)));
+      setIsLoading(false);
+    });
+  }, [offset]);
+  useEffect(async () => {
+    if (isLoading) return;
+    if (clientHeight - scroll.y - screenHeight / 2 >= screenHeight / 2) return;
+    if (postCounts > offset) {
+      setIsLoading(true);
+      setOffset(offset + 5);
+    }
+  }, [scroll]);
 
+  useEffect(() => {
+    setClientHeight(document.body.clientHeight);
+  }, [parseResult]);
   return (
     <Wrapper>
       <Navbar />
@@ -123,7 +149,11 @@ function ProfilePage() {
           <ArticleCounter>共有 {postCounts} 篇食記</ArticleCounter>
         </InfoContainer>
       </ProfileContainer>
-      <Article postsData={parseResult} setFilter={setFilter} />
+      <Article
+        postsData={parseResult}
+        setFilter={setFilter}
+        // setClientHeight={setClientHeight}
+      />
     </Wrapper>
   );
 }

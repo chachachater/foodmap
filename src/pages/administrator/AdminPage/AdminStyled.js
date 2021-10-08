@@ -139,6 +139,6 @@ export const BanBtn = styled.button`
   }
 `;
 
-export const UnbanBtn = styled(BanBtn)`
+export const UndoBtn = styled(BanBtn)`
   background-color: #28a745;
 `;

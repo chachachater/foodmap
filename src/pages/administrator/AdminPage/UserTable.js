@@ -1,9 +1,8 @@
-/* eslint-disable */
 import React from "react";
-import { Table, TdFlex, BanBtn, UnbanBtn, Span } from "./AdminStyled";
+import { Table, TdFlex, BanBtn, UndoBtn, Span } from "./AdminStyled";
 import PropTypes from "prop-types";
 
-export default function UserTable({
+function UserTable({
   userData,
   handleBanUser,
   handleUnBanUser,
@@ -18,7 +17,7 @@ export default function UserTable({
         </tr>
       </thead>
       <tbody>
-        {userData.map(
+        {userData && userData.map(
           (data) =>
             data.user_level !== 2 && (
               <tr key={data.id}>
@@ -38,13 +37,13 @@ export default function UserTable({
                 ) : (
                   <TdFlex>
                     <Span>yes</Span>
-                    <UnbanBtn
+                    <UndoBtn
                       onClick={() => {
                         handleUnBanUser(data.id);
                       }}
                     >
-                      Unban
-                    </UnbanBtn>
+                      Undo
+                    </UndoBtn>
                   </TdFlex>
                 )}
               </tr>
@@ -60,3 +59,5 @@ UserTable.propTypes = {
   handleBanUser: PropTypes.func,
   handleUnBanUser: PropTypes.func,
 };
+
+export default UserTable;

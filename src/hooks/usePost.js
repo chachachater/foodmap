@@ -15,7 +15,6 @@ export default function usePost() {
   const [isPublished, setIsPublished] = useState(true)
   const [postId, setPostId] = useState('')
   const userState = useSelector(selectUser);
-  const { userId } = userState.result.data;
   const { isLoading , setIsLoading } = useLoading()
 
   function handleInputChange(setter) {
@@ -54,7 +53,7 @@ export default function usePost() {
   async function handleSubmit() {
     const checkedList = [restaurantId, title, content, visitedDate, userId]
     console.log(checkedList)
-
+    const { userId } = userState.result.data;
     if (!checkedList.every(every => every)) {
       return alert(`請輸入全部欄位`)
     }

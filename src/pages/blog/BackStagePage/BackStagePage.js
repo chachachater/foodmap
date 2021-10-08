@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { Navbar } from "../../../components/Navbar";
 import { useHistory } from "react-router-dom";
 import { Wrapper } from "../../../constants/globalStyle";
@@ -8,8 +9,8 @@ import {
   Filter,
   Publish,
   Private,
-  BackStageArticle,
 } from "./BackStagStyled";
+import BackStageArticle from "./BackStagArticle";
 import { useSelector } from "react-redux";
 import { selectUser } from "../../../redux/reducers/userReducer";
 import { fetchPostsByUserId, fetchDeletePost } from "../../../WebAPI";
@@ -19,25 +20,28 @@ import Loading from "../../../components/Loading/Loading";
 export default function BackStagePage() {
   const history = useHistory();
   const userState = useSelector(selectUser);
-  if (!userState.result) {
-    alert("Please login");
-    history.push("/home");
-    return null;
-  }
   const { isLoading, setIsLoading } = useLoading();
-  const { userId } = userState.result.data;
+  let userId = ""
+  useEffect(() => {
+    userId = userState.result.data;
+  }, [])
+
   const [posts, setPosts] = useState([]);
   const [userImgs, setUserImgs] = useState([]);
   const [isPublished, setIsPublished] = useState(true);
   const [postState, setPostState] = useState("published");
   const order = "createdAt";
+  const offset = 0;
 
   useEffect(() => {
     setIsLoading(true);
-    fetchPostsByUserId(userId, order).then((userPost) => {
+    fetchPostsByUserId(userId, offset, order).then((result) => {
       setIsLoading(false);
-      if (!userPost) return console.log(userPost.message);
-      const { posts, images } = userPost;
+      if (!result) {
+        console.log(result.message);
+        return;
+      }
+      const { posts, images } = result;
       setPosts(posts);
       setUserImgs(images);
     });
@@ -73,7 +77,7 @@ export default function BackStagePage() {
     });
   };
   const toEditPage = (id) => () => history.push(`/edit/${id}`);
-  console.log(userImgs);
+
   return (
     <Wrapper>
       <Navbar userId={userId} />

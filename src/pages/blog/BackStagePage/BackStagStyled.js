@@ -1,12 +1,6 @@
 import styled from "styled-components";
 import { FONT, COLOR, MEDIA_QUERY } from "../../../constants/style";
-import {
-  ArticleImage,
-  ArticleContent,
-  ArticleTitle,
-} from "../../../components/Article/ArticleStyle";
-import React from "react";
-import PropTypes from "prop-types";
+import { ArticleImage } from "../../../components/Article/ArticleStyle";
 
 export const BackStageWrapper = styled.div`
   padding: 0 24px;
@@ -45,7 +39,7 @@ export const Publish = styled.div`
 
 export const Private = styled(Publish)``;
 
-const ArticleBottom = styled.div`
+export const ArticleBottom = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -56,7 +50,8 @@ const ArticleBottom = styled.div`
     padding: 0 8px;
   }
 `;
-const ArticleTime = styled.div`
+
+export const ArticleTime = styled.div`
   font-size: ${FONT.h3};
   line-height: 55px;
   margin-bottom: 10px;
@@ -69,14 +64,16 @@ const ArticleTime = styled.div`
     text-align: left;
   }
 `;
-const BtnContainer = styled.div`
+
+export const BtnContainer = styled.div`
   display: flex;
   justify-content: flex-start;
   ${MEDIA_QUERY.md} {
     justify-content: center;
   }
 `;
-const EditBtn = styled.button`
+
+export const EditBtn = styled.button`
   color: ${COLOR.primary};
   font-size: ${FONT.h4};
   font-weight: 600;
@@ -92,7 +89,7 @@ const EditBtn = styled.button`
   }
 `;
 
-const DeleteBtn = styled(EditBtn)`
+export const DeleteBtn = styled(EditBtn)`
   color: ${COLOR.secondary};
   background-color: white;
   border: 1px solid ${COLOR.primary};
@@ -103,11 +100,11 @@ const DeleteBtn = styled(EditBtn)`
   }
 `;
 
-const BackStageImage = styled(ArticleImage)`
+export const BackStageImage = styled(ArticleImage)`
   background: ${(props) => `url(${props.$link}) center/cover`};
 `;
 
-const BackStageContainer = styled.div`
+export const BackStageContainer = styled.div`
   color: black;
   display: flex;
   margin: 0 auto;
@@ -135,40 +132,3 @@ const BackStageContainer = styled.div`
     margin-bottom: 20px;
   }
 `;
-
-export function BackStageArticle({ userPost, userImgs, toEditPage, onDelete }) {
-  const onDeletePost = () => {
-    onDelete(userPost.id);
-  };
-
-  return (
-    <BackStageContainer>
-      <ArticleImage>
-        {userImgs.map(
-          (userImg) =>
-            userImg.postId === userPost.id && (
-              <BackStageImage key={userImg.postId} $link={userImg.link} />
-            )
-        )}
-      </ArticleImage>
-      <ArticleContent>
-        <ArticleTitle>{userPost.title}</ArticleTitle>
-        <ArticleBottom>
-          <ArticleTime>
-            {new Date(userPost.visited_time).toLocaleDateString()}
-          </ArticleTime>
-          <BtnContainer>
-            <EditBtn onClick={toEditPage}>編輯</EditBtn>
-            <DeleteBtn onClick={onDeletePost}>刪除</DeleteBtn>
-          </BtnContainer>
-        </ArticleBottom>
-      </ArticleContent>
-    </BackStageContainer>
-  );
-}
-BackStageArticle.propTypes = {
-  userPost: PropTypes.object,
-  userImgs: PropTypes.array,
-  toEditPage: PropTypes.func,
-  onDelete: PropTypes.func,
-};
