@@ -48,14 +48,13 @@ export const Spinner = styled.svg`
 `;
 export const SpinnerRing = styled.circle`
   fill: none;
-  stroke: #000;
+  stroke: #99BC90;
   stroke-width: 4;
   opacity: 0.73;
 `
-
 export const SpinnerLine = styled.circle`
   fill: none;
-  stroke: #0ebeff;
+  stroke: #013320;
   stroke-width: 4;
   opacity: 0.5;
   stroke-linecap: round;
