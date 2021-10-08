@@ -13,6 +13,8 @@ import {
 import { useSelector } from "react-redux";
 import { selectUser } from "../../../redux/reducers/userReducer";
 import { fetchPostsByUserId, fetchDeletePost } from "../../../WebAPI";
+import useLoading from "../../../hooks/useLoading";
+import Loading from "../../../components/Loading/Loading";
 
 export default function BackStagePage() {
   const history = useHistory();
@@ -22,6 +24,7 @@ export default function BackStagePage() {
     history.push("/home");
     return null;
   }
+  const { isLoading, setIsLoading } = useLoading();
   const { userId } = userState.result.data;
   const [posts, setPosts] = useState([]);
   const [userImgs, setUserImgs] = useState([]);
@@ -30,7 +33,9 @@ export default function BackStagePage() {
   const order = "createdAt";
 
   useEffect(() => {
+    setIsLoading(true);
     fetchPostsByUserId(userId, order).then((userPost) => {
+      setIsLoading(false);
       if (!userPost) return console.log(userPost.message);
       const { posts, images } = userPost;
       setPosts(posts);
@@ -72,6 +77,7 @@ export default function BackStagePage() {
   return (
     <Wrapper>
       <Navbar userId={userId} />
+      {isLoading && <Loading />}
       <BackStageWrapper>
         <BackStageTitle>你的文章</BackStageTitle>
         <Filter>

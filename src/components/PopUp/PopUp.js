@@ -1,7 +1,7 @@
 import React from "react";
 import Popup from "reactjs-popup";
-import "reactjs-popup/dist/index.css";
-import MyMap from "../components/Map/map";
+import "./PopUp.css";
+import MyMap from "../Map/map";
 import PropTypes from "prop-types";
 
 function PopUp({ placeHolder, restaurantId, getRestaurantId }) {
