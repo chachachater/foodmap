@@ -23,10 +23,11 @@ function BackStagePage() {
   const history = useHistory();
   const userState = useSelector(selectUser);
   const { isLoading, setIsLoading } = useLoading();
-  let userId = ""
-    useEffect(() => {
-      userId = userState.result.data;
-    }, [])
+  // let userId = ""
+  //   useEffect(() => {
+  //     userId = userState.result.data;
+  //   }, [])
+  const { userId } = userState.result.data;
 
   const { parseResult, setParseResult, parseData } = useParseData();
   const scroll = useScroll();
@@ -47,7 +48,6 @@ function BackStagePage() {
       setPostCounts(result.postCounts);
       setParseResult(parseData(result));
     });
-    console.log(parseResult)
   }, []);
 
   useEffect(() => {
