@@ -6,6 +6,8 @@ import { Wrapper } from "../../../constants/globalStyle";
 import { Navbar } from "../../../components/Navbar";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import PopUp from "../../../components/PopUp";
+import Loading from "../../../components/Loading/Loading";
+
 import {
   EditContainer,
   EditInputs,
@@ -31,6 +33,7 @@ function EditPage() {
   const { id } = useParams();
   const userState = useSelector(selectUser);
   const {
+    isLoading,
     images,
     uploadImages,
     setImages,
@@ -97,6 +100,7 @@ function EditPage() {
   return (
     <Wrapper>
       <Navbar />
+      {isLoading && <Loading />}
       <EditContainer>
         <EditInputs>
           <EditLabel>
