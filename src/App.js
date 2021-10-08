@@ -18,16 +18,15 @@ import EditPage from "./pages/blog/EditPage";
 import { ScrollToTop } from "./utils";
 
 function App() {
-  console.log('mad')
+  console.log("mad");
   const dispatch = useDispatch();
   useEffect(() => {
-    console.log('mad again')
-    dispatch(getMe())
-  }, [])
+    console.log("mad again");
+    dispatch(getMe());
+  }, []);
   return (
     <Router>
       <GlobalStyle />
-      <Loading />
       <ScrollToTop />
       <BackToTopBtn />
       <Switch>
