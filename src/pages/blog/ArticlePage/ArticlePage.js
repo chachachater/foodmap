@@ -24,6 +24,7 @@ import useLoading from "../../../hooks/useLoading"
 function Post({ post, user }) {
   console.log(post);
   if (!post) return null;
+  if (!post.images) return null;
   let arr = [];
   post.images.map((post) => {
     let src = post;

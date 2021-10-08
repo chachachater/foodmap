@@ -75,17 +75,14 @@ function ProfilePage() {
 
   useEffect(() => {
     fetchPostsByUserId(id, 0, filter, unpublished).then((result) => {
-      console.log(result);
       setParseResult(parseData(result));
       setOffset(0);
     });
-    console.log(filter);
   }, [filter]);
 
   useEffect(() => {
     if (offset === 0) return;
     fetchPostsByUserId(id, offset, filter, unpublished).then((result) => {
-      console.log(result);
       setParseResult(parseResult.concat(parseData(result)));
       setIsLoading(false);
     });
@@ -156,7 +153,6 @@ function ProfilePage() {
       <Article
         postsData={parseResult}
         setFilter={setFilter}
-        // setClientHeight={setClientHeight}
       />
     </Wrapper>
   );

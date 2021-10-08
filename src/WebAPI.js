@@ -206,7 +206,6 @@ export function fetchPostByPostId(id, userId) {
     });
 }
 export function fetchUserData(userId) {
-  console.log(userId);
   return fetch(`${baseUrl}/api/user/${userId}`, {
     method: "GET",
     credentials: "include",

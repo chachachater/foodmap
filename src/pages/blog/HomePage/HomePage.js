@@ -25,31 +25,39 @@ function HomePage() {
   const [offset, setOffset] = useState(0);
   const [postCounts, setPostCounts] = useState(0);
   const [inputText, setInputText] = useState("");
-  const [clientHeight, setClientHeight] = useState(
-    document.documentElement.clientHeight
-  );
+  const [clientHeight, setClientHeight] = useState(document.body.clientHeight);
+  const screenHeight = window.screen.availHeight;
 
   useEffect(() => {
     setIsLoading(true)
-    fetchAllPosts(offset).then((results) => {
-      console.log(results);
+    fetchAllPosts(offset).then((result) => {
       setIsLoading(false)
-      if (!results) return;
-      setPostCounts(results.postCounts);
-      setParseResult(parseData(results));
-      setOffset(offset + 5);
+      if (!result) return;
+      setPostCounts(result.postCounts);
+      setParseResult(parseData(result));
     });
   }, []);
 
   useEffect(() => {
-    if (clientHeight >= scroll.y) return;
-    if (postCounts <= offset) return;
-    setOffset(offset + 5);
+    if (offset === 0) return;
     fetchAllPosts(offset).then((result) => {
       setParseResult(parseResult.concat(parseData(result)));
+      setIsLoading(false);
     });
-    setClientHeight(scroll.y + 722);
+  }, [offset]);
+
+  useEffect(() => {
+    if (isLoading) return;
+    if (clientHeight - scroll.y - screenHeight / 2 >= screenHeight / 2) return;
+    if (postCounts > offset) {
+      setIsLoading(true);
+      setOffset(offset + 5);
+    }
   }, [scroll]);
+
+  useEffect(() => {
+    setClientHeight(document.body.clientHeight);
+  }, [parseResult]);
 
   return (
     <Wrapper>

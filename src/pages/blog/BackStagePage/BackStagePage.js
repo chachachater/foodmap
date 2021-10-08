@@ -31,8 +31,6 @@ export default function BackStagePage() {
   const { userId } = userState.result.data;
   const { parseResult, setParseResult, parseData } = useParseData();
   const scroll = useScroll();
-  const [posts, setPosts] = useState([]);
-  const [userImgs, setUserImgs] = useState([]);
   const [unpublished, setUnpublished] = useState("false");
   const [postCounts, setPostCounts] = useState("");
   const [offset, setOffset] = useState(0);
@@ -41,29 +39,19 @@ export default function BackStagePage() {
   const order = "createdAt";
 
   useEffect(() => {
+    if (isLoading) return;
     setIsLoading(true);
     fetchPostsByUserId(userId, offset, order, unpublished).then((result) => {
       setIsLoading(false);
       if (!result) return console.log(result.message);
-
-      // const { posts, images, postCounts } = result;
-
-      // setPosts(posts);
-      // setUserImgs(images);
-      // setPostCounts(postCounts)
       setPostCounts(result.postCounts);
-      //console.log(result);
-      // 這邊等後端改成 left join 會更好處理
       setParseResult(parseData(result));
     });
+    console.log(parseResult)
   }, []);
 
   useEffect(() => {
-    setIsLoading(true);
-    fetchPostsByUserId(userId, offset, order, unpublished).then((result) => {
-      setIsLoading(false);
-      if (!result) return console.log(result.message);
-
+    fetchPostsByUserId(userId, 0, order, unpublished).then((result) => {
       setParseResult(parseData(result));
       setOffset(0);
     });
@@ -72,7 +60,6 @@ export default function BackStagePage() {
   useEffect(() => {
     if (offset === 0) return;
     fetchPostsByUserId(userId, offset, order, unpublished).then((result) => {
-      console.log(result);
       setParseResult(parseResult.concat(parseData(result)));
       setIsLoading(false);
     });
@@ -84,7 +71,6 @@ export default function BackStagePage() {
     if (postCounts > offset) {
       setIsLoading(true);
       setOffset(offset + 5);
-      console.log(offset);
     }
   }, [scroll]);
 
@@ -103,18 +89,9 @@ export default function BackStagePage() {
   };
 
   const handleDelete = (id) => {
+    console.log(id)
     fetchDeletePost(id).then(() => {
-      fetchPostsByUserId(userId, order).then((userPost) => {
-        if (!userPost) {
-          console.log(userPost.message);
-          return;
-        }
-
-        const { posts, images } = userPost;
-
-        setPosts(posts);
-        setUserImgs(images);
-      });
+      // 
     });
   };
 
@@ -143,7 +120,7 @@ export default function BackStagePage() {
             </>
           )}
         </Filter>
-        {parseResult.map((post, index) => (
+        {parseResult && parseResult.map((post, index) => (
           <BackStageArticle
             key={index}
             userPost={post}
