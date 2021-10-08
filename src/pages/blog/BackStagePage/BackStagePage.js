@@ -30,14 +30,15 @@ export default function BackStagePage() {
   const { userId } = userState.result.data;
   const [posts, setPosts] = useState([]);
   const [userImgs, setUserImgs] = useState([]);
-  const [isPublished, setIsPublished] = useState(true);
   const [postState, setPostState] = useState("published");
+  const [unpublished, setUnpublished] = useState("false");
+  const [offset, setOffset] = useState(0);
   const order = "createdAt";
-  const offset = 0;
 
   useEffect(() => {
     setIsLoading(true);
-    fetchPostsByUserId(userId, offset, order).then((result) => {
+    console.log(unpublished);
+    fetchPostsByUserId(userId, offset, order, unpublished).then((result) => {
       setIsLoading(false);
       if (!result) {
         console.log(result.message);
@@ -49,19 +50,37 @@ export default function BackStagePage() {
       setPosts(posts);
       setUserImgs(images);
     });
-  }, [userId]);
+  }, []);
+
+  useEffect(() => {
+    setIsLoading(true);
+    console.log(unpublished);
+    fetchPostsByUserId(userId, offset, order, unpublished).then((result) => {
+      setIsLoading(false);
+      if (!result) {
+        console.log(result.message);
+        return;
+      }
+
+      const { posts, images } = result;
+      //console.log(result)
+      setPosts(posts);
+      setUserImgs(images);
+    });
+  }, [unpublished]);
 
   const handlePublishValue = () => {
     if (postState === "unPublished") {
-      setIsPublished((isPublished) => !isPublished);
+      setUnpublished("false");
     }
     setPostState("published");
   };
 
   const handleUnPublishValue = () => {
     if (postState === "published") {
-      setIsPublished((isPublished) => !isPublished);
+      setUnpublished("true");
     }
+    console.log(unpublished);
     setPostState("unPublished");
   };
 
@@ -89,49 +108,31 @@ export default function BackStagePage() {
       <BackStageWrapper>
         <BackStageTitle>你的文章</BackStageTitle>
         <Filter>
-          {isPublished && (
-            <Publish $active onClick={handlePublishValue}>
-              已公開
-            </Publish>
-          )}
-          {isPublished && (
-            <Private onClick={handleUnPublishValue}>未公開</Private>
-          )}
-          {!isPublished && (
-            <Publish onClick={handlePublishValue}>已公開</Publish>
-          )}
-          {!isPublished && (
-            <Private $active onClick={handleUnPublishValue}>
-              未公開
-            </Private>
+          {unpublished === "true" ? (
+            <>
+              <Publish onClick={handlePublishValue}>已公開</Publish>
+              <Private $active onClick={handleUnPublishValue}>
+                未公開
+              </Private>
+            </>
+          ) : (
+            <>
+              <Publish $active onClick={handlePublishValue}>
+                已公開
+              </Publish>
+              <Private onClick={handleUnPublishValue}>未公開</Private>
+            </>
           )}
         </Filter>
-        {postState === "published" &&
-          posts &&
-          posts
-            .filter((post) => post.is_published === true)
-            .map((post) => (
-              <BackStageArticle
-                key={post.id}
-                userPost={post}
-                userImgs={userImgs}
-                onDelete={handleDelete}
-                toEditPage={toEditPage(post.id)}
-              />
-            ))}
-        {postState === "unPublished" &&
-          posts &&
-          posts
-            .filter((post) => post.is_published === false)
-            .map((post) => (
-              <BackStageArticle
-                key={post.id}
-                userPost={post}
-                userImgs={userImgs}
-                onDelete={handleDelete}
-                toEditPage={toEditPage(post.id)}
-              />
-            ))}
+        {posts.map((post) => (
+          <BackStageArticle
+            key={post.id}
+            userPost={post}
+            userImgs={userImgs}
+            onDelete={handleDelete}
+            toEditPage={toEditPage(post.id)}
+          />
+        ))}
       </BackStageWrapper>
     </Wrapper>
   );

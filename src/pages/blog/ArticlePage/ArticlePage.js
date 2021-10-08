@@ -60,8 +60,8 @@ function ArticlePage() {
   const [post, setPost] = useState();
   const [user, setUser] = useState();
   const { isLoading, setIsLoading } = useLoading()
+  
   useEffect(() => {
-
     if (userState.result) {
       setUserId(userState.result.data.userId);
     }

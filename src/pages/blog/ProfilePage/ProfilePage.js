@@ -56,6 +56,9 @@ function ProfilePage() {
     (document.documentElement.clientHeight) * 2
   );
 
+  const a = "false";
+
+
   useEffect(() => {
     setIsLoading(true);
     fetchUserData(id).then((result) => {
@@ -65,7 +68,7 @@ function ProfilePage() {
       if (result.data.picture_url) setDefaultAvatar(result.data.picture_url);
       setIsLoading(false);
     });
-    fetchPostsByUserId(id, offset, filter).then((result) => {
+    fetchPostsByUserId(id, offset, filter, a).then((result) => {
       setPostCounts(result.postCounts);
       //console.log(result);
       // 這邊等後端改成 left join 會更好處理
@@ -73,33 +76,36 @@ function ProfilePage() {
     });
   }, []);
 
-  useEffect(async () => {
-    setOffset(0)
-    fetchPostsByUserId(id, offset, filter).then((result) => {
-      console.log(result);
-      setParseResult(parseData(result));
-      //setParseResult(parseResult.concat(parseData(result)));
-    });
+  // useEffect(async () => {
+  //   setOffset(0)
+  //   //setParseResult({});
+  //   // fetchPostsByUserId(id, offset, filter).then((result) => {
+  //   //   console.log(result);
+  //   //   setParseResult(parseData(result));
+  //   //   //setParseResult(parseResult.concat(parseData(result)));
+  //   // });
 
-    console.log(filter);
-  }, [filter]);
+  //   // console.log(filter);
+  // }, [filter]);
 
-  useEffect(async () => {
-    console.log(clientHeight)
-    //console.log(scroll.y)
-    if (clientHeight >= scroll.y) return;
-
+  useEffect(() => {
+    if (clientHeight - scroll.y >= document.body.clientHeight / 4) return;
     if (postCounts <= offset) return;
 
-    setOffset(offset + 5);
+    console.log(clientHeight)
+    console.log(document.body.clientHeight)
 
-    fetchPostsByUserId(id, offset, filter).then((result) => {
+    setOffset(offset + 5);
+  }, [scroll]);
+
+   useEffect(() => {
+    fetchPostsByUserId(id, offset, filter, a).then((result) => {
       console.log(result);
       setParseResult(parseResult.concat(parseData(result)));
     });
-    console.log(scroll);
+   
     setClientHeight(scroll.y + 722);
-  }, [scroll]);
+  }, [offset]);
 
   return (
     <Wrapper>
