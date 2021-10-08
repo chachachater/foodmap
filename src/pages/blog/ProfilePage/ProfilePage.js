@@ -29,7 +29,6 @@ import useScroll from "../../../hooks/useScroll";
 import useLoading from "../../../hooks/useLoading";
 import Loading from "../../../components/Loading/Loading";
 
-
 function ProfilePage() {
   const { id } = useParams();
   const { isLoading, setIsLoading } = useLoading();
@@ -52,19 +51,16 @@ function ProfilePage() {
   const [postCounts, setPostCounts] = useState("");
   const [filter, setFilter] = useState("createdAt");
   const [offset, setOffset] = useState(0);
-  const [clientHeight, setClientHeight] = useState(
-    (document.documentElement.clientHeight) * 2
-  );
-
-  const a = "false";
-
-
+  const [clientHeight, setClientHeight] = useState(document.body.clientHeight);
+  const screenHeight = window.screen.availHeight;
+  
   useEffect(() => {
+    if (isLoading) return;
     setIsLoading(true);
     fetchUserData(id).then((result) => {
-      //console.log(result);
       setNickname(result.data.nickname);
-      if (result.data.background_pic_url) setDefaultBanner(result.data.background_pic_url);
+      if (result.data.background_pic_url)
+        setDefaultBanner(result.data.background_pic_url);
       if (result.data.picture_url) setDefaultAvatar(result.data.picture_url);
       setIsLoading(false);
     });
@@ -76,37 +72,35 @@ function ProfilePage() {
     });
   }, []);
 
-  // useEffect(async () => {
-  //   setOffset(0)
-  //   //setParseResult({});
-  //   // fetchPostsByUserId(id, offset, filter).then((result) => {
-  //   //   console.log(result);
-  //   //   setParseResult(parseData(result));
-  //   //   //setParseResult(parseResult.concat(parseData(result)));
-  //   // });
-
-  //   // console.log(filter);
-  // }, [filter]);
-
+  useEffect(async () => {
+    fetchPostsByUserId(id, 0, filter).then((result) => {
+      console.log(result);
+      setParseResult(parseData(result));
+      //setParseResult(parseResult.concat(parseData(result)));
+      setOffset(0);
+    });
+    console.log(filter);
+  }, [filter]);
   useEffect(() => {
-    if (clientHeight - scroll.y >= document.body.clientHeight / 4) return;
-    if (postCounts <= offset) return;
-
-    console.log(clientHeight)
-    console.log(document.body.clientHeight)
-
-    setOffset(offset + 5);
-  }, [scroll]);
-
-   useEffect(() => {
-    fetchPostsByUserId(id, offset, filter, a).then((result) => {
+    if (offset === 0) return;
+    fetchPostsByUserId(id, offset, filter).then((result) => {
       console.log(result);
       setParseResult(parseResult.concat(parseData(result)));
+      setIsLoading(false);
     });
-   
-    setClientHeight(scroll.y + 722);
   }, [offset]);
+  useEffect(async () => {
+    if (isLoading) return;
+    if (clientHeight - scroll.y - screenHeight / 2 >= screenHeight / 2) return;
+    if (postCounts > offset) {
+      setIsLoading(true);
+      setOffset(offset + 5);
+    }
+  }, [scroll]);
 
+  useEffect(() => {
+    setClientHeight(document.body.clientHeight);
+  }, [parseResult]);
   return (
     <Wrapper>
       <Navbar />
@@ -156,7 +150,11 @@ function ProfilePage() {
           <ArticleCounter>共有 {postCounts} 篇食記</ArticleCounter>
         </InfoContainer>
       </ProfileContainer>
-      <Article postsData={parseResult} setFilter={setFilter} setClientHeight={setClientHeight} />
+      <Article
+        postsData={parseResult}
+        setFilter={setFilter}
+        // setClientHeight={setClientHeight}
+      />
     </Wrapper>
   );
 }
