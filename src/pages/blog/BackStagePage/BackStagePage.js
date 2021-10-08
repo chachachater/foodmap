@@ -14,20 +14,18 @@ import BackStageArticle from "./BackStagArticle";
 import { useSelector } from "react-redux";
 import { selectUser } from "../../../redux/reducers/userReducer";
 import { fetchPostsByUserId, fetchDeletePost } from "../../../WebAPI";
-import useScroll from "../../../hooks/useScroll";
 import useLoading from "../../../hooks/useLoading";
 import Loading from "../../../components/Loading/Loading";
 
 export default function BackStagePage() {
   const history = useHistory();
   const userState = useSelector(selectUser);
-  if (!userState.result) {
-    alert("Please login");
-    history.push("/home");
-    return null;
-  }
   const { isLoading, setIsLoading } = useLoading();
-  const { userId } = userState.result.data;
+  let userId = ""
+  useEffect(() => {
+    userId = userState.result.data;
+  }, [])
+
   const [posts, setPosts] = useState([]);
   const [userImgs, setUserImgs] = useState([]);
   const [isPublished, setIsPublished] = useState(true);
@@ -43,9 +41,7 @@ export default function BackStagePage() {
         console.log(result.message);
         return;
       }
-
       const { posts, images } = result;
-      //console.log(result)
       setPosts(posts);
       setUserImgs(images);
     });

@@ -23,6 +23,7 @@ export const Background = styled.div`
   background: #313131;
 `
 export const Title = styled.div`
+  z-index: 10;
   position: absolute;
   left: 50%;
   top: 50%;
@@ -37,6 +38,8 @@ export const Title = styled.div`
   }
 `;
 export const Spinner = styled.svg`
+  z-index: 9;
+  background-color: white;
   position: absolute;
   left: 50%;
   top: 50%;
