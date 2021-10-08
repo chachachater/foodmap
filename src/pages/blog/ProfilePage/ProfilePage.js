@@ -57,6 +57,7 @@ function ProfilePage() {
     if (isLoading) return;
     setIsLoading(true);
     fetchUserData(id).then((result) => {
+      if (!result.ok) return;
       setNickname(result.data.nickname);
       if (result.data.background_pic_url)
         setDefaultBanner(result.data.background_pic_url);
@@ -69,7 +70,7 @@ function ProfilePage() {
       // 這邊等後端改成 left join 會更好處理
       setParseResult(parseData(result));
     });
-  }, []);
+  }, [id]);
 
   useEffect(async () => {
     fetchPostsByUserId(id, 0, filter).then((result) => {
