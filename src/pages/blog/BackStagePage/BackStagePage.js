@@ -15,6 +15,7 @@ import { useSelector } from "react-redux";
 import { selectUser } from "../../../redux/reducers/userReducer";
 import { fetchPostsByUserId, fetchDeletePost } from "../../../WebAPI";
 import useScroll from "../../../hooks/useScroll";
+import useParseData from "../../../hooks/useParseData";
 import useLoading from "../../../hooks/useLoading";
 import Loading from "../../../components/Loading/Loading";
 
@@ -28,60 +29,77 @@ export default function BackStagePage() {
   }
   const { isLoading, setIsLoading } = useLoading();
   const { userId } = userState.result.data;
+  const { parseResult, setParseResult, parseData } = useParseData();
+  const scroll = useScroll();
   const [posts, setPosts] = useState([]);
   const [userImgs, setUserImgs] = useState([]);
-  const [postState, setPostState] = useState("published");
   const [unpublished, setUnpublished] = useState("false");
+  const [postCounts, setPostCounts] = useState("");
   const [offset, setOffset] = useState(0);
+  const [clientHeight, setClientHeight] = useState(document.body.clientHeight);
+  const screenHeight = window.screen.availHeight;
   const order = "createdAt";
 
   useEffect(() => {
     setIsLoading(true);
-    console.log(unpublished);
     fetchPostsByUserId(userId, offset, order, unpublished).then((result) => {
       setIsLoading(false);
-      if (!result) {
-        console.log(result.message);
-        return;
-      }
+      if (!result) return console.log(result.message);
 
-      const { posts, images } = result;
-      //console.log(result)
-      setPosts(posts);
-      setUserImgs(images);
+      // const { posts, images, postCounts } = result;
+
+      // setPosts(posts);
+      // setUserImgs(images);
+      // setPostCounts(postCounts)
+      setPostCounts(result.postCounts);
+      //console.log(result);
+      // 這邊等後端改成 left join 會更好處理
+      setParseResult(parseData(result));
     });
   }, []);
 
   useEffect(() => {
     setIsLoading(true);
-    console.log(unpublished);
     fetchPostsByUserId(userId, offset, order, unpublished).then((result) => {
       setIsLoading(false);
-      if (!result) {
-        console.log(result.message);
-        return;
-      }
+      if (!result) return console.log(result.message);
 
-      const { posts, images } = result;
-      //console.log(result)
-      setPosts(posts);
-      setUserImgs(images);
+      setParseResult(parseData(result));
+      setOffset(0);
     });
   }, [unpublished]);
 
-  const handlePublishValue = () => {
-    if (postState === "unPublished") {
-      setUnpublished("false");
+  useEffect(() => {
+    if (offset === 0) return;
+    fetchPostsByUserId(userId, offset, order, unpublished).then((result) => {
+      console.log(result);
+      setParseResult(parseResult.concat(parseData(result)));
+      setIsLoading(false);
+    });
+  }, [offset]);
+
+  useEffect(() => {
+    if (isLoading) return;
+    if (clientHeight - scroll.y - screenHeight / 2 >= screenHeight / 2) return;
+    if (postCounts > offset) {
+      setIsLoading(true);
+      setOffset(offset + 5);
+      console.log(offset);
     }
-    setPostState("published");
+  }, [scroll]);
+
+  useEffect(() => {
+    setClientHeight(document.body.clientHeight);
+  }, [parseResult]);
+
+  const handlePublishValue = () => {
+    if (unpublished === "false") return;
+    setUnpublished("false");
   };
 
   const handleUnPublishValue = () => {
-    if (postState === "published") {
-      setUnpublished("true");
-    }
-    console.log(unpublished);
-    setPostState("unPublished");
+    if (unpublished === "true") return;
+    setUnpublished("true");
   };
 
   const handleDelete = (id) => {
@@ -99,6 +117,7 @@ export default function BackStagePage() {
       });
     });
   };
+
   const toEditPage = (id) => () => history.push(`/edit/${id}`);
 
   return (
@@ -124,11 +143,11 @@ export default function BackStagePage() {
             </>
           )}
         </Filter>
-        {posts.map((post) => (
+        {parseResult.map((post, index) => (
           <BackStageArticle
-            key={post.id}
+            key={index}
             userPost={post}
-            userImgs={userImgs}
+            image={post.Pictures[0].food_picture_url}
             onDelete={handleDelete}
             toEditPage={toEditPage(post.id)}
           />
