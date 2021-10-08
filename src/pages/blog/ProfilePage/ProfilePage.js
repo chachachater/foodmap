@@ -25,6 +25,7 @@ import { fetchUserData, fetchPostsByUserId } from "../../../WebAPI";
 import useEditUserData from "../../../hooks/useEditUserData";
 import useConfirmUser from "../../../hooks/useConfirmUser";
 import useParseData from "../../../hooks/useParseData";
+import useScroll from "../../../hooks/useScroll";
 
 function ProfilePage() {
   const { id } = useParams();
@@ -41,34 +42,59 @@ function ProfilePage() {
     handleSubmit,
   } = useEditUserData();
   const { parseResult, setParseResult, parseData } = useParseData();
+  const scroll = useScroll();
   const [defaultBanner, setDefaultBanner] = useState("");
   const [defaultAvatar, setDefaultAvatar] = useState("");
   const [postCounts, setPostCounts] = useState("");
   const [filter, setFilter] = useState("createdAt");
+  const [offset, setOffset] = useState(0);
+  const [clientHeight, setClientHeight] = useState(
+    (document.documentElement.clientHeight) * 2
+  );
 
   useEffect(() => {
     fetchUserData(id).then((result) => {
-      console.log(result);
+      //console.log(result);
       setNickname(result.data.nickname);
       if (result.data.background_pic_url)
         setDefaultBanner(result.data.background_pic_url);
       if (result.data.picture_url) setDefaultAvatar(result.data.picture_url);
     });
-    fetchPostsByUserId(id, filter).then((result) => {
+    fetchPostsByUserId(id, offset, filter).then((result) => {
       setPostCounts(result.postCounts);
-      console.log(result);
+      //console.log(result);
       // 這邊等後端改成 left join 會更好處理
       setParseResult(parseData(result));
     });
   }, []);
 
   useEffect(async () => {
-    fetchPostsByUserId(id, filter).then((result) => {
+    setOffset(0)
+    fetchPostsByUserId(id, offset, filter).then((result) => {
       console.log(result);
-      // 這邊等後端改成 left join 會更好處理
       setParseResult(parseData(result));
+      //setParseResult(parseResult.concat(parseData(result)));
     });
+
+    console.log(filter);
   }, [filter]);
+
+  useEffect(async () => {
+    console.log(clientHeight)
+    //console.log(scroll.y)
+    if (clientHeight >= scroll.y) return;
+
+    if (postCounts <= offset) return;
+
+    setOffset(offset + 5);
+
+    fetchPostsByUserId(id, offset, filter).then((result) => {
+      console.log(result);
+      setParseResult(parseResult.concat(parseData(result)));
+    });
+    console.log(scroll);
+    setClientHeight(scroll.y + 722);
+  }, [scroll]);
 
   return (
     <Wrapper>
@@ -118,7 +144,7 @@ function ProfilePage() {
           <ArticleCounter>共有 {postCounts} 篇食記</ArticleCounter>
         </InfoContainer>
       </ProfileContainer>
-      <Article postsData={parseResult} setFilter={setFilter} />
+      <Article postsData={parseResult} setFilter={setFilter} setClientHeight={setClientHeight} />
     </Wrapper>
   );
 }

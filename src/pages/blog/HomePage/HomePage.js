@@ -7,7 +7,7 @@ import {
   BannerBg,
   BannerInfo,
   BannerText,
-  HomeTiltle,
+  HomeTitle,
   LoadMore,
 } from "./HomePageStyle";
 import Search from "../../../components/Search";
@@ -58,7 +58,7 @@ function HomePage() {
           <Search text="搜尋餐廳" />
         </BannerInfo>
       </HomeBanner>
-      <HomeTiltle>最新文章</HomeTiltle>
+      <HomeTitle>最新文章</HomeTitle>
       <UserAllArticle>
         <ArticleInfo postsData={parseResult} />
       </UserAllArticle>

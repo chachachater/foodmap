@@ -20,7 +20,7 @@ import { fetchPostByPostId, fetchUserData } from "../../../WebAPI";
 import { useParams } from "react-router-dom";
 
 function Post({ post, user }) {
-  console.log(post)
+  console.log(post);
   if (!post) return null;
   let arr = [];
   post.images.map((post) => {
@@ -54,17 +54,22 @@ Post.propTypes = {
 function ArticlePage() {
   const userState = useSelector(selectUser);
   const { id } = useParams();
+  const [userId, setUserId] = useState();
   const [post, setPost] = useState();
   const [user, setUser] = useState();
 
   useEffect(() => {
-    fetchPostByPostId(id, userState.result.data.userId).then((post) => {
+    if (userState.result) {
+      setUserId(userState.result.data.userId);
+    }
+
+    fetchPostByPostId(id, userId).then((post) => {
       if (!post) {
         console.log(post.message);
         return;
       }
       setPost(post);
-      const userId = post.post.user_id
+      const userId = post.post.user_id;
 
       fetchUserData(userId).then((user) => {
         if (!user) {

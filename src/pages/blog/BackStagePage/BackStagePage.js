@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { Navbar } from "../../../components/Navbar";
 import { useHistory } from "react-router-dom";
 import { Wrapper } from "../../../constants/globalStyle";
@@ -8,11 +9,12 @@ import {
   Filter,
   Publish,
   Private,
-  BackStageArticle,
 } from "./BackStagStyled";
+import BackStageArticle from "./BackStagArticle";
 import { useSelector } from "react-redux";
 import { selectUser } from "../../../redux/reducers/userReducer";
 import { fetchPostsByUserId, fetchDeletePost } from "../../../WebAPI";
+import useScroll from "../../../hooks/useScroll";
 
 export default function BackStagePage() {
   const history = useHistory();
@@ -23,16 +25,18 @@ export default function BackStagePage() {
   const [isPublished, setIsPublished] = useState(true);
   const [postState, setPostState] = useState("published");
   const order = "createdAt";
+  const offset = 0;
 
   useEffect(() => {
-    fetchPostsByUserId(userId, order).then((userPost) => {
-      if (!userPost) {
-        console.log(userPost.message);
+    fetchPostsByUserId(userId, offset, order).then((result) => {
+      if (!result) {
+        console.log(result.message);
         return;
       }
 
-      const { posts, images } = userPost;
-
+      const { posts, images } = result;
+      //console.log(result)
+    
       setPosts(posts);
       setUserImgs(images);
     });
@@ -68,7 +72,7 @@ export default function BackStagePage() {
     });
   };
   const toEditPage = (id) => () => history.push(`/edit/${id}`);
-  console.log(userImgs);
+  
   return (
     <Wrapper>
       <Navbar userId={userId} />

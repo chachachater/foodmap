@@ -166,9 +166,9 @@ export function fetchEditPost(postData, postId) {
       console.log(err);
     });
 }
-export function fetchPostsByUserId(userId, order) {
+export function fetchPostsByUserId(userId, offset, order) {
   return fetch(
-    `${baseUrl}/api/post/user/${userId}?limit=10&offset=0&order=${order}`,
+    `${baseUrl}/api/post/user/${userId}?limit=5&offset=${offset}&order=${order}`,
     {
       method: "GET",
       credentials: "include",
