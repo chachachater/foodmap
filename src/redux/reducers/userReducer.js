@@ -12,13 +12,11 @@ const initialState = {
 };
 
 export const getMe = () => (dispatch) => {
-  return dispatch(setMe({ok: 1, data: { userId: 1, userNickname: '123', userLevel: 1 }}));
-
-  // fetchLoginStatus().then((result) => {
-  //   console.log(result);
-  //   if (!result.ok) return dispatch(setMe(""));
-  //   // return dispatch(setMe(result));
-  // });
+  fetchLoginStatus().then((result) => {
+    console.log(result);
+    if (!result.ok) return dispatch(setMe(""));
+    return dispatch(setMe(result));
+  });
 };
 
 export const registerAsync = createAsyncThunk(

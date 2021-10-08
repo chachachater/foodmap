@@ -49,10 +49,12 @@ export const SearchBoxContainer = styled.div`
   height: 25px;
 `;
 const AutocompleteList = styled.div`
+  font-size: 16px;
   position: absolute;
   top: 20px;
 `;
 export const Input = styled.input`
+  font-size: 16px;
   width: 100%;
   height: 100%;
   background: transparent;
