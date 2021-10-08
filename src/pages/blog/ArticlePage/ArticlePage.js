@@ -23,6 +23,7 @@ import useLoading from "../../../hooks/useLoading"
 
 function Post({ post, user }) {
   console.log(post);
+  console.log(user);
   if (!post) return null;
   let arr = [];
   post.images.map((post) => {
@@ -36,7 +37,7 @@ function Post({ post, user }) {
       <PostContainer>
         <PostAuthor>
           <AuthorImg $img={user && user.picture_url}></AuthorImg>
-          <AuthorName>{user && user.nickname}</AuthorName>
+          <AuthorName to={`/user/${post.post.user_id}`}>{user && user.nickname}</AuthorName>
         </PostAuthor>
         <PostTitle>{post.post && post.post.title}</PostTitle>
         <PostContent>{post.post && reactElement}</PostContent>
