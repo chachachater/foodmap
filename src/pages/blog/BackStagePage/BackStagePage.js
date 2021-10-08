@@ -19,22 +19,22 @@ import useParseData from "../../../hooks/useParseData";
 import useLoading from "../../../hooks/useLoading";
 import Loading from "../../../components/Loading/Loading";
 
-export default function BackStagePage() {
+function BackStagePage() {
   const history = useHistory();
   const userState = useSelector(selectUser);
-  if (!userState.result) {
-    alert("Please login");
-    history.push("/home");
-    return null;
-  }
   const { isLoading, setIsLoading } = useLoading();
-  const { userId } = userState.result.data;
+  let userId = ""
+    useEffect(() => {
+      userId = userState.result.data;
+    }, [])
+
   const { parseResult, setParseResult, parseData } = useParseData();
   const scroll = useScroll();
   const [unpublished, setUnpublished] = useState("false");
   const [postCounts, setPostCounts] = useState("");
   const [offset, setOffset] = useState(0);
   const [clientHeight, setClientHeight] = useState(document.body.clientHeight);
+  
   const screenHeight = window.screen.availHeight;
   const order = "createdAt";
 
@@ -133,3 +133,5 @@ export default function BackStagePage() {
     </Wrapper>
   );
 }
+
+export default BackStagePage;

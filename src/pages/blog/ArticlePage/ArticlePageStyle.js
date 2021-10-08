@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { COLOR, FONT, MEDIA_QUERY } from "../../../constants/style";
 import AvatarImg from "../../../components/pictures/avatar.png";
+import { Link } from "react-router-dom";
 
 export const PostWrapper = styled.div`
   padding: 0 24px;
@@ -37,7 +38,7 @@ export const AuthorImg = styled.div`
   background: ${(props) => (props.$img ? `url(${props.$img}) center/cover` : `url(${AvatarImg}) center/cover`)};
 `;
 
-export const AuthorName = styled.p`
+export const AuthorName = styled(Link)`
   color: ${COLOR.primary};
   font-size: ${FONT.h3};
   font-weight: 600;

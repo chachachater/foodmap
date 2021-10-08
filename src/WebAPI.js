@@ -6,12 +6,13 @@ export function fetchLoginStatus() {
     credentials: "include",
     headers: {
       "content-type": "application/json",
-    }
+    },
   })
     .then((res) => res.json())
     .catch((err) => {
       alert("操作失敗，發生錯誤");
       console.log(err);
+      return { ok: 0 };
     });
 }
 
@@ -214,6 +215,7 @@ export function fetchUserData(userId) {
     .catch((err) => {
       alert("操作失敗，發生錯誤");
       console.log(err);
+      return { ok: 0 };
     });
 }
 
