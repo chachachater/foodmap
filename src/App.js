@@ -27,6 +27,7 @@ function App() {
   return (
     <Router>
       <GlobalStyle />
+      <Loading />
       <ScrollToTop />
       <BackToTopBtn />
       <Switch>
