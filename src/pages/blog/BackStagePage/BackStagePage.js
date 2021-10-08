@@ -15,10 +15,18 @@ import { useSelector } from "react-redux";
 import { selectUser } from "../../../redux/reducers/userReducer";
 import { fetchPostsByUserId, fetchDeletePost } from "../../../WebAPI";
 import useScroll from "../../../hooks/useScroll";
+import useLoading from "../../../hooks/useLoading";
+import Loading from "../../../components/Loading/Loading";
 
 export default function BackStagePage() {
   const history = useHistory();
   const userState = useSelector(selectUser);
+  if (!userState.result) {
+    alert("Please login");
+    history.push("/home");
+    return null;
+  }
+  const { isLoading, setIsLoading } = useLoading();
   const { userId } = userState.result.data;
   const [posts, setPosts] = useState([]);
   const [userImgs, setUserImgs] = useState([]);
@@ -28,7 +36,9 @@ export default function BackStagePage() {
   const offset = 0;
 
   useEffect(() => {
+    setIsLoading(true);
     fetchPostsByUserId(userId, offset, order).then((result) => {
+      setIsLoading(false);
       if (!result) {
         console.log(result.message);
         return;
@@ -36,7 +46,6 @@ export default function BackStagePage() {
 
       const { posts, images } = result;
       //console.log(result)
-    
       setPosts(posts);
       setUserImgs(images);
     });
@@ -72,10 +81,11 @@ export default function BackStagePage() {
     });
   };
   const toEditPage = (id) => () => history.push(`/edit/${id}`);
-  
+
   return (
     <Wrapper>
       <Navbar userId={userId} />
+      {isLoading && <Loading />}
       <BackStageWrapper>
         <BackStageTitle>你的文章</BackStageTitle>
         <Filter>

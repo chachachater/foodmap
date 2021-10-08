@@ -26,9 +26,13 @@ import useEditUserData from "../../../hooks/useEditUserData";
 import useConfirmUser from "../../../hooks/useConfirmUser";
 import useParseData from "../../../hooks/useParseData";
 import useScroll from "../../../hooks/useScroll";
+import useLoading from "../../../hooks/useLoading";
+import Loading from "../../../components/Loading/Loading";
+
 
 function ProfilePage() {
   const { id } = useParams();
+  const { isLoading, setIsLoading } = useLoading();
   let confirmUser = useConfirmUser(id);
   const {
     avatar,
@@ -53,12 +57,13 @@ function ProfilePage() {
   );
 
   useEffect(() => {
+    setIsLoading(true);
     fetchUserData(id).then((result) => {
       //console.log(result);
       setNickname(result.data.nickname);
-      if (result.data.background_pic_url)
-        setDefaultBanner(result.data.background_pic_url);
+      if (result.data.background_pic_url) setDefaultBanner(result.data.background_pic_url);
       if (result.data.picture_url) setDefaultAvatar(result.data.picture_url);
+      setIsLoading(false);
     });
     fetchPostsByUserId(id, offset, filter).then((result) => {
       setPostCounts(result.postCounts);
@@ -99,6 +104,7 @@ function ProfilePage() {
   return (
     <Wrapper>
       <Navbar />
+      {isLoading && <Loading />}
       <ProfileContainer>
         <Banner banner={banner ? banner : defaultBanner}>
           {confirmUser && (

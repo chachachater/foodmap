@@ -1,9 +1,7 @@
-/* eslint-disable */
-import React from "react";
+import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { setMe } from "./redux/reducers/userReducer";
+import { getMe } from "./redux/reducers/userReducer";
 import { HashRouter as Router, Switch, Route, Link } from "react-router-dom";
-import Cookies from 'universal-cookie';
 import { GlobalStyle } from "./constants/globalStyle";
 import BackToTopBtn from "./components/BackToTop";
 import Footer from "./components/Footer";
@@ -11,19 +9,27 @@ import HomePage from "./pages/blog/HomePage";
 import ProfilePage from "./pages/blog/ProfilePage";
 import RegisterPage from "./pages/user/RegisterPage";
 import LoginPage from "./pages/user/LoginPage";
+<<<<<<< HEAD
 import AdminPage from "./pages/administrator/AdminPage";
+=======
+import AdminPage from "./pages/administrator/administrator";
+>>>>>>> 88cb0a352a2199ec39999586b1eeac776abd39dd
 import BackStagePage from "./pages/blog/BackStagePage";
 import ArticlePage from "./pages/blog/ArticlePage";
 import SearchPage from "./pages/blog/SearchPage";
 import NearbyPage from "./pages/blog/NearbyPage";
 import EditPage from "./pages/blog/EditPage";
+<<<<<<< HEAD
 import { ScrollToTop } from "./utils";
 
+=======
+import { ScrollToTop } from "./constants/units";
+>>>>>>> 88cb0a352a2199ec39999586b1eeac776abd39dd
 function App() {
   const dispatch = useDispatch();
-  const cookies = new Cookies();
-  const getMe = cookies.get('getMe')
-  if (getMe) dispatch(setMe({ data: getMe }))
+  useEffect(() => {
+    dispatch(getMe())
+  }, [])
   return (
     <Router>
       <GlobalStyle />

@@ -43,4 +43,4 @@ export const LoadMore = styled.div`
   color: ${COLOR.primary};
   font-size: ${FONT.h4};
   font-weight: 600;
-`
+`;

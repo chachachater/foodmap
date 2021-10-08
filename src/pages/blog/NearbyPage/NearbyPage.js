@@ -10,8 +10,9 @@ import {
   Map,
   Luck,
   LuckButton,
-  Marker,
   MarginContainer,
+  MyPosition,
+  NearbyMarker,
 } from "./NearbyPageStyle";
 import ImageViewer from "../../../components/ImageViewer";
 import GoogleMapReact from "google-map-react";
@@ -20,20 +21,7 @@ import PropTypes from "prop-types";
 import Search from "../../../components/Search";
 
 const mapApiKey = process.env.REACT_APP_MAP_KEY;
-const MyPosition = ({ text }) => {
-  return (
-    <div>
-      <img
-        alt={"current position"}
-        style={{ height: "35px", width: "35px", background: "transparent" }}
-        src={
-          "https://icon-library.com/images/my-location-icon/my-location-icon-29.jpg"
-        }
-      />
-      <div style={{ display: "flex" }}>{text}</div>
-    </div>
-  );
-};
+
 function NearbyPage(props) {
   const [mapApiLoaded, setMapApiLoaded] = useState(false);
   const [mapInstance, setMapInstance] = useState(null);
@@ -78,9 +66,6 @@ function NearbyPage(props) {
       handleAutocomplete(inputText);
     }, 800);
   }, [handleAutocomplete]);
-  useEffect(() => {
-    handleDebounce(inputText);
-  }, [inputText, handleDebounce, handleAutocomplete]);
 
   const nearbySearch = () => {
     if (mapApiLoaded) {
@@ -100,11 +85,17 @@ function NearbyPage(props) {
     }
   };
   useEffect(() => {
+    handleDebounce(inputText);
+  }, [inputText, handleDebounce, handleAutocomplete]);
+
+  useEffect(() => {
     nearbySearch();
   }, [myPosition, nearbySearch]);
+
   useEffect(() => {
     if (!focused) setRestaurantList([]);
   }, [focused]);
+
   function searchRestaurantById(placeId, name) {
     if (mapApiLoaded) {
       const service = new mapApi.places.PlacesService(mapInstance);
@@ -204,7 +195,7 @@ function NearbyPage(props) {
               text="My Position"
             />
             {places.map((item, index) => (
-              <Marker
+              <NearbyMarker
                 key={index}
                 lat={item.geometry.location.lat()}
                 lng={item.geometry.location.lng()}
@@ -246,7 +237,7 @@ NearbyPage.propTypes = {
 MyPosition.propTypes = {
   text: PropTypes.string,
 };
-Marker.propTypes = {
+NearbyMarker.propTypes = {
   text: PropTypes.string,
   handleMarkerClickedAndSearch: PropTypes.func,
   placeId: PropTypes.string,

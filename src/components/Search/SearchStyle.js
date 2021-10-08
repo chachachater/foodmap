@@ -39,7 +39,7 @@ export const ButtonImg = styled.div`
   width: 25px;
   height: 25px;
 `;
-const SearchBoxContainer = styled.div`
+export const SearchBoxContainer = styled.div`
   width: 80%;
   display: flex;
   flex-direction: column;
@@ -49,12 +49,15 @@ const SearchBoxContainer = styled.div`
   height: 25px;
 `;
 const AutocompleteList = styled.div`
+  font-size: 16px;
   position: absolute;
   top: 20px;
 `;
-const Input = styled.input`
+export const Input = styled.input`
+  font-size: 16px;
   width: 100%;
   height: 100%;
+  background: transparent;
 `;
 export const SearchBox = ({
   text,

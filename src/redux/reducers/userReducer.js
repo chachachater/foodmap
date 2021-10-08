@@ -1,14 +1,22 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import {
+  fetchLoginStatus,
   fetchRegister,
   fetchLogin,
-  fetchSuccess,
   fetchLogout,
 } from "../../WebAPI";
 
 const initialState = {
   result: "",
   status: "idle",
+};
+
+export const getMe = () => (dispatch) => {
+  fetchLoginStatus().then((result) => {
+    console.log(result);
+    if (!result.ok) return dispatch(setMe(""));
+    return dispatch(setMe(result));
+  });
 };
 
 export const registerAsync = createAsyncThunk(
@@ -26,12 +34,6 @@ export const loginAsync = createAsyncThunk("user/login", async (userData) => {
   return result;
 });
 
-export const successAsync = createAsyncThunk("user/success", async () => {
-  let result = "";
-  result = await fetchSuccess();
-  return result;
-});
-
 export const logoutAsync = createAsyncThunk("user/logout", async () => {
   await fetchLogout();
   return "";
@@ -42,8 +44,9 @@ export const userSlice = createSlice({
   initialState,
   reducers: {
     setMe: (state, action) => {
-      state.result = action.payload
-    }
+      console.log(action);
+      state.result = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -68,13 +71,6 @@ export const userSlice = createSlice({
         state.status = "idle";
         state.result = action.payload;
       })
-      .addCase(successAsync.pending, (state) => {
-        state.status = "loading";
-      })
-      .addCase(successAsync.fulfilled, (state, action) => {
-        state.status = "idle";
-        state.result = action.payload;
-      });
   },
 });
 

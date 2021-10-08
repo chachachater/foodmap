@@ -18,6 +18,8 @@ import {
 import ImageViewer from "../../../components/ImageViewer";
 import { fetchPostByPostId, fetchUserData } from "../../../WebAPI";
 import { useParams } from "react-router-dom";
+import Loading from "../../../components/Loading/Loading";
+import useLoading from "../../../hooks/useLoading"
 
 function Post({ post, user }) {
   console.log(post);
@@ -57,13 +59,16 @@ function ArticlePage() {
   const [userId, setUserId] = useState();
   const [post, setPost] = useState();
   const [user, setUser] = useState();
-
+  const { isLoading, setIsLoading } = useLoading()
   useEffect(() => {
+
     if (userState.result) {
       setUserId(userState.result.data.userId);
     }
-
+    setIsLoading(true)
     fetchPostByPostId(id, userId).then((post) => {
+      setIsLoading(false)
+
       if (!post) {
         console.log(post.message);
         return;
@@ -84,6 +89,7 @@ function ArticlePage() {
   return (
     <Wrapper>
       <Navbar />
+      {isLoading && <Loading />}
       <Post post={post} user={user} />
     </Wrapper>
   );
