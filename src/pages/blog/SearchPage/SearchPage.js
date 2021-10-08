@@ -6,6 +6,7 @@ import { Article } from "../../../components/Article";
 import ImageViewer from "../../../components/ImageViewer";
 import PropTypes from "prop-types";
 import GoogleMapReact from "google-map-react";
+import { useLocation } from "react-router-dom";
 import _ from "lodash";
 import { fetchPostsAndPicturesByPlaceId } from "../../../WebAPI";
 import {
@@ -60,6 +61,7 @@ function SearchPage(props) {
   const [isFold, setIsFold] = useState(true);
   const [filter, setFilter] = useState("createdAt");
   const [focused, setFocused] = useState(false);
+  let query = new URLSearchParams(useLocation().search);
   const handleApiLoaded = (map, maps) => {
     setMapInstance(map);
     setMapApi(maps);
@@ -144,7 +146,10 @@ function SearchPage(props) {
   useEffect(() => {
     if (!focused) setRestaurantList([]);
   }, [focused]);
-  console.log(isFold);
+  useEffect(() => {
+    if (!mapApiLoaded) return;
+    setInputText(query.get("query"));
+  }, [mapApiLoaded]);
   return (
     <Wrapper>
       <Navbar />

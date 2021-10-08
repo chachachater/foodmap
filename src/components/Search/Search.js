@@ -8,6 +8,7 @@ import {
   ButtonImg,
   SearchBoxContainer,
 } from "./SearchStyle";
+import { Link } from "react-router-dom";
 
 function Search({
   text,
@@ -33,13 +34,19 @@ function Search({
     </SearchWrapper>
   );
 }
-export function HomePageSearch() {
+export function HomePageSearch({ inputText, setInputText }) {
   return (
     <SearchWrapper>
       <SearchBoxContainer>
-        <Input placeholder={"想吃什麼？"} />
+        <Input
+          placeholder={"想吃什麼？"}
+          value={inputText}
+          onChange={(e) => {
+            setInputText(e.target.value);
+          }}
+        />
       </SearchBoxContainer>
-      <SearchButton>
+      <SearchButton as={Link} to={`/search?query=${inputText}`}>
         <ButtonImg></ButtonImg>
       </SearchButton>
     </SearchWrapper>
@@ -53,5 +60,9 @@ Search.propTypes = {
   setFocused: PropTypes.func,
   restaurantList: PropTypes.array,
   handleSearchRestaurant: PropTypes.func,
+};
+HomePageSearch.propTypes = {
+  inputText: PropTypes.string,
+  setInputText: PropTypes.func,
 };
 export default Search;
