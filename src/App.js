@@ -18,8 +18,10 @@ import EditPage from "./pages/blog/EditPage";
 import { ScrollToTop } from "./utils";
 
 function App() {
+  console.log('mad')
   const dispatch = useDispatch();
   useEffect(() => {
+    console.log('mad again')
     dispatch(getMe())
   }, [])
   return (
