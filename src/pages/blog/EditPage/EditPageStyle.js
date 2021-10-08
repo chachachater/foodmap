@@ -14,7 +14,7 @@ export const EditInputs = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  aligin-items: center;
+  align-items: center;
 `;
 
 export const EditLabel = styled.label`
@@ -22,7 +22,7 @@ export const EditLabel = styled.label`
   border-bottom: 1px solid ${COLOR.text_gray};
   padding: 8px 0;
   display: flex;
-  aligin-items: center;
+  align-items: center;
 `;
 
 export const Span = styled.span`

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-// import { useSelector } from "react-redux";
-// import { selectUser } from "../../../redux/reducers/userReducer";
+import { useSelector } from "react-redux";
+import { selectUser } from "../../../redux/reducers/userReducer";
 import PropTypes from "prop-types";
 import { htmlToReactParser } from "../../../utils";
 import { Wrapper } from "../../../constants/globalStyle";
@@ -23,6 +23,7 @@ import useLoading from "../../../hooks/useLoading"
 
 function Post({ post, user }) {
   console.log(post);
+  console.log(user);
   if (!post) return null;
   let arr = [];
   post.images.map((post) => {
@@ -36,7 +37,7 @@ function Post({ post, user }) {
       <PostContainer>
         <PostAuthor>
           <AuthorImg $img={user && user.picture_url}></AuthorImg>
-          <AuthorName>{user && user.nickname}</AuthorName>
+          <AuthorName to={`/user/${post.post.user_id}`}>{user && user.nickname}</AuthorName>
         </PostAuthor>
         <PostTitle>{post.post && post.post.title}</PostTitle>
         <PostContent>{post.post && reactElement}</PostContent>
@@ -54,15 +55,21 @@ Post.propTypes = {
 };
 
 function ArticlePage() {
-  // const userState = useSelector(selectUser);
+  const userState = useSelector(selectUser);
   const { id } = useParams();
+  const [userId, setUserId] = useState();
   const [post, setPost] = useState();
   const [user, setUser] = useState();
   const { isLoading, setIsLoading } = useLoading()
   useEffect(() => {
+
+    if (userState.result) {
+      setUserId(userState.result.data.userId);
+    }
     setIsLoading(true)
-    fetchPostByPostId(id).then((post) => {
+    fetchPostByPostId(id, userId).then((post) => {
       setIsLoading(false)
+
       if (!post) {
         console.log(post.message);
         return;

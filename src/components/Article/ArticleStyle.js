@@ -56,7 +56,7 @@ export const ArticleImage = styled.div`
 export const ArticleTitle = styled.div`
   font-size: ${FONT.h3};
   font-weight: 600;
-  line-height: 32px;
+  line-height: 30px;
   letter-spacing: 3px;
   margin-bottom: 16px;
   display: -webkit-box;
