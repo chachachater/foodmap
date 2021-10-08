@@ -3,6 +3,7 @@ import { fetchAddPost, fetchEditPost } from "../WebAPI";
 import { useHistory } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { selectUser } from "../redux/reducers/userReducer";
+import useLoading from "../hooks/useLoading"
 
 export default function usePost() {
   const history = useHistory();
@@ -15,6 +16,7 @@ export default function usePost() {
   const [postId, setPostId] = useState('')
   const userState = useSelector(selectUser);
   const { userId } = userState.result.data;
+  const { isLoading , setIsLoading } = useLoading()
 
   function handleInputChange(setter) {
     return (e) => {
@@ -54,11 +56,12 @@ export default function usePost() {
     console.log(checkedList)
 
     if (!checkedList.every(every => every)) {
-      return alert(`請輸入全部欄位，尚未輸入${1}`)
+      return alert(`請輸入全部欄位`)
     }
     const postData = {};
     const blobArr = [];
     if (!images.length) return alert("至少上傳一張圖片");
+    setIsLoading(true)
     for (let i = 0; i < images.length; i++) {
       let blob = await fetch(images[i]).then((result) => result.blob());
       console.log(blob.arrayBuffer());
@@ -74,17 +77,20 @@ export default function usePost() {
     if (postId) {
       return fetchEditPost(postData, postId).then((result) => {
         console.log('edit', result)
+        setIsLoading(false)
         if (!result.ok) return alert(result.message);
         history.push(`/posts/${postId}`)
       });
     }
     return fetchAddPost(postData).then((result) => {
+      setIsLoading(false)
       if (!result.ok) return alert(result.message);
       history.push(`/backstage/${userId}`)
       // history.push(`/posts/${postId}`)
     });
   }
   return {
+    isLoading,
     images,
     uploadImages,
     setImages,
