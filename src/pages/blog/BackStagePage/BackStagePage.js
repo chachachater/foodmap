@@ -1,4 +1,3 @@
-/* eslint-disable */
 import { Navbar } from "../../../components/Navbar";
 import { useHistory } from "react-router-dom";
 import { Wrapper } from "../../../constants/globalStyle";
@@ -11,25 +10,24 @@ import {
   Private,
 } from "./BackStagStyled";
 import BackStageArticle from "./BackStagArticle";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { selectUser } from "../../../redux/reducers/userReducer";
 import { fetchPostsByUserId, fetchDeletePost } from "../../../WebAPI";
 import useScroll from "../../../hooks/useScroll";
 import useParseData from "../../../hooks/useParseData";
 import useLoading from "../../../hooks/useLoading";
 import Loading from "../../../components/Loading/Loading";
-import { dispatch } from "react-redux"
+
 function BackStagePage() {
   const history = useHistory();
-  const dispatch = useDispatch()
   const userState = useSelector(selectUser);
   const { isLoading, setIsLoading } = useLoading();
-  const [ userId, setUserId ] = useState('')
-    useEffect(() => {
-      console.log('QQ', userState)
-      if(!userState.result) return
-      setUserId(userState.result.data.userId)
-    }, [userState])
+  const [userId, setUserId] = useState("");
+  useEffect(() => {
+    console.log("QQ", userState);
+    if (!userState.result) return;
+    setUserId(userState.result.data.userId);
+  }, [userState]);
   // const { userId } = userState.result.data;
   const { parseResult, setParseResult, parseData } = useParseData();
   const scroll = useScroll();
@@ -37,7 +35,7 @@ function BackStagePage() {
   const [postCounts, setPostCounts] = useState("");
   const [offset, setOffset] = useState(0);
   const [clientHeight, setClientHeight] = useState(document.body.clientHeight);
-  
+
   const screenHeight = window.screen.availHeight;
   const order = "createdAt";
 
@@ -54,7 +52,7 @@ function BackStagePage() {
 
   useEffect(() => {
     fetchPostsByUserId(userId, 0, order, unpublished).then((result) => {
-      console.log(result)
+      console.log(result);
       setParseResult(parseData(result));
       setOffset(0);
     });
@@ -63,7 +61,7 @@ function BackStagePage() {
   useEffect(() => {
     if (offset === 0) return;
     fetchPostsByUserId(userId, offset, order, unpublished).then((result) => {
-      console.log(result)
+      console.log(result);
       if (!parseData(result)) return setIsLoading(false);
       setParseResult(parseResult.concat(parseData(result)));
       setIsLoading(false);
@@ -94,14 +92,14 @@ function BackStagePage() {
   };
 
   const handleDelete = (id) => {
-    console.log(id)
+    console.log(id);
     fetchDeletePost(id).then(() => {
       fetchPostsByUserId(userId, 0, order, unpublished).then((result) => {
         setParseResult(parseData(result));
         setOffset(0);
-      })
-    })
-  }
+      });
+    });
+  };
 
   const toEditPage = (id) => () => history.push(`/edit/${id}`);
 
@@ -128,15 +126,16 @@ function BackStagePage() {
             </>
           )}
         </Filter>
-        {parseResult && parseResult.map((post, index) => (
-          <BackStageArticle
-            key={index}
-            userPost={post}
-            image={post.Pictures[0].food_picture_url}
-            onDelete={handleDelete}
-            toEditPage={toEditPage(post.id)}
-          />
-        ))}
+        {parseResult &&
+          parseResult.map((post, index) => (
+            <BackStageArticle
+              key={index}
+              userPost={post}
+              image={post.Pictures[0].food_picture_url}
+              onDelete={handleDelete}
+              toEditPage={toEditPage(post.id)}
+            />
+          ))}
       </BackStageWrapper>
     </Wrapper>
   );
