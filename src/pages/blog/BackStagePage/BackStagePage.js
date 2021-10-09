@@ -91,9 +91,12 @@ function BackStagePage() {
   const handleDelete = (id) => {
     console.log(id)
     fetchDeletePost(id).then(() => {
-      // 
-    });
-  };
+      fetchPostsByUserId(userId, 0, order, unpublished).then((result) => {
+        setParseResult(parseData(result));
+        setOffset(0);
+      })
+    })
+  }
 
   const toEditPage = (id) => () => history.push(`/edit/${id}`);
 
