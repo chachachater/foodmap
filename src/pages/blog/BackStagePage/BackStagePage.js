@@ -22,7 +22,7 @@ function BackStagePage() {
   const history = useHistory();
   const userState = useSelector(selectUser);
   const { isLoading, setIsLoading } = useLoading();
-  const [userId, setUserId] = useState("");
+  const [userId, setUserId] = useState();
   useEffect(() => {
     console.log("QQ", userState);
     if (!userState.result) return;
@@ -42,6 +42,7 @@ function BackStagePage() {
   useEffect(() => {
     if (isLoading) return;
     setIsLoading(true);
+    console.log(userId)
     fetchPostsByUserId(userId, offset, order, unpublished).then((result) => {
       setIsLoading(false);
       if (!result) return console.log(result.message);
