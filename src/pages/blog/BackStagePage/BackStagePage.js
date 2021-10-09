@@ -11,24 +11,26 @@ import {
   Private,
 } from "./BackStagStyled";
 import BackStageArticle from "./BackStagArticle";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { selectUser } from "../../../redux/reducers/userReducer";
 import { fetchPostsByUserId, fetchDeletePost } from "../../../WebAPI";
 import useScroll from "../../../hooks/useScroll";
 import useParseData from "../../../hooks/useParseData";
 import useLoading from "../../../hooks/useLoading";
 import Loading from "../../../components/Loading/Loading";
-
+import { dispatch } from "react-redux"
 function BackStagePage() {
   const history = useHistory();
+  const dispatch = useDispatch()
   const userState = useSelector(selectUser);
   const { isLoading, setIsLoading } = useLoading();
-  // let userId = ""
-  //   useEffect(() => {
-  //     userId = userState.result.data;
-  //   }, [])
-  const { userId } = userState.result.data;
-
+  const [ userId, setUserId ] = useState('')
+    useEffect(() => {
+      console.log('QQ', userState)
+      if(!userState.result) return
+      setUserId(userState.result.data.userId)
+    }, [userState])
+  // const { userId } = userState.result.data;
   const { parseResult, setParseResult, parseData } = useParseData();
   const scroll = useScroll();
   const [unpublished, setUnpublished] = useState("false");
@@ -48,10 +50,11 @@ function BackStagePage() {
       setPostCounts(result.postCounts);
       setParseResult(parseData(result));
     });
-  }, []);
+  }, [userId]);
 
   useEffect(() => {
     fetchPostsByUserId(userId, 0, order, unpublished).then((result) => {
+      console.log(result)
       setParseResult(parseData(result));
       setOffset(0);
     });
@@ -60,6 +63,8 @@ function BackStagePage() {
   useEffect(() => {
     if (offset === 0) return;
     fetchPostsByUserId(userId, offset, order, unpublished).then((result) => {
+      console.log(result)
+      if (!parseData(result)) return setIsLoading(false);
       setParseResult(parseResult.concat(parseData(result)));
       setIsLoading(false);
     });
@@ -102,7 +107,7 @@ function BackStagePage() {
 
   return (
     <Wrapper>
-      <Navbar userId={userId} />
+      <Navbar />
       {isLoading && <Loading />}
       <BackStageWrapper>
         <BackStageTitle>你的文章</BackStageTitle>
