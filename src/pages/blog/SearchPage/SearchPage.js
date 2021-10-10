@@ -34,18 +34,6 @@ function SearchPage(props) {
     {
       src: "https://images.unsplash.com/photo-1504674900247-0877df9cc836?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8Zm9vZHxlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
     },
-    {
-      src: "https://images.unsplash.com/photo-1476718406336-bb5a9690ee2a?ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8Zm9vZHxlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
-    },
-    {
-      src: "https://images.unsplash.com/photo-1482049016688-2d3e1b311543?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Nnx8Zm9vZHxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60",
-    },
-    {
-      src: "https://images.unsplash.com/photo-1504754524776-8f4f37790ca0?ixid=MnwxMjA3fDB8MHxzZWFyY2h8OXx8Zm9vZHxlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
-    },
-    {
-      src: "https://images.unsplash.com/photo-1476224203421-9ac39bcb3327?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTh8fGZvb2R8ZW58MHx8MHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
-    },
   ]);
   const [mapApiLoaded, setMapApiLoaded] = useState(false);
   const [mapInstance, setMapInstance] = useState(null);
@@ -90,9 +78,6 @@ function SearchPage(props) {
       handleAutocomplete(inputText);
     }, 800);
   }, [handleAutocomplete]);
-  useEffect(() => {
-    handleDebounce(inputText);
-  }, [inputText, handleDebounce, handleAutocomplete]);
   function handleSearchRestaurant(placeId, name) {
     if (mapApiLoaded) {
       const service = new mapApi.places.PlacesService(mapInstance);
@@ -115,6 +100,9 @@ function SearchPage(props) {
       });
     }
   }
+  useEffect(() => {
+    handleDebounce(inputText);
+  }, [inputText, handleDebounce, handleAutocomplete]);
   useEffect(async () => {
     if (!mapApiLoaded) return;
     let results = await fetchPostsAndPicturesByPlaceId(

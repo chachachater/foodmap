@@ -59,6 +59,10 @@ export const Input = styled.input`
   height: 100%;
   background: transparent;
 `;
+const SuggestList = styled.div`
+  background: white;
+  padding: 10px 0;
+`;
 export const SearchBox = ({
   text,
   handleInputChange,
@@ -86,22 +90,19 @@ export const SearchBox = ({
         }}
       />
       <AutocompleteList style={{ position: "absolute", top: "20px" }}>
-        {restaurantList.map((data, index) => {
-          return (
-            <div
-              style={{ background: "white" }}
-              key={index}
-              onClick={() => {
-                handleSearchRestaurant(
-                  data.place_id,
-                  data.structured_formatting.main_text
-                );
-              }}
-            >
-              {data.terms[0].value}
-            </div>
-          );
-        })}
+        {restaurantList.map((data, index) => (
+          <SuggestList
+            key={index}
+            onClick={() => {
+              handleSearchRestaurant(
+                data.place_id,
+                data.structured_formatting.main_text
+              );
+            }}
+          >
+            {data.terms[0].value}
+          </SuggestList>
+        ))}
       </AutocompleteList>
     </SearchBoxContainer>
   );
