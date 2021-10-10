@@ -100,6 +100,28 @@ function SearchPage(props) {
       });
     }
   }
+  // function handleTextSearch() {
+  //   if (mapApiLoaded) {
+  //     const service = new mapApi.places.PlacesService(mapInstance);
+
+  //     const request = {
+  //       placeId,
+  //     };
+
+  //     service.getDetails(request, (results, status) => {
+  //       if (status === mapApi.places.PlacesServiceStatus.OK) {
+  //         setMyPosition({
+  //           lat: results.geometry.location.lat(),
+  //           lng: results.geometry.location.lng(),
+  //         });
+  //         console.log(results);
+  //         setRestaurantInfo(results);
+  //         setInputText(name);
+  //         setRestaurantList([]);
+  //       }
+  //     });
+  //   }
+  // }
   useEffect(() => {
     handleDebounce(inputText);
   }, [inputText, handleDebounce, handleAutocomplete]);
