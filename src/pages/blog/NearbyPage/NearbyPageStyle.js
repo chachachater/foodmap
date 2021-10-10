@@ -1,10 +1,6 @@
 import styled from "styled-components";
 import { COLOR, FONT, MEDIA_QUERY } from "../../../constants/style";
-import {
-  ImgMarker,
-  MarkerText,
-  MarkerPicURL,
-} from "../../../components/Map/mapComponents";
+import { MarkerText } from "../../../components/Map/mapComponents";
 import React from "react";
 import PropTypes from "prop-types";
 const MyMarkerImg = styled.img`
@@ -43,23 +39,6 @@ export const MarginContainer = styled.div`
   display: flex;
   flex-direction: column;
 `;
-export function NearbyMarker({ text, placeId, handleMarkerClickedAndSearch }) {
-  return (
-    <div
-      onClick={() => {
-        handleMarkerClickedAndSearch(placeId, text);
-      }}
-    >
-      <ImgMarker alt={"marker"} src={MarkerPicURL} />
-      <MarkerText>{text}</MarkerText>
-    </div>
-  );
-}
-NearbyMarker.propTypes = {
-  text: PropTypes.string,
-  handleMarkerClickedAndSearch: PropTypes.func,
-  placeId: PropTypes.string,
-};
 export const Luck = styled.div`
   display: flex;
   flex-direction: column;

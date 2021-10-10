@@ -1,12 +1,13 @@
 import React, { useCallback, useState, useEffect, useMemo } from "react";
 import GoogleMapReact from "google-map-react";
-import { Marker } from "./mapComponents";
+import { ClickedMarker } from "./mapComponents";
 import PropTypes from "prop-types";
 import _ from "lodash";
 import { SearchBox } from "../Search/SearchStyle";
 const mapApiKey = process.env.REACT_APP_MAP_KEY;
 
 function SimpleMap(props) {
+  const { center, zoom, placeId, setPlaceId, setRestaurantName, close } = props;
   const [mapApiLoaded, setMapApiLoaded] = useState(false);
   const [mapInstance, setMapInstance] = useState(null);
   const [mapApi, setMapApi] = useState(null);
@@ -27,10 +28,10 @@ function SimpleMap(props) {
     if (!focused) setRestaurantList([]);
   }, [focused]);
   useEffect(() => {
-    if (props.placeId) {
-      handleSearchRestaurant(props.placeId);
+    if (placeId) {
+      handleSearchRestaurant(placeId);
     }
-    console.log(props.placeId);
+    console.log(placeId);
   }, [mapApiLoaded]);
   const handleAutocomplete = useCallback(
     (value) => {
@@ -84,8 +85,9 @@ function SimpleMap(props) {
   }
 
   function handleSetPlaceId(place_id) {
-    console.log(props.setPlaceId);
-    props.setPlaceId(place_id);
+    setPlaceId(place_id);
+    setRestaurantName(inputText);
+    close();
   }
   return (
     // Important! Always set the container height explicitly
@@ -106,13 +108,13 @@ function SimpleMap(props) {
             language: "zh-TW",
             libraries: ["places"],
           }}
-          defaultCenter={props.center}
-          defaultZoom={props.zoom}
+          defaultCenter={center}
+          defaultZoom={zoom}
           yesIWantToUseGoogleMapApiInternals // 設定為 true
           onGoogleApiLoaded={({ map, maps }) => handleApiLoaded(map, maps)} // 載入完成後執行
         >
           {places.map((item, index) => (
-            <Marker
+            <ClickedMarker
               key={index}
               lat={item.geometry.location.lat()}
               lng={item.geometry.location.lng()}
@@ -138,18 +140,27 @@ SimpleMap.propTypes = {
   setPlaceId: PropTypes.func,
   center: PropTypes.object,
   zoom: PropTypes.number,
+  setRestaurantName: PropTypes.func,
+  close: PropTypes.func,
 };
 
-function MyMap({ restaurantId, getRestaurantId }) {
+function MyMap({ restaurantId, getRestaurantId, setRestaurantName, close }) {
   console.log(getRestaurantId);
   return (
     <div className="App">
-      <SimpleMap placeId={restaurantId} setPlaceId={getRestaurantId} />
+      <SimpleMap
+        placeId={restaurantId}
+        setPlaceId={getRestaurantId}
+        setRestaurantName={setRestaurantName}
+        close={close}
+      />
     </div>
   );
 }
 MyMap.propTypes = {
   restaurantId: PropTypes.string,
   getRestaurantId: PropTypes.func,
+  setRestaurantName: PropTypes.func,
+  close: PropTypes.func,
 };
 export default MyMap;

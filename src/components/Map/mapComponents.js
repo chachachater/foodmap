@@ -14,14 +14,9 @@ export const MarkerText = styled.div`
   width: 100px;
   white-pace: "nowrap";
 `;
-export const Marker = ({ text, handleSetPlaceId, placeId }) => {
+export const Marker = ({ text }) => {
   return (
-    <div
-      onClick={() => {
-        if (handleSetPlaceId === undefined) return;
-        handleSetPlaceId(placeId);
-      }}
-    >
+    <div>
       <ImgMarker alt={"marker"} src={MarkerPicURL} />
       <MarkerText>{text}</MarkerText>
     </div>
@@ -30,5 +25,40 @@ export const Marker = ({ text, handleSetPlaceId, placeId }) => {
 Marker.propTypes = {
   text: PropTypes.string,
   handleSetPlaceId: PropTypes.func,
+  placeId: PropTypes.string,
+};
+export const ClickedMarker = ({ text, handleSetPlaceId, placeId }) => {
+  return (
+    <div
+      onClick={() => {
+        handleSetPlaceId(placeId);
+      }}
+    >
+      <ImgMarker alt={"marker"} src={MarkerPicURL} />
+      <MarkerText>{text}</MarkerText>
+    </div>
+  );
+};
+ClickedMarker.propTypes = {
+  text: PropTypes.string,
+  handleSetPlaceId: PropTypes.func,
+  placeId: PropTypes.string,
+};
+
+export function NearbyMarker({ text, placeId, handleMarkerClickedAndSearch }) {
+  return (
+    <div
+      onClick={() => {
+        handleMarkerClickedAndSearch(placeId, text);
+      }}
+    >
+      <ImgMarker alt={"marker"} src={MarkerPicURL} />
+      <MarkerText>{text}</MarkerText>
+    </div>
+  );
+}
+NearbyMarker.propTypes = {
+  text: PropTypes.string,
+  handleMarkerClickedAndSearch: PropTypes.func,
   placeId: PropTypes.string,
 };

@@ -12,8 +12,8 @@ import {
   LuckButton,
   MarginContainer,
   MyPosition,
-  NearbyMarker,
 } from "./NearbyPageStyle";
+import { NearbyMarker } from "../../../components/Map/mapComponents";
 import ImageViewer from "../../../components/ImageViewer";
 import GoogleMapReact from "google-map-react";
 import _ from "lodash";
