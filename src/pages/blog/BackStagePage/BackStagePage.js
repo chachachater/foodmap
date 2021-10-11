@@ -43,6 +43,7 @@ function BackStagePage() {
   useEffect(() => {
     if (isLoading) return;
     setIsLoading(true);
+    console.log(userId)
     fetchPostsByUserId(userId, offset, order, unpublished).then((result) => {
       setIsLoading(false);
       if (!result) return console.log(result.message);

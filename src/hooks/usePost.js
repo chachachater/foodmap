@@ -3,19 +3,20 @@ import { fetchAddPost, fetchEditPost } from "../WebAPI";
 import { useHistory } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { selectUser } from "../redux/reducers/userReducer";
-import useLoading from "../hooks/useLoading"
+import useLoading from "../hooks/useLoading";
 
 export default function usePost() {
   const history = useHistory();
-  const [images, setImages] = useState([])
-  const [restaurantId, setRestaurantId] = useState('')
-  const [title, setTitle] = useState('')
-  const [content, setContent] = useState('')
-  const [visitedDate, setVisitedDate] = useState('')
-  const [isPublished, setIsPublished] = useState(true)
-  const [postId, setPostId] = useState('')
+  const [images, setImages] = useState([]);
+  const [restaurantId, setRestaurantId] = useState("");
+  const [title, setTitle] = useState("");
+  const [content, setContent] = useState("");
+  const [visitedDate, setVisitedDate] = useState("");
+  const [isPublished, setIsPublished] = useState(true);
+  const [postId, setPostId] = useState("");
   const userState = useSelector(selectUser);
-  const { isLoading , setIsLoading } = useLoading()
+  const { isLoading, setIsLoading } = useLoading();
+  const [restaurantName, setRestaurantName] = useState("");
 
   function handleInputChange(setter) {
     return (e) => {
@@ -51,16 +52,16 @@ export default function usePost() {
     };
   }
   async function handleSubmit() {
-    const checkedList = [restaurantId, title, content, visitedDate, userId]
-    console.log(checkedList)
     const { userId } = userState.result.data;
-    if (!checkedList.every(every => every)) {
-      return alert(`請輸入全部欄位`)
+    const checkedList = [restaurantId, title, content, visitedDate, userId];
+    console.log(checkedList);
+    if (!checkedList.every((every) => every)) {
+      return alert(`請輸入全部欄位`);
     }
     const postData = {};
     const blobArr = [];
     if (!images.length) return alert("至少上傳一張圖片");
-    setIsLoading(true)
+    setIsLoading(true);
     for (let i = 0; i < images.length; i++) {
       let blob = await fetch(images[i]).then((result) => result.blob());
       console.log(blob.arrayBuffer());
@@ -75,16 +76,16 @@ export default function usePost() {
     postData.is_published = isPublished;
     if (postId) {
       return fetchEditPost(postData, postId).then((result) => {
-        console.log('edit', result)
-        setIsLoading(false)
+        console.log("edit", result);
+        setIsLoading(false);
         if (!result.ok) return alert(result.message);
-        history.push(`/posts/${postId}`)
+        history.push(`/posts/${postId}`);
       });
     }
     return fetchAddPost(postData).then((result) => {
-      setIsLoading(false)
+      setIsLoading(false);
       if (!result.ok) return alert(result.message);
-      history.push(`/backstage/${userId}`)
+      history.push(`/backstage/${userId}`);
       // history.push(`/posts/${postId}`)
     });
   }
@@ -106,5 +107,7 @@ export default function usePost() {
     setPostId,
     handleInputChange,
     handleSubmit,
+    restaurantName,
+    setRestaurantName,
   };
 }

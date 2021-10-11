@@ -50,6 +50,8 @@ function EditPage() {
     setPostId,
     handleInputChange,
     handleSubmit,
+    restaurantName,
+    setRestaurantName,
   } = usePost();
   useEffect(() => {
     if (pathname.includes("edit")) {
@@ -117,6 +119,8 @@ function EditPage() {
               placeHolder="選擇餐廳"
               restaurantId={restaurantId}
               getRestaurantId={getRestaurantId(setRestaurantId)}
+              restaurantName={restaurantName}
+              setRestaurantName={setRestaurantName}
             />
           </EditLabel>
           <EditLabel>
