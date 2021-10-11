@@ -22,13 +22,14 @@ function BackStagePage() {
   const history = useHistory();
   const userState = useSelector(selectUser);
   const { isLoading, setIsLoading } = useLoading();
-  const [userId, setUserId] = useState("");
+  const [userId, setUserId] = useState();
+
   useEffect(() => {
     console.log("QQ", userState);
     if (!userState.result) return;
     setUserId(userState.result.data.userId);
   }, [userState]);
-  // const { userId } = userState.result.data;
+
   const { parseResult, setParseResult, parseData } = useParseData();
   const scroll = useScroll();
   const [unpublished, setUnpublished] = useState("false");
