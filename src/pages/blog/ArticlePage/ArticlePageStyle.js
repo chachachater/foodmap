@@ -60,7 +60,6 @@ export const PostContent = styled.p`
   font-size: ${FONT.h4};
   line-height: 1.6;
   margin-bottom: 48px;
-
   word-wrap: break-word;
   word-break: break-all;
   white-space: pre-wrap;

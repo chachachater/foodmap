@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { COLOR, FONT, MEDIA_QUERY } from "../../constants/style";
 import { Link } from "react-router-dom";
+
 export const ArticleContainer = styled(Link)`
   color: black;
   display: flex;
