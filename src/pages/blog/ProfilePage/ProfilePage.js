@@ -32,7 +32,7 @@ import Loading from "../../../components/Loading/Loading";
 function ProfilePage() {
   const { id } = useParams();
   const { isLoading, setIsLoading } = useLoading();
-  let confirmUser = useConfirmUser(id);
+  const confirmUser = useConfirmUser(id);
   const {
     avatar,
     setAvatar,

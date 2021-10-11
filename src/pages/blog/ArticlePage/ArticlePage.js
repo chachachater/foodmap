@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import { selectUser } from "../../../redux/reducers/userReducer";
 import PropTypes from "prop-types";
 import { htmlToReactParser } from "../../../utils";
 import { Wrapper } from "../../../constants/globalStyle";
@@ -19,11 +17,11 @@ import ImageViewer from "../../../components/ImageViewer";
 import { fetchPostByPostId, fetchUserData } from "../../../WebAPI";
 import { useParams } from "react-router-dom";
 import Loading from "../../../components/Loading/Loading";
-import useLoading from "../../../hooks/useLoading"
+import useLoading from "../../../hooks/useLoading";
+import useGetId from "../../../hooks/useGetId";
+import "./ckeditorStyle.css";
 
 function Post({ post, user }) {
-  console.log(post);
-  console.log(user);
   if (!post) return null;
   if (!post.images) return null;
   let arr = [];
@@ -38,10 +36,12 @@ function Post({ post, user }) {
       <PostContainer>
         <PostAuthor>
           <AuthorImg $img={user && user.picture_url}></AuthorImg>
-          <AuthorName to={`/user/${post.post.user_id}`}>{user && user.nickname}</AuthorName>
+          <AuthorName to={`/user/${post.post.user_id}`}>
+            {user && user.nickname}
+          </AuthorName>
         </PostAuthor>
         <PostTitle>{post.post && post.post.title}</PostTitle>
-        <PostContent>{post.post && reactElement}</PostContent>
+        <PostContent className="ckeditor-content">{post.post && reactElement}</PostContent>
         <PostImg>
           <ImageViewer photos={arr} />
         </PostImg>
@@ -56,28 +56,22 @@ Post.propTypes = {
 };
 
 function ArticlePage() {
-  const userState = useSelector(selectUser);
+  const { userId } = useGetId();
   const { id } = useParams();
-  const [userId, setUserId] = useState();
   const [post, setPost] = useState();
   const [user, setUser] = useState();
-  const { isLoading, setIsLoading } = useLoading()
-  
-  useEffect(() => {
-    if (userState.result) {
-      setUserId(userState.result.data.userId);
-    }
-    setIsLoading(true)
-    fetchPostByPostId(id, userId).then((post) => {
-      setIsLoading(false)
+  const { isLoading, setIsLoading } = useLoading();
 
+  useEffect(() => {
+    setIsLoading(true);
+    fetchPostByPostId(id, userId).then((post) => {
+      setIsLoading(false);
       if (!post) {
         console.log(post.message);
         return;
       }
       setPost(post);
       const userId = post.post.user_id;
-
       fetchUserData(userId).then((user) => {
         if (!user) {
           console.log(user.message);
@@ -86,7 +80,7 @@ function ArticlePage() {
         setUser(user.data);
       });
     });
-  }, [id]);
+  }, [userId]);
 
   return (
     <Wrapper>
