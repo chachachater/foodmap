@@ -29,7 +29,6 @@ import { fetchPostByPostId } from "../../../WebAPI";
 
 function EditPage() {
   let pathname = useLocation().pathname;
-  console.log(location.pathname);
   const { id } = useParams();
   const userState = useSelector(selectUser);
   const {
@@ -43,6 +42,7 @@ function EditPage() {
     setContent,
     visitedDate,
     setVisitedDate,
+    isPublished,
     setIsPublished,
     restaurantId,
     setRestaurantId,
@@ -67,10 +67,12 @@ function EditPage() {
       });
     }
   }, []);
-  const handleDraft = async () => {
-    await setIsPublished(false);
-    return handleSubmit();
+  const handleDraft = () => {
+    setIsPublished(false);
   };
+  useEffect(() => {
+    handleSubmit();
+  }, [isPublished]);
   const renderImages = () => {
     if (!images.length) return;
     return images.map((each) => {

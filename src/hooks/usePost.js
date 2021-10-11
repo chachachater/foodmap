@@ -100,6 +100,7 @@ export default function usePost() {
     setContent,
     visitedDate,
     setVisitedDate,
+    isPublished,
     setIsPublished,
     restaurantId,
     setRestaurantId,
