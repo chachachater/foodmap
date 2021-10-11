@@ -25,6 +25,7 @@ function Post({ post, user }) {
   console.log(post);
   console.log(user);
   if (!post) return null;
+  if (!post.images) return null;
   let arr = [];
   post.images.map((post) => {
     let src = post;
@@ -61,8 +62,8 @@ function ArticlePage() {
   const [post, setPost] = useState();
   const [user, setUser] = useState();
   const { isLoading, setIsLoading } = useLoading()
+  
   useEffect(() => {
-
     if (userState.result) {
       setUserId(userState.result.data.userId);
     }

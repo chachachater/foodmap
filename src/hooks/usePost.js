@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { fetchAddPost, fetchEditPost } from "../WebAPI";
 import { useHistory } from "react-router-dom";
 import { useSelector } from "react-redux";
@@ -12,7 +12,7 @@ export default function usePost() {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [visitedDate, setVisitedDate] = useState("");
-  const [isPublished, setIsPublished] = useState(true);
+  const isPublished = useRef(true);
   const [postId, setPostId] = useState("");
   const userState = useSelector(selectUser);
   const { isLoading, setIsLoading } = useLoading();
@@ -73,7 +73,7 @@ export default function usePost() {
     postData.title = title;
     postData.content = content;
     postData.visited_time = visitedDate;
-    postData.is_published = isPublished;
+    postData.is_published = isPublished.current;
     if (postId) {
       return fetchEditPost(postData, postId).then((result) => {
         console.log("edit", result);
@@ -101,7 +101,6 @@ export default function usePost() {
     visitedDate,
     setVisitedDate,
     isPublished,
-    setIsPublished,
     restaurantId,
     setRestaurantId,
     getRestaurantId,

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useLayoutEffect } from "react";
+import React, { useEffect } from "react";
 import { useLocation, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { selectUser } from "../../../redux/reducers/userReducer";
@@ -30,7 +30,6 @@ import { fetchPostByPostId } from "../../../WebAPI";
 function EditPage() {
   let pathname = useLocation().pathname;
   const { id } = useParams();
-  const firstRender = useRef(true);
   const userState = useSelector(selectUser);
   const {
     isLoading,
@@ -44,7 +43,6 @@ function EditPage() {
     visitedDate,
     setVisitedDate,
     isPublished,
-    setIsPublished,
     restaurantId,
     setRestaurantId,
     getRestaurantId,
@@ -63,21 +61,15 @@ function EditPage() {
         setTitle(result.post.title);
         setContent(result.post.content);
         setVisitedDate(result.post.visited_time);
-        setIsPublished(result.post.is_published);
+        isPublished.current = result.post.is_published;
         setRestaurantId(result.post.restaurant_id);
       });
     }
   }, []);
   const handleDraft = () => {
-    setIsPublished(false);
+    isPublished.current = false;
+    handleSubmit();
   };
-  useLayoutEffect(() => {
-    if (firstRender.current) {
-      firstRender.current = false;
-    } else {
-      handleSubmit();
-    }
-  }, [isPublished]);
   const renderImages = () => {
     if (!images.length) return;
     return images.map((each) => {

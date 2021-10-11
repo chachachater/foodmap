@@ -14,19 +14,14 @@ import {
   DeleteBtn,
 } from "./BackStagStyled";
 
-function BackStageArticle({ userPost, userImgs, toEditPage, onDelete }) {
+function BackStageArticle({ userPost, image, toEditPage, onDelete }) {
   const onDeletePost = () => {
     onDelete(userPost.id);
   };
 
   return (
     <BackStageContainer>
-      {userImgs.map(
-        (userImg) =>
-          userImg.postId === userPost.id && (
-            <BackStageImage key={userImg.postId} $link={userImg.link} />
-          )
-      )}
+      <BackStageImage $link={image} />
       <ArticleContent>
         <ArticleTitle>{userPost.title}</ArticleTitle>
         <ArticleBottom>
@@ -44,7 +39,7 @@ function BackStageArticle({ userPost, userImgs, toEditPage, onDelete }) {
 }
 BackStageArticle.propTypes = {
   userPost: PropTypes.object,
-  userImgs: PropTypes.array,
+  image: PropTypes.string,
   toEditPage: PropTypes.func,
   onDelete: PropTypes.func,
 };

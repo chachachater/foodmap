@@ -53,6 +53,8 @@ function ProfilePage() {
   const [offset, setOffset] = useState(0);
   const [clientHeight, setClientHeight] = useState(document.body.clientHeight);
   const screenHeight = window.screen.availHeight;
+  const unpublished = "false";
+
   useEffect(() => {
     if (isLoading) return;
     setIsLoading(true);
@@ -64,7 +66,7 @@ function ProfilePage() {
       if (result.data.picture_url) setDefaultAvatar(result.data.picture_url);
       setIsLoading(false);
     });
-    fetchPostsByUserId(id, offset, filter).then((result) => {
+    fetchPostsByUserId(id, offset, filter, unpublished).then((result) => {
       setPostCounts(result.postCounts);
       //console.log(result);
       // 這邊等後端改成 left join 會更好處理
@@ -72,24 +74,22 @@ function ProfilePage() {
     });
   }, [id]);
 
-  useEffect(async () => {
-    fetchPostsByUserId(id, 0, filter).then((result) => {
-      console.log(result);
+  useEffect(() => {
+    fetchPostsByUserId(id, 0, filter, unpublished).then((result) => {
       setParseResult(parseData(result));
-      //setParseResult(parseResult.concat(parseData(result)));
       setOffset(0);
     });
-    console.log(filter);
   }, [filter]);
+
   useEffect(() => {
     if (offset === 0) return;
-    fetchPostsByUserId(id, offset, filter).then((result) => {
-      console.log(result);
+    fetchPostsByUserId(id, offset, filter, unpublished).then((result) => {
       setParseResult(parseResult.concat(parseData(result)));
       setIsLoading(false);
     });
   }, [offset]);
-  useEffect(async () => {
+
+  useEffect(() => {
     if (isLoading) return;
     if (clientHeight - scroll.y - screenHeight / 2 >= screenHeight / 2) return;
     if (postCounts > offset) {
@@ -101,6 +101,7 @@ function ProfilePage() {
   useEffect(() => {
     setClientHeight(document.body.clientHeight);
   }, [parseResult]);
+
   return (
     <Wrapper>
       <Navbar />
@@ -153,7 +154,6 @@ function ProfilePage() {
       <Article
         postsData={parseResult}
         setFilter={setFilter}
-        // setClientHeight={setClientHeight}
       />
     </Wrapper>
   );

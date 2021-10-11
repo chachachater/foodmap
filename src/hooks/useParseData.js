@@ -6,6 +6,8 @@ export default function useParseData() {
 
   function parseData(data) {
     const result = [];
+    console.log(data)
+    if (!data.posts) return false
     data.posts.forEach((each, index) => {
       each.Pictures = [{ food_picture_url: data.images[index].link }];
       result.push(each);
