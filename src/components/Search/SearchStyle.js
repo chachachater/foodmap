@@ -72,18 +72,21 @@ export const SearchBox = ({
   setFocused,
 }) => {
   return (
-    <SearchBoxContainer>
+    <SearchBoxContainer
+      tabIndex={1}
+      onBlur={(e) => {
+        if (!e.currentTarget.contains(e.relatedTarget)) {
+          setFocused(false);
+        }
+      }}
+    >
       <Input
+        tabIndex="0"
         type="text"
         placeholder={text}
         value={inputText}
         onFocus={() => {
           setFocused(true);
-        }}
-        onBlur={() => {
-          setTimeout(() => {
-            setFocused(false);
-          }, 800);
         }}
         onChange={(e) => {
           handleInputChange(e);
@@ -93,6 +96,7 @@ export const SearchBox = ({
         {restaurantList.map((data, index) => (
           <SuggestList
             key={index}
+            tabIndex="0"
             onClick={() => {
               handleSearchRestaurant(
                 data.place_id,

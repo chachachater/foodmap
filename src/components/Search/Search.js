@@ -9,6 +9,7 @@ import {
   SearchBoxContainer,
 } from "./SearchStyle";
 import { Link } from "react-router-dom";
+import { useHistory } from "react-router";
 
 function Search({
   text,
@@ -36,6 +37,7 @@ function Search({
   );
 }
 export function HomePageSearch({ inputText, setInputText }) {
+  let history = useHistory();
   return (
     <SearchWrapper>
       <SearchBoxContainer>
@@ -44,6 +46,9 @@ export function HomePageSearch({ inputText, setInputText }) {
           value={inputText}
           onChange={(e) => {
             setInputText(e.target.value);
+          }}
+          onKeyPress={(e) => {
+            if (e.key === "Enter") history.push(`/search?query=${inputText}`);
           }}
         />
       </SearchBoxContainer>
