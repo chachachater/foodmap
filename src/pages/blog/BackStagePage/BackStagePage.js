@@ -23,6 +23,7 @@ function BackStagePage() {
   const userState = useSelector(selectUser);
   const { isLoading, setIsLoading } = useLoading();
   const [userId, setUserId] = useState();
+
   useEffect(() => {
     console.log("QQ", userState);
     if (!userState.result) return;
