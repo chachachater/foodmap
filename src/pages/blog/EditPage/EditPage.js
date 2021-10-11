@@ -40,7 +40,7 @@ function EditPage() {
     setContent,
     visitedDate,
     setVisitedDate,
-    setIsPublished,
+    isPublished,
     restaurantId,
     setRestaurantId,
     getRestaurantId,
@@ -58,14 +58,14 @@ function EditPage() {
         setTitle(result.post.title);
         setContent(result.post.content);
         setVisitedDate(result.post.visited_time);
-        setIsPublished(result.post.is_published);
+        isPublished.current = result.post.is_published;
         setRestaurantId(result.post.restaurant_id);
       });
     }
   }, []);
   const handleDraft = () => {
-    setIsPublished(false);
-    return handleSubmit();
+    isPublished.current = false;
+    handleSubmit();
   };
   const renderImages = () => {
     if (!images.length) return;

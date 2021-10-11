@@ -29,9 +29,9 @@ function HomePage() {
   const screenHeight = window.screen.availHeight;
 
   useEffect(() => {
-    setIsLoading(true)
+    setIsLoading(true);
     fetchAllPosts(offset).then((result) => {
-      setIsLoading(false)
+      setIsLoading(false);
       if (!result) return;
       setPostCounts(result.postCounts);
       setParseResult(parseData(result));
@@ -64,7 +64,7 @@ function HomePage() {
       <Navbar />
       {isLoading && <Loading />}
       <HomeBanner>
-        <BannerBg></BannerBg>
+        <BannerBg />
         <BannerInfo>
           <BannerText>吃貨地圖，探索你想吃的美食餐廳</BannerText>
           <HomePageSearch inputText={inputText} setInputText={setInputText} />

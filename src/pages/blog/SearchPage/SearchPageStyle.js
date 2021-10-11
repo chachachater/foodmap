@@ -134,14 +134,16 @@ export function RestaurantInfoContainer({ restaurantInfo, isFold, setIsFold }) {
             : opening_hours.isOpen()
             ? "營業中"
             : "休息中"}
-          {opening_hours &&
-            opening_hours.weekday_text.map((item, index) => {
-              return (
-                <BusinessTime className={isFold ? "hidden" : ""} key={index}>
-                  {item}
-                </BusinessTime>
-              );
-            })}
+          {!opening_hours
+            ? ""
+            : opening_hours.weekday_text &&
+              opening_hours.weekday_text.map((item, index) => {
+                return (
+                  <BusinessTime className={isFold ? "hidden" : ""} key={index}>
+                    {item}
+                  </BusinessTime>
+                );
+              })}
         </InfoText>
       </InfoContent>
       <InfoContent>

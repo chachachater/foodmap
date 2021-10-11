@@ -29,10 +29,23 @@ export const Map = styled.div`
   height: 500px;
   margin-bottom: 24px;
   display: flex;
+  position: relative;
   ${MEDIA_QUERY.md} {
     height: 1000px;
     flex-direction: column;
   }
+`;
+export const IsLoading = styled.div`
+  position: absolute;
+  bottom: 5px;
+  left: 70px;
+  height: 20px;
+  width: 70px;
+  color: black;
+  background: transparent;
+  border-radius: 10px;
+  z-index: 3;
+  text-align: center;
 `;
 export const MarginContainer = styled.div`
   margin-left: 60px;

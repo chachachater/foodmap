@@ -12,6 +12,7 @@ import {
   LuckButton,
   MarginContainer,
   MyPosition,
+  IsLoading,
 } from "./NearbyPageStyle";
 import { NearbyMarker } from "../../../components/Map/mapComponents";
 import ImageViewer from "../../../components/ImageViewer";
@@ -38,6 +39,7 @@ function NearbyPage(props) {
   const [currentCenter, setCurrentCenter] = useState(myPosition);
   const [photos, setPhotos] = useState(null);
   const [isFold, setIsFold] = useState(true);
+  const [markerIsLoading, setMarkerIsLoading] = useState(false);
   const handleApiLoaded = (map, maps) => {
     setMapInstance(map);
     setMapApi(maps);
@@ -74,7 +76,8 @@ function NearbyPage(props) {
       const request = {
         location: myPosition,
         radius: 1000,
-        type: ["food"],
+        // type: ["restaurant", "food"],
+        type: ["restaurant"],
       };
 
       service.nearbySearch(request, (results, status) => {
@@ -84,13 +87,38 @@ function NearbyPage(props) {
       });
     }
   };
+  function handleTextSearch() {
+    if (mapApiLoaded) {
+      const service = new mapApi.places.PlacesService(mapInstance);
+
+      const request = {
+        query: inputText,
+        fields: ["All"],
+      };
+
+      service.findPlaceFromQuery(request, (results, status) => {
+        if (status === mapApi.places.PlacesServiceStatus.OK) {
+          console.log(results);
+          setCurrentCenter({
+            lat: results[0].geometry.location.lat(),
+            lng: results[0].geometry.location.lng(),
+          });
+          setMyPosition({
+            lat: results[0].geometry.location.lat(),
+            lng: results[0].geometry.location.lng(),
+          });
+        }
+      });
+    }
+  }
   useEffect(() => {
     handleDebounce(inputText);
   }, [inputText, handleDebounce, handleAutocomplete]);
 
   useEffect(() => {
+    setMarkerIsLoading(true);
     nearbySearch();
-  }, [myPosition, nearbySearch]);
+  }, [myPosition]);
 
   useEffect(() => {
     if (!focused) setRestaurantList([]);
@@ -162,6 +190,9 @@ function NearbyPage(props) {
     });
     setPhotos(arr);
   }, [restaurantInfo]);
+  useEffect(() => {
+    setMarkerIsLoading(false);
+  }, [places]);
   return (
     <Wrapper>
       <Navbar />
@@ -174,9 +205,19 @@ function NearbyPage(props) {
             restaurantList={restaurantList}
             handleSearchRestaurant={searchRestaurantById}
             setFocused={setFocused}
+            handleTextSearch={handleTextSearch}
           />
         </SearchBorder>
         <Map>
+          {markerIsLoading && (
+            <IsLoading
+              onClick={() => {
+                setMarkerIsLoading(false);
+              }}
+            >
+              載入中...
+            </IsLoading>
+          )}
           <GoogleMapReact
             center={currentCenter}
             bootstrapURLKeys={{

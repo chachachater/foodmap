@@ -9,6 +9,7 @@ import {
   SearchBoxContainer,
 } from "./SearchStyle";
 import { Link } from "react-router-dom";
+import { useHistory } from "react-router";
 
 function Search({
   text,
@@ -17,6 +18,7 @@ function Search({
   restaurantList = [],
   handleSearchRestaurant,
   setFocused,
+  handleTextSearch,
 }) {
   return (
     <SearchWrapper>
@@ -28,13 +30,14 @@ function Search({
         handleSearchRestaurant={handleSearchRestaurant}
         setFocused={setFocused}
       />
-      <SearchButton>
-        <ButtonImg></ButtonImg>
+      <SearchButton onClick={handleTextSearch}>
+        <ButtonImg />
       </SearchButton>
     </SearchWrapper>
   );
 }
 export function HomePageSearch({ inputText, setInputText }) {
+  let history = useHistory();
   return (
     <SearchWrapper>
       <SearchBoxContainer>
@@ -43,6 +46,9 @@ export function HomePageSearch({ inputText, setInputText }) {
           value={inputText}
           onChange={(e) => {
             setInputText(e.target.value);
+          }}
+          onKeyPress={(e) => {
+            if (e.key === "Enter") history.push(`/search?query=${inputText}`);
           }}
         />
       </SearchBoxContainer>
@@ -60,6 +66,7 @@ Search.propTypes = {
   setFocused: PropTypes.func,
   restaurantList: PropTypes.array,
   handleSearchRestaurant: PropTypes.func,
+  handleTextSearch: PropTypes.func,
 };
 HomePageSearch.propTypes = {
   inputText: PropTypes.string,
