@@ -10,9 +10,8 @@ import {
   Private,
 } from "./BackStagStyled";
 import BackStageArticle from "./BackStagArticle";
-import { useSelector } from "react-redux";
-import { selectUser } from "../../../redux/reducers/userReducer";
 import { fetchPostsByUserId, fetchDeletePost } from "../../../WebAPI";
+import useGetId from "../../../hooks/useGetId";
 import useScroll from "../../../hooks/useScroll";
 import useParseData from "../../../hooks/useParseData";
 import useLoading from "../../../hooks/useLoading";
@@ -20,16 +19,8 @@ import Loading from "../../../components/Loading/Loading";
 
 function BackStagePage() {
   const history = useHistory();
-  const userState = useSelector(selectUser);
   const { isLoading, setIsLoading } = useLoading();
-  const [userId, setUserId] = useState();
-
-  useEffect(() => {
-    console.log("QQ", userState);
-    if (!userState.result) return;
-    setUserId(userState.result.data.userId);
-  }, [userState]);
-
+  const { userId } = useGetId();
   const { parseResult, setParseResult, parseData } = useParseData();
   const scroll = useScroll();
   const [unpublished, setUnpublished] = useState("false");
@@ -43,7 +34,7 @@ function BackStagePage() {
   useEffect(() => {
     if (isLoading) return;
     setIsLoading(true);
-    console.log(userId)
+    console.log(userId);
     fetchPostsByUserId(userId, offset, order, unpublished).then((result) => {
       setIsLoading(false);
       if (!result) return console.log(result.message);

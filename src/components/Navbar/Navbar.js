@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { logoutAsync, selectUser } from "../../redux/reducers/userReducer";
 import {
@@ -12,12 +12,17 @@ import {
 
 function Navbar() {
   const userState = useSelector(selectUser);
-  const user = userState.result;
+  const [user, setUser] = useState();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const dispatch = useDispatch();
   const handleLogout = () => {
     dispatch(logoutAsync());
   };
+  useEffect(() => {
+    if (!userState.result) return;
+    setUser(userState.result);
+  }, [userState]);
+
   return (
     <NavbarWrapper>
       <LogoText to="/home">吃貨地圖</LogoText>
