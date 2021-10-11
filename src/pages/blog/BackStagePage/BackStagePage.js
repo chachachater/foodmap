@@ -21,10 +21,10 @@ export default function BackStagePage() {
   const history = useHistory();
   const userState = useSelector(selectUser);
   const { isLoading, setIsLoading } = useLoading();
-  let userId = ""
+  let userId = "";
   useEffect(() => {
     userId = userState.result.data;
-  }, [])
+  }, []);
 
   const [posts, setPosts] = useState([]);
   const [userImgs, setUserImgs] = useState([]);
@@ -68,9 +68,7 @@ export default function BackStagePage() {
           console.log(userPost.message);
           return;
         }
-
         const { posts, images } = userPost;
-
         setPosts(posts);
         setUserImgs(images);
       });

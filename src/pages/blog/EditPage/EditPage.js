@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef, useLayoutEffect } from "react";
 import { useLocation, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { selectUser } from "../../../redux/reducers/userReducer";
@@ -30,6 +30,7 @@ import { fetchPostByPostId } from "../../../WebAPI";
 function EditPage() {
   let pathname = useLocation().pathname;
   const { id } = useParams();
+  const firstRender = useRef(true);
   const userState = useSelector(selectUser);
   const {
     isLoading,
@@ -70,8 +71,12 @@ function EditPage() {
   const handleDraft = () => {
     setIsPublished(false);
   };
-  useEffect(() => {
-    handleSubmit();
+  useLayoutEffect(() => {
+    if (firstRender.current) {
+      firstRender.current = false;
+    } else {
+      handleSubmit();
+    }
   }, [isPublished]);
   const renderImages = () => {
     if (!images.length) return;
