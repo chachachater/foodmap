@@ -1,13 +1,10 @@
 import React, { useEffect } from "react";
 import { useLocation, useParams } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { selectUser } from "../../../redux/reducers/userReducer";
 import { Wrapper } from "../../../constants/globalStyle";
 import { Navbar } from "../../../components/Navbar";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import PopUp from "../../../components/PopUp/PopUp";
 import Loading from "../../../components/Loading/Loading";
-
 import {
   EditContainer,
   EditInputs,
@@ -24,14 +21,14 @@ import {
 } from "./EditPageStyle";
 import Editor from "ckeditor5-custom-build/build/ckeditor";
 import "ckeditor5-custom-build/build/ckeditor.css";
+import useGetId from "../../../hooks/useGetId";
 import usePost from "../../../hooks/usePost";
 import { fetchPostByPostId } from "../../../WebAPI";
 
 function EditPage() {
-  let pathname = useLocation().pathname;
-  console.log(location.pathname);
+  const pathname = useLocation().pathname;
   const { id } = useParams();
-  const userState = useSelector(selectUser);
+  const { userId } = useGetId();
   const {
     isLoading,
     images,
@@ -56,8 +53,7 @@ function EditPage() {
   useEffect(() => {
     if (pathname.includes("edit")) {
       setPostId(id);
-      fetchPostByPostId(id, userState.result.data.userId).then((result) => {
-        console.log(result);
+      fetchPostByPostId(id, userId).then((result) => {
         setImages(result.images);
         setTitle(result.post.title);
         setContent(result.post.content);
@@ -67,8 +63,8 @@ function EditPage() {
       });
     }
   }, []);
-  const handleDraft = async () => {
-    await setIsPublished(false);
+  const handleDraft = () => {
+    setIsPublished(false);
     return handleSubmit();
   };
   const renderImages = () => {

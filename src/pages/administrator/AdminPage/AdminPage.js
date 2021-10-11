@@ -18,16 +18,9 @@ import {
 
 function AdminPage() {
   const [userData, setUserData] = useState([]);
-  // const [isBanUser, setBanUser] = useState(false);
   const [waiting, setWaiting] = useState(false);
   const [inputText, setInputText] = useState("");
 
-  // useEffect(() => {
-  //   fetchAdmin().then((response) => {
-  //     setUserData(response.data);
-  //   });
-  //   setBanUser(false);
-  // }, []);
   useEffect(() => {
     fetchAdmin().then((response) => {
       setUserData(response.data);

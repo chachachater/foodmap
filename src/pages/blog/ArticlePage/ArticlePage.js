@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import { selectUser } from "../../../redux/reducers/userReducer";
 import PropTypes from "prop-types";
 import { htmlToReactParser } from "../../../utils";
 import { Wrapper } from "../../../constants/globalStyle";
@@ -20,10 +18,9 @@ import { fetchPostByPostId, fetchUserData } from "../../../WebAPI";
 import { useParams } from "react-router-dom";
 import Loading from "../../../components/Loading/Loading";
 import useLoading from "../../../hooks/useLoading"
+import useGetId from "../../../hooks/useGetId"
 
 function Post({ post, user }) {
-  console.log(post);
-  console.log(user);
   if (!post) return null;
   if (!post.images) return null;
   let arr = [];
@@ -56,28 +53,22 @@ Post.propTypes = {
 };
 
 function ArticlePage() {
-  const userState = useSelector(selectUser);
+  const { userId } = useGetId();
   const { id } = useParams();
-  const [userId, setUserId] = useState();
   const [post, setPost] = useState();
   const [user, setUser] = useState();
   const { isLoading, setIsLoading } = useLoading()
   
   useEffect(() => {
-    if (userState.result) {
-      setUserId(userState.result.data.userId);
-    }
     setIsLoading(true)
     fetchPostByPostId(id, userId).then((post) => {
       setIsLoading(false)
-
       if (!post) {
         console.log(post.message);
         return;
       }
       setPost(post);
       const userId = post.post.user_id;
-
       fetchUserData(userId).then((user) => {
         if (!user) {
           console.log(user.message);
@@ -86,7 +77,7 @@ function ArticlePage() {
         setUser(user.data);
       });
     });
-  }, [id]);
+  }, [userId]);
 
   return (
     <Wrapper>
