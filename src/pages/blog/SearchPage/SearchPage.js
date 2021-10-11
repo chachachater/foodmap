@@ -100,28 +100,27 @@ function SearchPage(props) {
       });
     }
   }
-  // function handleTextSearch() {
-  //   if (mapApiLoaded) {
-  //     const service = new mapApi.places.PlacesService(mapInstance);
+  function handleTextSearch() {
+    if (mapApiLoaded) {
+      const service = new mapApi.places.PlacesService(mapInstance);
 
-  //     const request = {
-  //       placeId,
-  //     };
+      const request = {
+        query: inputText,
+        fields: ["All"],
+      };
 
-  //     service.getDetails(request, (results, status) => {
-  //       if (status === mapApi.places.PlacesServiceStatus.OK) {
-  //         setMyPosition({
-  //           lat: results.geometry.location.lat(),
-  //           lng: results.geometry.location.lng(),
-  //         });
-  //         console.log(results);
-  //         setRestaurantInfo(results);
-  //         setInputText(name);
-  //         setRestaurantList([]);
-  //       }
-  //     });
-  //   }
-  // }
+      service.findPlaceFromQuery(request, (results, status) => {
+        if (status === mapApi.places.PlacesServiceStatus.OK) {
+          console.log(results);
+          setMyPosition({
+            lat: results[0].geometry.location.lat(),
+            lng: results[0].geometry.location.lng(),
+          });
+          setRestaurantInfo(results[0]);
+        }
+      });
+    }
+  }
   useEffect(() => {
     handleDebounce(inputText);
   }, [inputText, handleDebounce, handleAutocomplete]);
@@ -158,6 +157,8 @@ function SearchPage(props) {
   }, [focused]);
   useEffect(() => {
     if (!mapApiLoaded) return;
+    const service = new mapApi.places.PlacesService(mapInstance);
+    console.log(service);
     setInputText(query.get("query"));
   }, [mapApiLoaded]);
   return (
@@ -172,6 +173,7 @@ function SearchPage(props) {
             restaurantList={restaurantList}
             handleSearchRestaurant={handleSearchRestaurant}
             setFocused={setFocused}
+            handleTextSearch={handleTextSearch}
           />
         </SearchBorder>
         <SearchMap>
