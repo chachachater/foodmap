@@ -17,8 +17,9 @@ import ImageViewer from "../../../components/ImageViewer";
 import { fetchPostByPostId, fetchUserData } from "../../../WebAPI";
 import { useParams } from "react-router-dom";
 import Loading from "../../../components/Loading/Loading";
-import useLoading from "../../../hooks/useLoading"
-import useGetId from "../../../hooks/useGetId"
+import useLoading from "../../../hooks/useLoading";
+import useGetId from "../../../hooks/useGetId";
+import "./ckeditorStyle.css";
 
 function Post({ post, user }) {
   if (!post) return null;
@@ -35,10 +36,12 @@ function Post({ post, user }) {
       <PostContainer>
         <PostAuthor>
           <AuthorImg $img={user && user.picture_url}></AuthorImg>
-          <AuthorName to={`/user/${post.post.user_id}`}>{user && user.nickname}</AuthorName>
+          <AuthorName to={`/user/${post.post.user_id}`}>
+            {user && user.nickname}
+          </AuthorName>
         </PostAuthor>
         <PostTitle>{post.post && post.post.title}</PostTitle>
-        <PostContent>{post.post && reactElement}</PostContent>
+        <PostContent className="ckeditor-content">{post.post && reactElement}</PostContent>
         <PostImg>
           <ImageViewer photos={arr} />
         </PostImg>
@@ -57,12 +60,12 @@ function ArticlePage() {
   const { id } = useParams();
   const [post, setPost] = useState();
   const [user, setUser] = useState();
-  const { isLoading, setIsLoading } = useLoading()
-  
+  const { isLoading, setIsLoading } = useLoading();
+
   useEffect(() => {
-    setIsLoading(true)
+    setIsLoading(true);
     fetchPostByPostId(id, userId).then((post) => {
-      setIsLoading(false)
+      setIsLoading(false);
       if (!post) {
         console.log(post.message);
         return;
