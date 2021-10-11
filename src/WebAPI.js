@@ -89,6 +89,7 @@ export function fetchBanUser(userId) {
     .catch((err) => {
       alert("操作失敗，發生錯誤");
       console.log(err);
+      return { ok: 0 };
     });
 }
 
@@ -101,6 +102,7 @@ export function fetchUnBanUser(userId) {
     .catch((err) => {
       alert("操作失敗，發生錯誤");
       console.log(err);
+      return { ok: 0 };
     });
 }
 
@@ -256,5 +258,6 @@ export function adminSearchUser(username) {
     .catch((err) => {
       alert("操作失敗，發生錯誤");
       console.log(err.message);
+      return { ok: 0 };
     });
 }
