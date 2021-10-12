@@ -41,7 +41,9 @@ function Post({ post, user }) {
           </AuthorName>
         </PostAuthor>
         <PostTitle>{post.post && post.post.title}</PostTitle>
-        <PostContent className="ckeditor-content">{post.post && reactElement}</PostContent>
+        <PostContent className="ckeditor-content">
+          {post.post && reactElement}
+        </PostContent>
         <PostImg>
           <ImageViewer photos={arr} />
         </PostImg>
@@ -70,6 +72,7 @@ function ArticlePage() {
         console.log(post.message);
         return;
       }
+      if (!post.post) return;
       setPost(post);
       const userId = post.post.user_id;
       fetchUserData(userId).then((user) => {

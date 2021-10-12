@@ -7,6 +7,7 @@ import ImageViewer from "../../../components/ImageViewer";
 import PropTypes from "prop-types";
 import GoogleMapReact from "google-map-react";
 import { useLocation } from "react-router-dom";
+import Loading from "../../../components/Loading/Loading";
 import _ from "lodash";
 import { fetchPostsAndPicturesByPlaceId } from "../../../WebAPI";
 import {
@@ -42,6 +43,7 @@ function SearchPage(props) {
   const [inputText, setInputText] = useState("");
   const [restaurantInfo, setRestaurantInfo] = useState({});
   const [postsData, setPostsData] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
   const [myPosition, setMyPosition] = useState({
     lat: 24.953631,
     lng: 121.225591,
@@ -157,12 +159,12 @@ function SearchPage(props) {
   }, [focused]);
   useEffect(() => {
     if (!mapApiLoaded) return;
-    const service = new mapApi.places.PlacesService(mapInstance);
-    console.log(service);
+    setIsLoading(false);
     setInputText(query.get("query"));
   }, [mapApiLoaded]);
   return (
     <Wrapper>
+      {isLoading && <Loading />}
       <Navbar />
       <SearchContainer>
         <SearchBorder>

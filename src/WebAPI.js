@@ -202,10 +202,14 @@ export function fetchPostByPostId(id, userId) {
     method: "GET",
     credentials: "include",
   })
-    .then((res) => res.json())
+    .then((res) => {
+      console.log(res);
+      return res.json();
+    })
     .catch((err) => {
       alert("操作失敗，發生錯誤");
       console.log(err.message);
+      return { ok: 0 };
     });
 }
 export function fetchUserData(userId) {
