@@ -79,6 +79,7 @@ export const ArticleTitle = styled.div`
 `;
 
 export const ArticleDesc = styled.div`
+  padding-left: 20px;
   justify-content: center;
   overflow: hidden;
   text-overflow: ellipsis;

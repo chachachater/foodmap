@@ -18,7 +18,7 @@ function ArticleInfo({ postsData }) {
         <ArticleImage image={post.Pictures[0].food_picture_url} />
         <ArticleContent>
           <ArticleTitle>{post.title}</ArticleTitle>
-          <ArticleDesc>{reactElement}</ArticleDesc>
+          <ArticleDesc className="ckeditor-content">{reactElement}</ArticleDesc>
         </ArticleContent>
       </ArticleContainer>
     );

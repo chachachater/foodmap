@@ -19,7 +19,7 @@ function Navbar() {
     dispatch(logoutAsync());
   };
   useEffect(() => {
-    if (!userState.result) return;
+    if (!userState.result) return setUser();
     setUser(userState.result);
   }, [userState]);
 

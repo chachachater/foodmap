@@ -33,6 +33,7 @@ function BackStagePage() {
 
   useEffect(() => {
     if (isLoading) return;
+    if (!userId) return;
     setIsLoading(true);
     console.log(userId);
     fetchPostsByUserId(userId, offset, order, unpublished).then((result) => {
@@ -44,6 +45,8 @@ function BackStagePage() {
   }, [userId]);
 
   useEffect(() => {
+    if (isLoading) return;
+    if (!userId) return;
     fetchPostsByUserId(userId, 0, order, unpublished).then((result) => {
       console.log(result);
       setParseResult(parseData(result));
