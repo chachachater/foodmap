@@ -51,9 +51,12 @@ function EditPage() {
     setRestaurantName,
   } = usePost();
   useEffect(() => {
+    if (!userId) return;
     if (pathname.includes("edit")) {
       setPostId(id);
+      console.log(pathname);
       fetchPostByPostId(id, userId).then((result) => {
+        console.log(result);
         setImages(result.images);
         setTitle(result.post.title);
         setContent(result.post.content);
@@ -62,20 +65,19 @@ function EditPage() {
         setRestaurantId(result.post.restaurant_id);
       });
     }
-  }, []);
+  }, [userId]);
   const handleDraft = () => {
     isPublished.current = false;
     handleSubmit();
   };
   const renderImages = () => {
+    if (!images) return;
     if (!images.length) return;
-    return images.map((each) => {
-      return (
-        <ImgBox key={each}>
-          <Img src={each} />
-        </ImgBox>
-      );
-    });
+    return images.map((each) => (
+      <ImgBox key={each}>
+        <Img src={each} />
+      </ImgBox>
+    ));
   };
   const editorConfiguration = {
     toolbar: {
@@ -159,7 +161,14 @@ function EditPage() {
         />
         <SubmitButton>
           <Button onClick={handleDraft}>儲存</Button>
-          <Button onClick={handleSubmit}>發表食記</Button>
+          <Button
+            onClick={() => {
+              isPublished.current = true;
+              handleSubmit();
+            }}
+          >
+            發表食記
+          </Button>
         </SubmitButton>
       </EditContainer>
     </Wrapper>
