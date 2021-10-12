@@ -5,7 +5,6 @@ export const FormWrapper = styled.div`
   padding: 0 16px;
   margin-top: 160px;
 `;
-
 export const UserForm = styled.div`
   max-width: 750px;
   margin: 0 auto;
@@ -15,7 +14,6 @@ export const UserForm = styled.div`
   display: flex;
   justify-content: center;
 `;
-
 export const FormContainer = styled.form`
   max-width: 500px;
   display: flex;
@@ -30,7 +28,6 @@ export const FormTitle = styled.h1`
 export const FormInfo = styled.div`
   width: 100%;
 `;
-
 export const FormInput = styled.input`
   width: 100%;
   border-bottom: 1px solid ${COLOR.black};
@@ -39,6 +36,15 @@ export const FormInput = styled.input`
   &::placeholder {
     color: ${COLOR.text_gray};
   }
+
+  & + & {
+    margin-top: 36px;
+  }
+`;
+export const ErrMessage = styled.div`
+  width: 100%;
+  padding: 10px 6px;
+  color: #e60000;
 
   & + & {
     margin-top: 36px;
