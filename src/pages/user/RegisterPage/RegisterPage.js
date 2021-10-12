@@ -10,7 +10,6 @@ import Loading from "../../../components/Loading/Loading"
 function RegisterPage() {
   const userState = useSelector(selectUser)
   const [isLoading, setIsLoading] = useState(false)
-  console.log(isLoading)
   useEffect(() => {
     setIsLoading(!isLoading)
   }, [userState.status])
@@ -20,9 +19,14 @@ function RegisterPage() {
     setPassword,
     setCheckedPassword,
     setEmail,
+    invalidUsername,
+    invalidPassword,
+    invalidCheckedPassword,
+    invalidEmail,
     handleSubmit,
     errorMessage,
   } = useRegister();
+  console.log(invalidUsername)
   return (
     <Wrapper>
       <UserNavbar />
@@ -41,6 +45,10 @@ function RegisterPage() {
         handleEmailChange={handleInputChange(setEmail)}
         handleSubmit={handleSubmit}
         errorMessage={errorMessage}
+        invalidUsername={invalidUsername}
+        invalidPassword={invalidPassword}
+        invalidCheckedPassword={invalidCheckedPassword}
+        invalidEmail={invalidEmail}
       />
     </Wrapper>
   );
