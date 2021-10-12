@@ -20,6 +20,7 @@ import GoogleMapReact from "google-map-react";
 import _ from "lodash";
 import PropTypes from "prop-types";
 import Search from "../../../components/Search";
+import Loading from "../../../components/Loading/Loading";
 
 const mapApiKey = process.env.REACT_APP_MAP_KEY;
 
@@ -39,6 +40,7 @@ function NearbyPage(props) {
   const [currentCenter, setCurrentCenter] = useState(myPosition);
   const [photos, setPhotos] = useState(null);
   const [isFold, setIsFold] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
   const [markerIsLoading, setMarkerIsLoading] = useState(false);
   const handleApiLoaded = (map, maps) => {
     setMapInstance(map);
@@ -193,8 +195,12 @@ function NearbyPage(props) {
   useEffect(() => {
     setMarkerIsLoading(false);
   }, [places]);
+  useEffect(() => {
+    if (mapApiLoaded) setIsLoading(false);
+  }, [mapApiLoaded]);
   return (
     <Wrapper>
+      {isLoading && <Loading />}
       <Navbar />
       <SearchContainer>
         <SearchBorder>
