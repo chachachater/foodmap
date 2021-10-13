@@ -49,8 +49,7 @@ export default function useEditUserData() {
     if (Object.keys(data).length) {
       fetchEditUserData(data, userId)
       .then(result => {
-        console.log(result)
-        if(result.ok) alert('操作成功')
+        if (result && result.ok) return alert('操作成功')
       })
     }
   }

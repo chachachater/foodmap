@@ -1,5 +1,5 @@
-const baseUrl = "https://api.outshaker.tw";
-
+const baseUrl = "http://localhost:5001";
+// const baseUrl = "https://api.outshaker.tw";
 export function fetchLoginStatus() {
   return fetch(`${baseUrl}/get-me`, {
     method: "GET",
@@ -238,7 +238,7 @@ export function fetchEditUserData(data, userId) {
   })
     .then((res) => res.json())
     .catch((err) => {
-      alert("操作失敗，發生錯誤");
+      alert("操作失敗，圖片檔案太大");
       console.log(err);
     });
 }
