@@ -20,7 +20,7 @@ import Loading from "../../../components/Loading/Loading";
 
 function HomePage() {
   const { isLoading, setIsLoading } = useLoading();
-  const { parseResult, setParseResult, parseData } = useParseData();
+  const { parseResult, setParseResult } = useParseData();
   const scroll = useScroll();
   const [offset, setOffset] = useState(0);
   const [postCounts, setPostCounts] = useState(0);
@@ -32,16 +32,18 @@ function HomePage() {
     setIsLoading(true);
     fetchAllPosts(offset).then((result) => {
       setIsLoading(false);
+      console.log(result);
       if (!result) return;
-      setPostCounts(result.postCounts);
-      setParseResult(parseData(result));
+      setPostCounts(result.count);
+      setParseResult(result.rows);
     });
   }, []);
 
   useEffect(() => {
     if (offset === 0) return;
     fetchAllPosts(offset).then((result) => {
-      setParseResult(parseResult.concat(parseData(result)));
+      console.log(result);
+      setParseResult(parseResult.concat(result.rows));
       setIsLoading(false);
     });
   }, [offset]);

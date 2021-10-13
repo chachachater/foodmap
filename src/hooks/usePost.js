@@ -61,6 +61,7 @@ export default function usePost() {
     const postData = {};
     const blobArr = [];
     if (!images.length) return alert("至少上傳一張圖片");
+    console.log(images);
     setIsLoading(true);
     for (let i = 0; i < images.length; i++) {
       let blob = await fetch(images[i]).then((result) => result.blob());

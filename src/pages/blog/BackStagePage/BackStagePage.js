@@ -21,7 +21,7 @@ function BackStagePage() {
   const history = useHistory();
   const { isLoading, setIsLoading } = useLoading();
   const { userId } = useGetId();
-  const { parseResult, setParseResult, parseData } = useParseData();
+  const { parseResult, setParseResult } = useParseData();
   const scroll = useScroll();
   const [unpublished, setUnpublished] = useState("false");
   const [postCounts, setPostCounts] = useState("");
@@ -39,8 +39,8 @@ function BackStagePage() {
     fetchPostsByUserId(userId, offset, order, unpublished).then((result) => {
       setIsLoading(false);
       if (!result) return console.log(result.message);
-      setPostCounts(result.postCounts);
-      setParseResult(parseData(result));
+      setPostCounts(result.count);
+      setParseResult(result.rows);
     });
   }, [userId]);
 
@@ -49,7 +49,7 @@ function BackStagePage() {
     if (!userId) return;
     fetchPostsByUserId(userId, 0, order, unpublished).then((result) => {
       console.log(result);
-      setParseResult(parseData(result));
+      setParseResult(result.rows);
       setOffset(0);
     });
   }, [unpublished]);
@@ -58,8 +58,8 @@ function BackStagePage() {
     if (offset === 0) return;
     fetchPostsByUserId(userId, offset, order, unpublished).then((result) => {
       console.log(result);
-      if (!parseData(result)) return setIsLoading(false);
-      setParseResult(parseResult.concat(parseData(result)));
+      if (!result) return setIsLoading(false);
+      setParseResult(parseResult.concat(result.rows));
       setIsLoading(false);
     });
   }, [offset]);
@@ -91,7 +91,7 @@ function BackStagePage() {
     console.log(id);
     fetchDeletePost(id).then(() => {
       fetchPostsByUserId(userId, 0, order, unpublished).then((result) => {
-        setParseResult(parseData(result));
+        setParseResult(result.rows);
         setOffset(0);
       });
     });
