@@ -57,12 +57,17 @@ function EditPage() {
       console.log(pathname);
       fetchPostByPostId(id, userId).then((result) => {
         console.log(result);
-        setImages(result.images);
-        setTitle(result.post.title);
-        setContent(result.post.content);
-        setVisitedDate(result.post.visited_time);
-        isPublished.current = result.post.is_published;
-        setRestaurantId(result.post.restaurant_id);
+        setImages(
+          result.Pictures.reduce((reducer, val) => {
+            reducer.push(val.food_picture_url);
+            return reducer;
+          }, [])
+        );
+        setTitle(result.title);
+        setContent(result.content);
+        setVisitedDate(result.visited_time);
+        isPublished.current = result.is_published;
+        setRestaurantId(result.restaurant_id);
       });
     }
   }, [userId]);

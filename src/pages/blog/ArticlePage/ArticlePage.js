@@ -23,26 +23,26 @@ import "./ckeditorStyle.css";
 
 function Post({ post, user }) {
   if (!post) return null;
-  if (!post.images) return null;
+  if (!post.Pictures) return null;
   let arr = [];
-  post.images.map((post) => {
-    let src = post;
+  post.Pictures.map((post) => {
+    let src = post.food_picture_url;
     arr.push({ src });
   });
-  const htmlInput = post.post.content;
+  const htmlInput = post.content;
   const reactElement = htmlToReactParser(htmlInput);
   return (
     <PostWrapper>
       <PostContainer>
         <PostAuthor>
           <AuthorImg $img={user && user.picture_url}></AuthorImg>
-          <AuthorName to={`/user/${post.post.user_id}`}>
+          <AuthorName to={`/user/${post.user_id}`}>
             {user && user.nickname}
           </AuthorName>
         </PostAuthor>
-        <PostTitle>{post.post && post.post.title}</PostTitle>
+        <PostTitle>{post && post.title}</PostTitle>
         <PostContent className="ckeditor-content">
-          {post.post && reactElement}
+          {post && reactElement}
         </PostContent>
         <PostImg>
           <ImageViewer photos={arr} />
@@ -72,9 +72,8 @@ function ArticlePage() {
         console.log(post.message);
         return;
       }
-      if (!post.post) return;
       setPost(post);
-      const userId = post.post.user_id;
+      const userId = post.user_id;
       fetchUserData(userId).then((user) => {
         if (!user) {
           console.log(user.message);
@@ -84,7 +83,6 @@ function ArticlePage() {
       });
     });
   }, [userId]);
-
   return (
     <Wrapper>
       <Navbar />

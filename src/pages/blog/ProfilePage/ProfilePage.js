@@ -44,7 +44,7 @@ function ProfilePage() {
     handleInputChange,
     handleSubmit,
   } = useEditUserData();
-  const { parseResult, setParseResult, parseData } = useParseData();
+  const { parseResult, setParseResult } = useParseData();
   const scroll = useScroll();
   const [defaultBanner, setDefaultBanner] = useState("");
   const [defaultAvatar, setDefaultAvatar] = useState("");
@@ -67,16 +67,16 @@ function ProfilePage() {
       setIsLoading(false);
     });
     fetchPostsByUserId(id, offset, filter, unpublished).then((result) => {
-      setPostCounts(result.postCounts);
-      //console.log(result);
+      console.log(result);
+      setPostCounts(result.count);
       // 這邊等後端改成 left join 會更好處理
-      setParseResult(parseData(result));
+      setParseResult(result.rows);
     });
   }, [id]);
 
   useEffect(() => {
     fetchPostsByUserId(id, 0, filter, unpublished).then((result) => {
-      setParseResult(parseData(result));
+      setParseResult(result.rows);
       setOffset(0);
     });
   }, [filter]);
@@ -84,7 +84,7 @@ function ProfilePage() {
   useEffect(() => {
     if (offset === 0) return;
     fetchPostsByUserId(id, offset, filter, unpublished).then((result) => {
-      setParseResult(parseResult.concat(parseData(result)));
+      setParseResult(parseResult.concat(result.rows));
       setIsLoading(false);
     });
   }, [offset]);
@@ -151,10 +151,7 @@ function ProfilePage() {
           <ArticleCounter>共有 {postCounts} 篇食記</ArticleCounter>
         </InfoContainer>
       </ProfileContainer>
-      <Article
-        postsData={parseResult}
-        setFilter={setFilter}
-      />
+      <Article postsData={parseResult} setFilter={setFilter} />
     </Wrapper>
   );
 }
