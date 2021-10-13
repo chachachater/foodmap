@@ -64,7 +64,6 @@ function ProfilePage() {
       if (result.data.background_pic_url)
         setDefaultBanner(result.data.background_pic_url);
       if (result.data.picture_url) setDefaultAvatar(result.data.picture_url);
-      setIsLoading(false);
     });
     fetchPostsByUserId(id, offset, filter, unpublished).then((result) => {
       setPostCounts(result.postCounts);
@@ -72,6 +71,7 @@ function ProfilePage() {
       // 這邊等後端改成 left join 會更好處理
       setParseResult(parseData(result));
     });
+    setIsLoading(false);
   }, [id]);
 
   useEffect(() => {
