@@ -28,10 +28,13 @@ import useParseData from "../../../hooks/useParseData";
 import useScroll from "../../../hooks/useScroll";
 import useLoading from "../../../hooks/useLoading";
 import Loading from "../../../components/Loading/Loading";
+import Error from "../../../components/Error/Error";
+import useError from "../../../hooks/useError";
 
 function ProfilePage() {
   const { id } = useParams();
   const { isLoading, setIsLoading } = useLoading();
+  const { isError, setIsError } = useError();
   const confirmUser = useConfirmUser(id);
   const {
     avatar,
@@ -59,7 +62,12 @@ function ProfilePage() {
     if (isLoading) return;
     setIsLoading(true);
     fetchUserData(id).then((result) => {
-      if (!result.ok) return;
+      console.log(result)
+      if (!result.data){
+        setIsLoading(false);
+        setIsError(true)
+        return
+      } 
       setNickname(result.data.nickname);
       if (result.data.background_pic_url)
         setDefaultBanner(result.data.background_pic_url);
@@ -106,6 +114,7 @@ function ProfilePage() {
     <Wrapper>
       <Navbar />
       {isLoading && <Loading />}
+      {isError && <Error />}
       <ProfileContainer>
         <Banner banner={banner ? banner : defaultBanner}>
           {confirmUser && (

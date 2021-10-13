@@ -50,6 +50,13 @@ export const ErrMessage = styled.div`
     margin-top: 36px;
   }
 `;
+
+export const Err = styled(ErrMessage)`
+  text-align: center;
+  margin-top: 24px;
+`;
+
+
 export const FormUserTerms = styled.p`
   margin-top: 64px;
   padding: 0 48px;

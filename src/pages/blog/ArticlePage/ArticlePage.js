@@ -18,6 +18,8 @@ import { fetchPostByPostId, fetchUserData } from "../../../WebAPI";
 import { useParams } from "react-router-dom";
 import Loading from "../../../components/Loading/Loading";
 import useLoading from "../../../hooks/useLoading";
+import Error from "../../../components/Error/Error";
+import useError from "../../../hooks/useError";
 import useGetId from "../../../hooks/useGetId";
 import "./ckeditorStyle.css";
 
@@ -63,17 +65,16 @@ function ArticlePage() {
   const [post, setPost] = useState();
   const [user, setUser] = useState();
   const { isLoading, setIsLoading } = useLoading();
+  const { isError, setIsError } = useError();
 
   useEffect(() => {
     setIsLoading(true);
     fetchPostByPostId(id, userId).then((post) => {
       setIsLoading(false);
-      if (!post) {
-        console.log(post.message);
-        return;
-      }
-      if (!post.post) return;
+      
+      if (!post.post) return setIsError(true);
       setPost(post);
+
       const userId = post.post.user_id;
       fetchUserData(userId).then((user) => {
         if (!user) {
@@ -89,6 +90,7 @@ function ArticlePage() {
     <Wrapper>
       <Navbar />
       {isLoading && <Loading />}
+      {isError && <Error />}
       <Post post={post} user={user} />
     </Wrapper>
   );

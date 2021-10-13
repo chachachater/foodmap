@@ -128,6 +128,7 @@ export const FilterOptionsContainer = styled.div`
 `;
 
 export const FilterOption = styled.div`
+  cursor: pointer;
   margin-right: 20px;
   border-bottom: ${(props) => (props.active ? `2px solid ${COLOR.btn}` : "")};
 `;

@@ -8,6 +8,7 @@ import {
   FormInfo,
   FormInput,
   ErrMessage,
+  Err,
   FormUserTerms,
   FormButton,
   SubmitButton,
@@ -68,7 +69,7 @@ function Form(props) {
           <FormUserTerms>
             當您繼續使用吃貨地圖時，即表示您以閱讀、瞭解並同意接受本服務條款之所有內容。
           </FormUserTerms>
-          <div>{props.errorMessage}</div>
+          <Err>{props.errorMessage}</Err>
           <FormButton>
             <SubmitButton>{props.submitValue}</SubmitButton>
           </FormButton>
