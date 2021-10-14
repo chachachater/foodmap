@@ -4,6 +4,7 @@ import { useHistory } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { selectUser } from "../redux/reducers/userReducer";
 import useLoading from "../hooks/useLoading";
+import { isValidDate } from "../utils";
 
 export default function usePost() {
   const history = useHistory();
@@ -55,6 +56,7 @@ export default function usePost() {
     const { userId } = userState.result.data;
     const checkedList = [restaurantId, title, content, visitedDate, userId];
     console.log(checkedList);
+    if (!isValidDate(visitedDate)) alert("食記的日期不能超過當日");
     if (!checkedList.every((every) => every)) {
       return alert(`請輸入全部欄位`);
     }
@@ -87,7 +89,6 @@ export default function usePost() {
       setIsLoading(false);
       if (!result.ok) return alert(result.message);
       history.push(`/backstage/${userId}`);
-      // history.push(`/posts/${postId}`)
     });
   }
   return {
