@@ -16,12 +16,13 @@ export const Banner = styled.div`
   background: ${props => props.banner ? `url(${props.banner}) center/cover;` : ''};
 `;
 export const EditLabel = styled.label`
-    border: none;
-    margin-bottom: 0;
-    height: fit-content;
-    width: fit-content;
-    // padding: 8px 0;
-    display: flex;
+  border: none;
+  margin-bottom: 0;
+  height: fit-content;
+  width: fit-content;
+  cursor: pointer;
+  // padding: 8px 0;
+  display: flex;
   // margin-top: 15px;
   // font-size: ${FONT.logo};
   margin-bottom: 40px;
