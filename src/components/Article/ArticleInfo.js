@@ -1,4 +1,3 @@
-/* eslint-disable */
 import React from "react";
 import { htmlToReactParser } from "../../utils";
 import {
@@ -10,7 +9,7 @@ import {
 } from "./ArticleStyle";
 
 function ArticleInfo({ postsData }) {
-  return  postsData.map((post, index) => {
+  return postsData.map((post, index) => {
     const htmlInput = post.content;
     const reactElement = htmlToReactParser(htmlInput);
     return (
