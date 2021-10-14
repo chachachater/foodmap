@@ -70,7 +70,7 @@ export const userSlice = createSlice({
       .addCase(logoutAsync.fulfilled, (state, action) => {
         state.status = "idle";
         state.result = action.payload;
-      })
+      });
   },
 });
 

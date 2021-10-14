@@ -45,6 +45,7 @@ const RestaurantInfo = styled.div`
   margin-right: 24px;
   @media screen and (max-width: 600px) {
     justify-content: center;
+    margin-top: 30px;
   }
 `;
 

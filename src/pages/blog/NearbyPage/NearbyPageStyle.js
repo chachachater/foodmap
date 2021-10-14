@@ -54,9 +54,13 @@ export const MarginContainer = styled.div`
 `;
 export const Luck = styled.div`
   display: flex;
-  flex-direction: column;
-  justify-content: center;
+  width: 50%;
+  margin: 0 auto;
+  justify-content: space-between;
   align-items: center;
+  ${MEDIA_QUERY.sm} {
+    flex-direction: column;
+  }
 `;
 
 export const LuckButton = styled.button`
