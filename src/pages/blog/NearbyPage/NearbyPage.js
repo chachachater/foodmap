@@ -33,8 +33,8 @@ function NearbyPage(props) {
   const [restaurantInfo, setRestaurantInfo] = useState({});
   const [inputText, setInputText] = useState("");
   const [myPosition, setMyPosition] = useState({
-    lat: 24.953631,
-    lng: 121.225591,
+    lat: 25.0428937,
+    lng: 121.5054199,
   });
   const [focused, setFocused] = useState(false);
   const [currentCenter, setCurrentCenter] = useState(myPosition);
@@ -78,7 +78,6 @@ function NearbyPage(props) {
       const request = {
         location: myPosition,
         radius: 1000,
-        // type: ["restaurant", "food"],
         type: ["restaurant"],
       };
 
@@ -198,6 +197,14 @@ function NearbyPage(props) {
   useEffect(() => {
     if (mapApiLoaded) setIsLoading(false);
   }, [mapApiLoaded]);
+  function handleGoodLuck() {
+    const num = Math.floor(Math.random() * 20);
+    const randomRestaurant = places[num];
+    handleMarkerClickedAndSearch(
+      randomRestaurant.place_id,
+      randomRestaurant.name
+    );
+  }
   return (
     <Wrapper>
       {isLoading && <Loading />}
@@ -265,6 +272,7 @@ function NearbyPage(props) {
           <LuckButton onClick={handleSearchNearbyFood}>
             搜尋這附近餐廳
           </LuckButton>
+          <LuckButton onClick={handleGoodLuck}>好手氣</LuckButton>
         </Luck>
       </SearchContainer>
     </Wrapper>
