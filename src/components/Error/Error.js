@@ -8,8 +8,8 @@ function Error() {
   const history = useHistory();
 
   const handleBack = () => {
-    setIsError(false);
     history.push("/home");
+    setIsError(false);
   };
 
   return (

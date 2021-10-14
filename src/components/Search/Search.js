@@ -38,6 +38,7 @@ function Search({
 }
 export function HomePageSearch({ inputText, setInputText }) {
   let history = useHistory();
+
   return (
     <SearchWrapper>
       <SearchBoxContainer>
@@ -48,11 +49,12 @@ export function HomePageSearch({ inputText, setInputText }) {
             setInputText(e.target.value);
           }}
           onKeyPress={(e) => {
-            if (e.key === "Enter") history.push(`/search?query=${inputText}`);
+            if (e.key === "Enter" && inputText !== "")
+              history.push(`/search?query=${inputText}`);
           }}
         />
       </SearchBoxContainer>
-      <SearchButton as={Link} to={`/search?query=${inputText}`}>
+      <SearchButton as={Link} to={inputText !== "" && `/search?query=${inputText}`}>
         <ButtonImg></ButtonImg>
       </SearchButton>
     </SearchWrapper>

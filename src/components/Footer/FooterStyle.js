@@ -3,7 +3,7 @@ import { COLOR, MEDIA_QUERY } from "../../constants/style";
 import logoGithub from "../pictures/logoGithub.png";
 import github from "../pictures/github.png";
 
-export const FooterWappwer = styled.div`
+export const FooterWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;

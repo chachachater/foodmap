@@ -72,12 +72,8 @@ function ArticlePage() {
     fetchPostByPostId(id, userId).then((post) => {
       setIsLoading(false);
 
-      // if (!post.post) return setIsError(true);
-      // setPost(post);
-
-      // const userId = post.post.user_id;
-
-      if (!post) {
+      if (post.ok === 0) {
+        setIsError(true);
         console.log(post.message);
         return;
       }

@@ -15,17 +15,23 @@ import {
   fetchUnBanUser,
   adminSearchUser,
 } from "../../../WebAPI";
+import Error from "../../../components/Error/Error";
+import useError from "../../../hooks/useError";
 
 function AdminPage() {
   const [userData, setUserData] = useState([]);
   const [waiting, setWaiting] = useState(false);
   const [inputText, setInputText] = useState("");
+  const { isError, setIsError } = useError();
 
   useEffect(() => {
     fetchAdmin().then((response) => {
+      if (response.ok === 0) return setIsError(true)
+      console.log(response)
       setUserData(response.data);
     });
   }, []);
+  
   const handleBanUser = async (id) => {
     if (waiting) return;
     setWaiting(true);
@@ -64,6 +70,7 @@ function AdminPage() {
     <Wrapper>
       <Navbar />
       <BackStageWrapper>
+        {isError && <Error />}
         <BackStageTitle>管理員後台</BackStageTitle>
         <SearchContainer>
           <SearchInput

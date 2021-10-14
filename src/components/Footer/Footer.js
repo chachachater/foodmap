@@ -1,6 +1,6 @@
 import React from "react";
 import {
-  FooterWappwer,
+  FooterWrapper,
   FooterLink,
   FooterLogo,
   FooterLogoImg,
@@ -13,32 +13,32 @@ import {
 
 function Footer() {
   return (
-    <FooterWappwer>
+    <FooterWrapper>
       <FooterLink>
-        <FooterLogo>
+        <FooterLogo href="https://github.com/chachachater/foodmap">
           <FooterLogoImg></FooterLogoImg>
         </FooterLogo>
         <FooterAuthor>
-          <AuthorInfo>
+          <AuthorInfo href="https://github.com/chachachater">
             <GithubImg></GithubImg>
             <AuthorName>Selena</AuthorName>
           </AuthorInfo>
-          <AuthorInfo>
+          <AuthorInfo href="https://github.com/rich2020s">
             <GithubImg></GithubImg>
             <AuthorName>Rich</AuthorName>
           </AuthorInfo>
-          <AuthorInfo>
+          <AuthorInfo href="https://github.com/outshaker">
             <GithubImg></GithubImg>
             <AuthorName>SiSi</AuthorName>
           </AuthorInfo>
-          <AuthorInfo>
+          <AuthorInfo href="https://github.com/YO-0115">
             <GithubImg></GithubImg>
             <AuthorName>YO</AuthorName>
           </AuthorInfo>
         </FooterAuthor>
       </FooterLink>
       <FooterText>Copyright © 2021 Lidemy. All rights reserved</FooterText>
-    </FooterWappwer>
+    </FooterWrapper>
   );
 }
 
