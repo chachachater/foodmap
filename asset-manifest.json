@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/foodmap/static/css/main.6fa4a638.chunk.css",
-    "main.js": "/foodmap/static/js/main.4be6ab56.chunk.js",
-    "main.js.map": "/foodmap/static/js/main.4be6ab56.chunk.js.map",
+    "main.js": "/foodmap/static/js/main.d43a76c5.chunk.js",
+    "main.js.map": "/foodmap/static/js/main.d43a76c5.chunk.js.map",
     "runtime-main.js": "/foodmap/static/js/runtime-main.7fd9843b.js",
     "runtime-main.js.map": "/foodmap/static/js/runtime-main.7fd9843b.js.map",
     "static/js/2.f4ec27f7.chunk.js": "/foodmap/static/js/2.f4ec27f7.chunk.js",
@@ -12,7 +12,7 @@
     "index.html": "/foodmap/index.html",
     "static/css/main.6fa4a638.chunk.css.map": "/foodmap/static/css/main.6fa4a638.chunk.css.map",
     "static/js/2.f4ec27f7.chunk.js.LICENSE.txt": "/foodmap/static/js/2.f4ec27f7.chunk.js.LICENSE.txt",
-    "static/js/main.4be6ab56.chunk.js.LICENSE.txt": "/foodmap/static/js/main.4be6ab56.chunk.js.LICENSE.txt",
+    "static/js/main.d43a76c5.chunk.js.LICENSE.txt": "/foodmap/static/js/main.d43a76c5.chunk.js.LICENSE.txt",
     "static/media/addBtn.700ee69f.svg": "/foodmap/static/media/addBtn.700ee69f.svg",
     "static/media/avatar.6a01629c.png": "/foodmap/static/media/avatar.6a01629c.png",
     "static/media/backtotop.d1626b78.svg": "/foodmap/static/media/backtotop.d1626b78.svg",
@@ -23,6 +23,6 @@
     "static/js/runtime-main.7fd9843b.js",
     "static/js/2.f4ec27f7.chunk.js",
     "static/css/main.6fa4a638.chunk.css",
-    "static/js/main.4be6ab56.chunk.js"
+    "static/js/main.d43a76c5.chunk.js"
   ]
 }
