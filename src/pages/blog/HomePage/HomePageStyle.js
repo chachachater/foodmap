@@ -32,8 +32,15 @@ export const BannerText = styled.h1`
   line-height: 1.2;
 `;
 
-export const HomeTiltle = styled.h1`
+export const HomeTitle = styled.h1`
   font-size: ${FONT.h1};
   text-align: center;
   margin-bottom: 48px;
+`;
+
+export const LoadMore = styled.div`
+  text-align: center;
+  color: ${COLOR.primary};
+  font-size: ${FONT.h4};
+  font-weight: 600;
 `;

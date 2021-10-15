@@ -15,7 +15,7 @@ export default function useLogin() {
       setter(e.target.value);
     };
   }
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
     const userData = {
       username,
@@ -23,13 +23,12 @@ export default function useLogin() {
     };
     dispatch(loginAsync(userData))
       .then((result) => {
-        if (!result.payload.ok) {
-          return setErrorMessage(result.payload.message);
-        }
+        if (!result.payload.ok) return setErrorMessage(result.payload.message);
         setErrorMessage("");
         history.push("/home");
       })
       .catch((err) => console.log(err));
+    
   }
   return {
     errorMessage,

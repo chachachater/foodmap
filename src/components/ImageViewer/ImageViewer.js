@@ -3,11 +3,13 @@ import ReactImageViewer from "./ReactImageViewer";
 import styled from "styled-components";
 import Carousel from "nuka-carousel";
 import PropTypes from "prop-types";
-
+const Img = styled.img`
+  height: 260px;
+  object-fit: contain;
+`;
 function ImageViewer(props) {
   const [isOpen, setIsOpen] = useState(false);
   const [currImg, setCurrImg] = useState(0);
-
   const handleImageClick = (index) => {
     setIsOpen(true);
     setCurrImg(index);
@@ -24,11 +26,6 @@ function ImageViewer(props) {
   const gotoPrevImg = () => {
     setCurrImg(currImg - 1);
   };
-
-  const Img = styled.img`
-    height: 260px;
-    object-fit: contain;
-  `;
 
   return (
     <>
@@ -49,7 +46,7 @@ function ImageViewer(props) {
         {props.photos.map((img, index) => (
           <Img
             key={index}
-            alt="PICTU"
+            alt="Pictures"
             onClick={() => {
               handleImageClick(index);
             }}

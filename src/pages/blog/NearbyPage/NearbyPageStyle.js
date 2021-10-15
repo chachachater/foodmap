@@ -1,18 +1,66 @@
 import styled from "styled-components";
-import { COLOR, FONT } from "../../../constants/style";
-
+import { COLOR, FONT, MEDIA_QUERY } from "../../../constants/style";
+import { MarkerText } from "../../../components/Map/mapComponents";
+import React from "react";
+import PropTypes from "prop-types";
+const MyMarkerImg = styled.img`
+  height: 35px;
+  width: 35px;
+  background: transparent;
+`;
+export const MyPosition = ({ text }) => {
+  return (
+    <div>
+      <MyMarkerImg
+        alt={"current position"}
+        src={
+          "https://icon-library.com/images/my-location-icon/my-location-icon-29.jpg"
+        }
+      />
+      <MarkerText>{text}</MarkerText>
+    </div>
+  );
+};
+MyPosition.propTypes = {
+  text: PropTypes.string,
+};
 export const Map = styled.div`
   width: 100%;
-  height: 400px;
-  background: ${COLOR.text_gray};
-  margin-bottom: 48px;
+  height: 500px;
+  margin-bottom: 24px;
+  display: flex;
+  position: relative;
+  ${MEDIA_QUERY.md} {
+    height: 1000px;
+    flex-direction: column;
+  }
 `;
-
-export const Luck = styled.div`
+export const IsLoading = styled.div`
+  position: absolute;
+  bottom: 5px;
+  left: 70px;
+  height: 20px;
+  width: 70px;
+  color: black;
+  background: transparent;
+  border-radius: 10px;
+  z-index: 3;
+  text-align: center;
+`;
+export const MarginContainer = styled.div`
+  margin-left: 60px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+`;
+export const Luck = styled.div`
+  display: flex;
+  width: 50%;
+  margin: 0 auto;
+  justify-content: space-between;
   align-items: center;
+  ${MEDIA_QUERY.sm} {
+    flex-direction: column;
+  }
 `;
 
 export const LuckButton = styled.button`
