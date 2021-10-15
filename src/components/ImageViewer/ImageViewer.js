@@ -46,7 +46,7 @@ function ImageViewer(props) {
         {props.photos.map((img, index) => (
           <Img
             key={index}
-            alt="PICTU"
+            alt="Pictures"
             onClick={() => {
               handleImageClick(index);
             }}

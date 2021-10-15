@@ -57,7 +57,6 @@ function NearbyPage(props) {
 
         service.getPlacePredictions(request, (results, status) => {
           if (status === mapApi.places.PlacesServiceStatus.OK) {
-            console.log(results);
             setRestaurantList(results);
           }
         });
@@ -99,7 +98,6 @@ function NearbyPage(props) {
 
       service.findPlaceFromQuery(request, (results, status) => {
         if (status === mapApi.places.PlacesServiceStatus.OK) {
-          console.log(results);
           setCurrentCenter({
             lat: results[0].geometry.location.lat(),
             lng: results[0].geometry.location.lng(),
@@ -142,7 +140,6 @@ function NearbyPage(props) {
             lat: results.geometry.location.lat(),
             lng: results.geometry.location.lng(),
           });
-          console.log(results);
           setInputText(name);
           setRestaurantList([]);
         }
@@ -162,7 +159,6 @@ function NearbyPage(props) {
             lat: results.geometry.location.lat(),
             lng: results.geometry.location.lng(),
           });
-          console.log(results);
           setRestaurantInfo(results);
           setInputText(name);
           setRestaurantList([]);

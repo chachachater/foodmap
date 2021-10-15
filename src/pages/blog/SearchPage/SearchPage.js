@@ -67,7 +67,6 @@ function SearchPage(props) {
 
         service.getPlacePredictions(request, (results, status) => {
           if (status === mapApi.places.PlacesServiceStatus.OK) {
-            console.log(results);
             setRestaurantList(results);
           }
         });
@@ -94,7 +93,6 @@ function SearchPage(props) {
             lat: results.geometry.location.lat(),
             lng: results.geometry.location.lng(),
           });
-          console.log(results);
           setRestaurantInfo(results);
           setInputText(name);
           setRestaurantList([]);
@@ -113,7 +111,6 @@ function SearchPage(props) {
 
       service.findPlaceFromQuery(request, (results, status) => {
         if (status === mapApi.places.PlacesServiceStatus.OK) {
-          console.log(results);
           setMyPosition({
             lat: results[0].geometry.location.lat(),
             lng: results[0].geometry.location.lng(),

@@ -54,9 +54,7 @@ function EditPage() {
     if (!userId) return;
     if (pathname.includes("edit")) {
       setPostId(id);
-      console.log(pathname);
       fetchPostByPostId(id, userId).then((result) => {
-        console.log(result);
         setImages(
           result.Pictures.reduce((reducer, val) => {
             reducer.push(val.food_picture_url);

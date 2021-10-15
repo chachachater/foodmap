@@ -35,7 +35,6 @@ function BackStagePage() {
     if (isLoading) return;
     if (!userId) return;
     setIsLoading(true);
-    console.log(userId);
     fetchPostsByUserId(userId, offset, order, unpublished).then((result) => {
       setIsLoading(false);
       if (!result) return console.log(result.message);
@@ -48,7 +47,6 @@ function BackStagePage() {
     if (isLoading) return;
     if (!userId) return;
     fetchPostsByUserId(userId, 0, order, unpublished).then((result) => {
-      console.log(result);
       setParseResult(result.rows);
       setOffset(0);
     });
@@ -57,7 +55,6 @@ function BackStagePage() {
   useEffect(() => {
     if (offset === 0) return;
     fetchPostsByUserId(userId, offset, order, unpublished).then((result) => {
-      console.log(result);
       if (!result) return setIsLoading(false);
       setParseResult(parseResult.concat(result.rows));
       setIsLoading(false);
@@ -88,7 +85,6 @@ function BackStagePage() {
   };
 
   const handleDelete = (id) => {
-    console.log(id);
     fetchDeletePost(id).then(() => {
       fetchPostsByUserId(userId, 0, order, unpublished).then((result) => {
         setParseResult(result.rows);

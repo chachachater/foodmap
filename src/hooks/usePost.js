@@ -27,13 +27,11 @@ export default function usePost() {
   function uploadImages(setter) {
     const checkedList = ["image/jpeg", "image/png", "image/jpg"];
     return (e) => {
-      console.log(e.target.files);
       if (
         !checkedList.some((key) =>
           Object.values(e.target.files).every((each) => each.type.includes(key))
         )
       ) {
-        console.log("! image");
         return;
       }
       const maxImages = 3;
@@ -48,14 +46,12 @@ export default function usePost() {
   }
   function getRestaurantId(setter) {
     return (placeId) => {
-      console.log(placeId);
       setter(placeId);
     };
   }
   async function handleSubmit() {
     const { userId } = userState.result.data;
     const checkedList = [restaurantId, title, content, visitedDate, userId];
-    console.log(checkedList);
     if (!isValidDate(visitedDate)) alert("食記的日期不能超過當日");
     if (!checkedList.every((every) => every)) {
       return alert(`請輸入全部欄位`);
@@ -63,11 +59,9 @@ export default function usePost() {
     const postData = {};
     const blobArr = [];
     if (!images.length) return alert("至少上傳一張圖片");
-    console.log(images);
     setIsLoading(true);
     for (let i = 0; i < images.length; i++) {
       let blob = await fetch(images[i]).then((result) => result.blob());
-      console.log(blob.arrayBuffer());
       blobArr.push(blob);
     }
     postData.images = blobArr;
@@ -79,7 +73,6 @@ export default function usePost() {
     postData.is_published = isPublished.current;
     if (postId) {
       return fetchEditPost(postData, postId).then((result) => {
-        console.log("edit", result);
         setIsLoading(false);
         if (!result.ok) return alert(result.message);
         history.push(`/posts/${postId}`);

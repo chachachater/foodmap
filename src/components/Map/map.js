@@ -31,7 +31,6 @@ function SimpleMap(props) {
     if (placeId) {
       handleSearchRestaurant(placeId);
     }
-    console.log(placeId);
   }, [mapApiLoaded]);
   const handleAutocomplete = useCallback(
     (value) => {
@@ -70,7 +69,6 @@ function SimpleMap(props) {
             lat: results.geometry.location.lat(),
             lng: results.geometry.location.lng(),
           });
-          console.log(results);
           setInputText(text);
           setPlaces([results]);
         }
@@ -145,7 +143,6 @@ SimpleMap.propTypes = {
 };
 
 function MyMap({ restaurantId, getRestaurantId, setRestaurantName, close }) {
-  console.log(getRestaurantId);
   return (
     <div className="App">
       <SimpleMap

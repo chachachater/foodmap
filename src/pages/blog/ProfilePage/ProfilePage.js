@@ -62,21 +62,19 @@ function ProfilePage() {
     if (isLoading) return;
     setIsLoading(true);
     fetchUserData(id).then((result) => {
-      console.log(result)
-      if (!result.data){
+      console.log(result);
+      if (!result.data) {
         setIsLoading(false);
-        setIsError(true)
-        return
-      } 
+        setIsError(true);
+        return;
+      }
       setNickname(result.data.nickname);
       if (result.data.background_pic_url)
         setDefaultBanner(result.data.background_pic_url);
       if (result.data.picture_url) setDefaultAvatar(result.data.picture_url);
     });
     fetchPostsByUserId(id, offset, filter, unpublished).then((result) => {
-      console.log(result);
       setPostCounts(result.count);
-      // 這邊等後端改成 left join 會更好處理
       setParseResult(result.rows);
     });
     setIsLoading(false);
