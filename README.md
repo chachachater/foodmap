@@ -1,70 +1,232 @@
-# Getting Started with Create React App
+# 吃貨地圖
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+### 今晚想來點...?
+> 不再猶豫，
+> 交給吃貨地圖幫你做決定
 
-## Available Scripts
+[網站DEMO](https://api.outshaker.tw/)
 
-In the project directory, you can run:
+## 專案介紹
+在這個生活越來越方便，美食越來越多的社會裡，不知道要吃什麼，總是猶豫不決，這是很多人都有過的困擾。
 
-### `yarn start`
+為了能夠快速解決這個問題，只要輸入所在地，除了會顯示附近二十家餐廳外，還有一個好手氣按鈕，隨機幫你選中一家餐廳。吃貨地圖還提供你記錄自己的美食日記，沒有複雜的介面，簡簡單單紀錄你此時此刻吃到的每一口感受。
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## 專案功能
+- 前台
+    - 使用者
+        - 輸入位置，顯示附近二十家餐廳
+        - 好手氣，隨機幫你選一家餐廳
+        - 查詢餐廳資訊
+        - 紀錄美食日記
+        - 觀看他人食記
+- 後台
+    - 使用者
+        - 編輯、刪除文章
+        - 查看未公開日記
+    - 管理者
+        - 查看所有使用者
+        - 更改使用者權限 
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## 專案展示
 
-### `yarn test`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+| 測試身分 | 帳號 | 密碼 |
+| -------- | ---- | ---- |
+|    使用者     | user001     | user001     |
+|   管理員 | amdin001 | amdin001 |
 
-### `yarn build`
+### 使用者
+- 登入
+![](./img/login.gif)
+- 好手氣
+![](./img/goodLuck.gif)
+- 新增食記
+![](./img/addPost.gif)
+- 編輯食記
+![](./img/editPost.gif)
+- 刪除食記
+![](./img/delPost.gif)
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### 管理者
+- 管理使用者
+![](./img/banUser.gif)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `yarn eject`
+## 專案執行
+`npm install` 安裝專案所需套件。
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+`npm run start` 啟動專案。
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+`npm build` 在資料夾中建立此專案的 production 版本
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+`npm deploy` 在 GitHub Pages 部屬專案網站。
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+## 使用技術
+- React Hooks
+- React DOM
+- 套件
+    - React Router
+    - Redux Toolkit
+    - styled components
+    - PropTypes
+    - lodash
+    - Google Map React
+    - ckeditor5-react
+    - reactjs-popup
+    - react-images-viewer
+    - nuka-carousel
+- API
+    - Imgur
+    - Google Map
 
-## Learn More
+## 專案結構
+```
+src
+│  App.js
+│  index.js
+│  utils.js
+│  WebAPI.js
+│  
+├─components
+│  ├─Article
+│  │      Article.js
+│  │      ArticleFilter.js
+│  │      ArticleInfo.js
+│  │      ArticleStyle.js
+│  │      index.js
+│  │      
+│  ├─BackToTop
+│  │      BackToTop.js
+│  │      BackToTopStyle.js
+│  │      index.js
+│  │      
+│  ├─Error
+│  │      Error.js
+│  │      ErrorStyle.js
+│  │      
+│  ├─Footer
+│  │      Footer.js
+│  │      FooterStyle.js
+│  │      index.js
+│  │      
+│  ├─Form
+│  │      Form.js
+│  │      FormStyle.js
+│  │      index.js
+│  │      
+│  ├─ImageViewer
+│  │      ImageViewer.js
+│  │      index.js
+│  │      ReactImageViewer.js
+│  │      
+│  ├─Loading
+│  │      Loading.js
+│  │      LoadingStyle.js
+│  │      
+│  ├─Map
+│  │      key.js
+│  │      map.js
+│  │      mapComponents.js
+│  │      
+│  ├─Navbar
+│  │      index.js
+│  │      Navbar.js
+│  │      NavbarStyle.js
+│  │      UserNavbar.js
+│  │      
+│  ├─pictures // images
+│  │      
+│  ├─PopUp
+│  │      PopUp.js
+│  │      
+│  └─Search
+│          index.js
+│          Search.js
+│          SearchStyle.js
+│          
+├─constants
+│      globalStyle.js
+│      style.js
+│      
+├─hooks
+│      useConfirmUser.js
+│      useEditUserData.js
+│      useError.js
+│      useGetId.js
+│      useLoading.js
+│      useLogin.js
+│      useParseData.js
+│      usePost.js
+│      useRegister.js
+│      useScroll.js
+│      
+├─pages
+│  ├─administrator
+│  │  └─AdminPage
+│  │          AdminPage.js
+│  │          AdminStyled.js
+│  │          index.js
+│  │          UserTable.js
+│  │          
+│  ├─blog
+│  │  ├─ArticlePage
+│  │  │      ArticlePage.js
+│  │  │      ArticlePageStyle.js
+│  │  │      ckeditorStyle.css
+│  │  │      index.js
+│  │  │      
+│  │  ├─BackStagePage
+│  │  │      BackStagArticle.js
+│  │  │      BackStagePage.js
+│  │  │      BackStagStyled.js
+│  │  │      index.js
+│  │  │      
+│  │  ├─EditPage
+│  │  │      EditPage.js
+│  │  │      EditPageStyle.js
+│  │  │      index.js
+│  │  │      
+│  │  ├─HomePage
+│  │  │      HomePage.js
+│  │  │      HomePageStyle.js
+│  │  │      index.js
+│  │  │      
+│  │  ├─NearbyPage
+│  │  │      index.js
+│  │  │      NearbyPage.js
+│  │  │      NearbyPageStyle.js
+│  │  │      
+│  │  ├─ProfilePage
+│  │  │      index.js
+│  │  │      ProfilePage.js
+│  │  │      ProfilePageStyled.js
+│  │  │      
+│  │  └─SearchPage
+│  │          index.js
+│  │          SearchPage.js
+│  │          SearchPageStyle.js
+│  │          
+│  └─user
+│      ├─LoginPage
+│      │      index.js
+│      │      LoginPage.js
+│      │      
+│      └─RegisterPage
+│              index.js
+│              RegisterPage.js
+│              
+└─redux
+    │  store.js
+    │  
+    └─reducers
+            userReducer.js        
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## 專案後端
+吃貨地圖後端，採用 Express、Sequelize 開發。
+- [專案後端連結](https://github.com/outshaker/foodmap-backend)
 
-To learn React, check out the [React documentation](https://reactjs.org/).
 
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## 專案授權
+- [MIT](https://choosealicense.com/licenses/mit/)
