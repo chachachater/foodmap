@@ -38,12 +38,16 @@
 ### 使用者
 - 登入
 ![](./img/login.gif)
+
 - 好手氣
 ![](./img/goodLuck.gif)
+
 - 新增食記
 ![](./img/addPost.gif)
+
 - 編輯食記
 ![](./img/editPost.gif)
+
 - 刪除食記
 ![](./img/delPost.gif)
 
