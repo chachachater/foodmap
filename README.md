@@ -4,7 +4,7 @@
 > 不再猶豫，
 > 交給吃貨地圖幫你做決定
 
-[網站DEMO](https://api.outshaker.tw/)
+[網站DEMO](https://api.outshaker.tw/#/home)
 
 ## 專案介紹
 在這個生活越來越方便，美食越來越多的社會裡，不知道要吃什麼，總是猶豫不決，這是很多人都有過的困擾。
