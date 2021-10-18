@@ -1,7 +1,6 @@
-![](./img/logo.png)
-<!-- <p align="center">
+<p align="center">
   <img src="./img/logo.png" alt="logo"/>
-</p> -->
+</p>
 
 # 吃貨地圖
 
