@@ -10,7 +10,8 @@ import {
   EditInputs,
   EditLabel,
   Span,
-  Input,
+  DateInput,
+  TitleInput,
   FileInput,
   NoBorderLabel,
   UnloadImg,
@@ -110,7 +111,7 @@ function EditPage() {
         <EditInputs>
           <EditLabel>
             <Span></Span>
-            <Input
+            <DateInput
               type="date"
               value={visitedDate}
               onChange={handleInputChange(setVisitedDate)}
@@ -128,7 +129,7 @@ function EditPage() {
           </EditLabel>
           <EditLabel>
             <Span></Span>
-            <Input
+            <TitleInput
               placeholder="食記標題"
               value={title}
               onChange={handleInputChange(setTitle)}
