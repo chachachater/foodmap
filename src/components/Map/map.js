@@ -42,7 +42,6 @@ function SimpleMap(props) {
 
         service.getPlacePredictions(request, (results, status) => {
           if (status === mapApi.places.PlacesServiceStatus.OK) {
-            console.log(results);
             setRestaurantList(results);
           }
         });

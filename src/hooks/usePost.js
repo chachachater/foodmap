@@ -8,6 +8,7 @@ import { isValidDate } from "../utils";
 
 export default function usePost() {
   const history = useHistory();
+  const isPosting = useRef(false);
   const [images, setImages] = useState([]);
   const [restaurantId, setRestaurantId] = useState("");
   const [title, setTitle] = useState("");
@@ -50,6 +51,8 @@ export default function usePost() {
     };
   }
   async function handleSubmit() {
+    if (isPosting.current) return;
+    isPosting.current = true;
     const { userId } = userState.result.data;
     const checkedList = [restaurantId, title, content, visitedDate, userId];
     if (!isValidDate(visitedDate)) alert("食記的日期不能超過當日");
@@ -74,12 +77,14 @@ export default function usePost() {
     if (postId) {
       return fetchEditPost(postData, postId).then((result) => {
         setIsLoading(false);
+        isPosting.current = false;
         if (!result.ok) return alert(result.message);
         history.push(`/posts/${postId}`);
       });
     }
     return fetchAddPost(postData).then((result) => {
       setIsLoading(false);
+      isPosting.current = false;
       if (!result.ok) return alert(result.message);
       history.push(`/backstage/${userId}`);
     });

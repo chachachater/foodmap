@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useLayoutEffect } from "react";
 import { useLocation, useParams } from "react-router-dom";
 import { Wrapper } from "../../../constants/globalStyle";
 import { Navbar } from "../../../components/Navbar";
@@ -10,7 +10,8 @@ import {
   EditInputs,
   EditLabel,
   Span,
-  Input,
+  DateInput,
+  TitleInput,
   FileInput,
   NoBorderLabel,
   UnloadImg,
@@ -69,6 +70,9 @@ function EditPage() {
       });
     }
   }, [userId]);
+  useLayoutEffect(() => {
+    window.scrollTo(0, 0);
+  }, [handleSubmit]);
   const handleDraft = () => {
     isPublished.current = false;
     handleSubmit();
@@ -108,7 +112,7 @@ function EditPage() {
         <EditInputs>
           <EditLabel>
             <Span></Span>
-            <Input
+            <DateInput
               type="date"
               value={visitedDate}
               onChange={handleInputChange(setVisitedDate)}
@@ -126,7 +130,7 @@ function EditPage() {
           </EditLabel>
           <EditLabel>
             <Span></Span>
-            <Input
+            <TitleInput
               placeholder="食記標題"
               value={title}
               onChange={handleInputChange(setTitle)}

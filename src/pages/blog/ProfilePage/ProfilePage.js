@@ -62,8 +62,7 @@ function ProfilePage() {
     if (isLoading) return;
     setIsLoading(true);
     fetchUserData(id).then((result) => {
-      console.log(result);
-      if (!result.data) {
+      if (!result.data){
         setIsLoading(false);
         setIsError(true);
         return;

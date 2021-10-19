@@ -116,12 +116,11 @@ export function fetchPostsAndPicturesByPlaceId(limit, offset, placeId, filter) {
     .then((res) => res.json())
     .catch((err) => {
       alert("操作失敗，發生錯誤");
-      console.log(err.message);
+      console.log(err);
     });
 }
 
 export function fetchAddPost(postData) {
-  console.log(postData);
   const formData = new FormData();
   for (const name in postData) {
     formData.append(name, postData[name]);
@@ -129,10 +128,8 @@ export function fetchAddPost(postData) {
   if (postData["images"]) {
     formData.delete("images");
     postData["images"].forEach((each) => {
-      console.log(each);
       formData.append("images", each);
     });
-    console.log(formData.get("images"));
   }
 
   return fetch(`${baseUrl}/api/post`, {
@@ -147,7 +144,6 @@ export function fetchAddPost(postData) {
     });
 }
 export function fetchEditPost(postData, postId) {
-  console.log(postData);
   const formData = new FormData();
   for (const name in postData) {
     formData.append(name, postData[name]);
@@ -155,10 +151,8 @@ export function fetchEditPost(postData, postId) {
   if (postData["images"]) {
     formData.delete("images");
     postData["images"].forEach((each) => {
-      console.log(each);
       formData.append("images", each);
     });
-    console.log(formData.get("images"));
   }
 
   return fetch(`${baseUrl}/api/post/${postId}`, {
@@ -183,7 +177,7 @@ export function fetchPostsByUserId(userId, offset, order, unpublished) {
     .then((res) => res.json())
     .catch((err) => {
       alert("操作失敗，發生錯誤");
-      console.log(err.message);
+      console.log(err);
     });
 }
 export function fetchAllPosts(offset) {
@@ -194,7 +188,7 @@ export function fetchAllPosts(offset) {
     .then((res) => res.json())
     .catch((err) => {
       alert("操作失敗，發生錯誤");
-      console.log(err.message);
+      console.log(err);
     });
 }
 export function fetchPostByPostId(id, userId) {
@@ -203,12 +197,11 @@ export function fetchPostByPostId(id, userId) {
     credentials: "include",
   })
     .then((res) => {
-      console.log(res);
       return res.json();
     })
     .catch((err) => {
       alert("操作失敗，發生錯誤");
-      console.log(err.message);
+      console.log(err);
       return { ok: 0 };
     });
 }
@@ -250,7 +243,7 @@ export function fetchDeletePost(id) {
     .then((res) => res.json())
     .catch((err) => {
       alert("操作失敗，發生錯誤");
-      console.log(err.message);
+      console.log(err);
     });
 }
 export function adminSearchUser(username) {
@@ -261,7 +254,7 @@ export function adminSearchUser(username) {
     .then((res) => res.json())
     .catch((err) => {
       alert("操作失敗，發生錯誤");
-      console.log(err.message);
+      console.log(err);
       return { ok: 0 };
     });
 }

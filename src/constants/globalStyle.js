@@ -30,7 +30,8 @@ const GlobalStyle = createGlobalStyle`
     cursor: pointer;
   }
 
-  input {
+  input,
+  textarea {
     outline: none;
     border: none;
   }

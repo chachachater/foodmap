@@ -18,7 +18,6 @@ export function ScrollToTop() {
 }
 
 export function isValidDate(dateString) {
-  console.log(dateString)
   if (!/^\d{4}-\d{1,2}-\d{1,2}$/.test(dateString)) return false;
   const dateParts = dateString.split("-");
   const day = parseInt(dateParts[2], 10);
