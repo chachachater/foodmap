@@ -5,14 +5,14 @@ import { Wrapper } from "../../../constants/globalStyle";
 import useRegister from "../../../hooks/useRegister";
 import { selectUser } from "../../../redux/reducers/userReducer";
 import { useSelector } from "react-redux";
-import Loading from "../../../components/Loading/Loading"
+import Loading from "../../../components/Loading/Loading";
 
 function RegisterPage() {
-  const userState = useSelector(selectUser)
-  const [isLoading, setIsLoading] = useState(false)
+  const userState = useSelector(selectUser);
+  const [isLoading, setIsLoading] = useState(false);
   useEffect(() => {
-    setIsLoading(!isLoading)
-  }, [userState.status])
+    setIsLoading(!isLoading);
+  }, [userState.status]);
   const {
     handleInputChange,
     setUsername,
@@ -26,7 +26,6 @@ function RegisterPage() {
     handleSubmit,
     errorMessage,
   } = useRegister();
-  console.log(invalidUsername)
   return (
     <Wrapper>
       <UserNavbar />

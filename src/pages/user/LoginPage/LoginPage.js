@@ -11,7 +11,6 @@ function LoginPage() {
   const userState = useSelector(selectUser)
   const [isLoading, setIsLoading] = useState(false)
   useEffect(() => {
-    console.log(userState.status)
     setIsLoading(!isLoading)
   }, [userState.status])
   const {

@@ -27,7 +27,6 @@ function AdminPage() {
   useEffect(() => {
     fetchAdmin().then((response) => {
       if (response.ok === 0) return setIsError(true)
-      console.log(response)
       setUserData(response.data);
     });
   }, []);
@@ -63,7 +62,6 @@ function AdminPage() {
   };
   async function handleSearch() {
     let result = await adminSearchUser(inputText);
-    console.log(result);
     if (result.ok) setUserData([result.data]);
   }
   return (

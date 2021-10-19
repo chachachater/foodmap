@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useLayoutEffect } from "react";
 import { useLocation, useParams } from "react-router-dom";
 import { Wrapper } from "../../../constants/globalStyle";
 import { Navbar } from "../../../components/Navbar";
@@ -55,9 +55,7 @@ function EditPage() {
     if (!userId) return;
     if (pathname.includes("edit")) {
       setPostId(id);
-      console.log(pathname);
       fetchPostByPostId(id, userId).then((result) => {
-        console.log(result);
         setImages(
           result.Pictures.reduce((reducer, val) => {
             reducer.push(val.food_picture_url);
@@ -72,6 +70,9 @@ function EditPage() {
       });
     }
   }, [userId]);
+  useLayoutEffect(() => {
+    window.scrollTo(0, 0);
+  }, [handleSubmit]);
   const handleDraft = () => {
     isPublished.current = false;
     handleSubmit();
