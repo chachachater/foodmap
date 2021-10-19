@@ -26,7 +26,6 @@ function RegisterPage() {
     handleSubmit,
     errorMessage,
   } = useRegister();
-  console.log(invalidUsername)
   return (
     <Wrapper>
       <UserNavbar />

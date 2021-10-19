@@ -16,13 +16,11 @@ export default function useEditUserData() {
   function uploadImages(setter) {
     const checkedList = ["image/jpeg", "image/png", "image/jpg"];
     return (e) => {
-      console.log(e.target.files);
       if (
         !checkedList.some((key) =>
           Object.values(e.target.files).every((each) => each.type.includes(key))
         )
       ) {
-        console.log("! image");
         return;
       }
       setter(
