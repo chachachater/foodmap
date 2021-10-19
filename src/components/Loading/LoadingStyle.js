@@ -20,25 +20,22 @@ export const spinnerArc = keyframes`
   }
 `;
 export const Background = styled.div`
-  background: #313131;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
 `
 export const Title = styled.div`
-  z-index: 10;
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
+  z-index: 11;
+  position: relative;
   font-size: ${FONT.logo};
   font-weight: bold;
   text-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
   color: ${COLOR.primary};
-  transition: all 0.2s;
-  &:hover {
-    transform: scale(1.1);
-  }
+  cursor: default;
 `;
 export const Spinner = styled.svg`
-  z-index: 9;
   background-color: white;
   position: absolute;
   left: 50%;

@@ -22,7 +22,6 @@ function Navbar() {
     if (!userState.result.ok) return setUser();
     setUser(userState.result);
   }, [userState]);
-  console.log(userState);
   return (
     <NavbarWrapper>
       <LogoText to="/home">吃貨地圖</LogoText>

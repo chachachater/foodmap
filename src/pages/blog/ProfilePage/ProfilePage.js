@@ -62,7 +62,6 @@ function ProfilePage() {
     if (isLoading) return;
     setIsLoading(true);
     fetchUserData(id).then((result) => {
-      console.log(result)
       if (!result.data){
         setIsLoading(false);
         setIsError(true)
@@ -74,7 +73,6 @@ function ProfilePage() {
       if (result.data.picture_url) setDefaultAvatar(result.data.picture_url);
     });
     fetchPostsByUserId(id, offset, filter, unpublished).then((result) => {
-      console.log(result);
       setPostCounts(result.count);
       // 這邊等後端改成 left join 會更好處理
       setParseResult(result.rows);

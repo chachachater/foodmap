@@ -32,7 +32,6 @@ function HomePage() {
     setIsLoading(true);
     fetchAllPosts(offset).then((result) => {
       setIsLoading(false);
-      console.log(result);
       if (!result) return;
       setPostCounts(result.count);
       setParseResult(result.rows);
@@ -42,7 +41,6 @@ function HomePage() {
   useEffect(() => {
     if (offset === 0) return;
     fetchAllPosts(offset).then((result) => {
-      console.log(result);
       setParseResult(parseResult.concat(result.rows));
       setIsLoading(false);
     });
