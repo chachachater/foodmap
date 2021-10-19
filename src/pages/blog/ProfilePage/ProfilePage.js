@@ -64,9 +64,9 @@ function ProfilePage() {
     fetchUserData(id).then((result) => {
       if (!result.data){
         setIsLoading(false);
-        setIsError(true)
-        return
-      } 
+        setIsError(true);
+        return;
+      }
       setNickname(result.data.nickname);
       if (result.data.background_pic_url)
         setDefaultBanner(result.data.background_pic_url);
@@ -74,7 +74,6 @@ function ProfilePage() {
     });
     fetchPostsByUserId(id, offset, filter, unpublished).then((result) => {
       setPostCounts(result.count);
-      // 這邊等後端改成 left join 會更好處理
       setParseResult(result.rows);
     });
     setIsLoading(false);

@@ -13,7 +13,6 @@ const initialState = {
 
 export const getMe = () => (dispatch) => {
   fetchLoginStatus().then((result) => {
-    console.log(result);
     if (!result.ok) return dispatch(setMe(""));
     return dispatch(setMe(result));
   });
@@ -44,7 +43,6 @@ export const userSlice = createSlice({
   initialState,
   reducers: {
     setMe: (state, action) => {
-      console.log(action);
       state.result = action.payload;
     },
   },
