@@ -1,10 +1,14 @@
+<p align="center">
+  <img src="./img/logo.png" alt="logo"/>
+</p>
+
 # 吃貨地圖
 
 ### 今晚想來點...?
 > 不再猶豫，
 > 交給吃貨地圖幫你做決定
 
-[網站DEMO](https://api.outshaker.tw/)
+[網站DEMO](https://api.outshaker.tw/#/home)
 
 ## 專案介紹
 在這個生活越來越方便，美食越來越多的社會裡，不知道要吃什麼，總是猶豫不決，這是很多人都有過的困擾。
@@ -70,16 +74,18 @@
 - React Hooks
 - React DOM
 - 套件
-    - React Router
-    - Redux Toolkit
-    - styled components
-    - PropTypes
-    - lodash
-    - Google Map React
-    - ckeditor5-react
-    - reactjs-popup
-    - react-images-viewer
-    - nuka-carousel
+    - React Router : 使用 HashRouter 建立路由
+    - Redux Toolkit : 狀態管理
+    - styled components : JSX 語法撰寫 CSS 樣式
+    - PropTypes : 型別檢查
+    - ESLint : 檢查語法，統一程式撰寫風格
+    - Prettier : 統一程式碼格式
+    - lodash : 使用 debounce 功能
+    - Google Map React : 用 component 的方式，操作 Google Maps API
+    - ckeditor5-react : 串接文字編輯器
+    - reactjs-popup :  彈出視窗功能和樣式
+    - react-images-viewer : 圖片展示功能
+    - nuka-carousel : 圖片輪播功能
 - API
     - Imgur
     - Google Map

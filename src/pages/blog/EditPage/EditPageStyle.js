@@ -30,7 +30,15 @@ export const Span = styled.span`
   margin-right: 8px;
 `;
 
-export const Input = styled.input``;
+export const DateInput = styled.input``;
+
+export const TitleInput = styled.input`
+  width: 90%;
+  padding: 0 5px;
+  text-overflow: ellipsis;
+  overflow: auto;
+`;
+
 
 export const FileInput = styled.input`
   width: 0;
