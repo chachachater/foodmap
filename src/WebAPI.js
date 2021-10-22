@@ -1,5 +1,4 @@
 const baseUrl = "https://api.outshaker.tw";
-
 export function fetchLoginStatus() {
   return fetch(`${baseUrl}/get-me`, {
     method: "GET",
