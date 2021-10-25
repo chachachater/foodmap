@@ -62,15 +62,14 @@ function ProfilePage() {
     if (isLoading) return;
     setIsLoading(true);
     fetchUserData(id).then((result) => {
-      if (!result.data){
+      if (!result.data) {
         setIsLoading(false);
         setIsError(true);
         return;
       }
       setNickname(result.data.nickname);
-      if (result.data.background_pic_url)
-        setDefaultBanner(result.data.background_pic_url);
-      if (result.data.picture_url) setDefaultAvatar(result.data.picture_url);
+      setDefaultBanner(result.data.background_pic_url || null);
+      setDefaultAvatar(result.data.picture_url || null);
     });
     fetchPostsByUserId(id, offset, filter, unpublished).then((result) => {
       setPostCounts(result.count);
