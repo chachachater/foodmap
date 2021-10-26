@@ -38,7 +38,6 @@ function EditPage() {
     title,
     setTitle,
     content,
-    setContent,
     visitedDate,
     setVisitedDate,
     isPublished,
@@ -63,7 +62,7 @@ function EditPage() {
           }, [])
         );
         setTitle(result.title);
-        setContent(result.content);
+        content.current = result.content;
         setVisitedDate(result.visited_time);
         isPublished.current = result.is_published;
         setRestaurantId(result.restaurant_id);
@@ -151,7 +150,7 @@ function EditPage() {
         <CKEditor
           editor={Editor}
           config={editorConfiguration}
-          data={content ? content : ""}
+          data={content.current ? content.current : ""}
           onReady={(editor) => {
             editor.editing.view.change((writer) => {
               writer.setStyle(
@@ -163,7 +162,7 @@ function EditPage() {
           }}
           onChange={(event, editor) => {
             const data = editor.getData();
-            setContent(data);
+            content.current = data
           }}
         />
         <SubmitButton>
