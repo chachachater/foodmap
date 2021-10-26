@@ -12,7 +12,7 @@ export default function usePost() {
   const [images, setImages] = useState([]);
   const [restaurantId, setRestaurantId] = useState("");
   const [title, setTitle] = useState("");
-  const [content, setContent] = useState("");
+  const content = useRef("");
   const [visitedDate, setVisitedDate] = useState("");
   const isPublished = useRef(true);
   const [postId, setPostId] = useState("");
@@ -71,7 +71,7 @@ export default function usePost() {
     postData.user_id = userId;
     postData.restaurant_id = restaurantId;
     postData.title = title;
-    postData.content = content;
+    postData.content = content.current;
     postData.visited_time = visitedDate;
     postData.is_published = isPublished.current;
     if (postId) {
@@ -97,7 +97,6 @@ export default function usePost() {
     title,
     setTitle,
     content,
-    setContent,
     visitedDate,
     setVisitedDate,
     isPublished,
