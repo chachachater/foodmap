@@ -13,14 +13,13 @@ import { HomePageSearch } from "../../../components/Search/Search";
 import { fetchAllPosts } from "../../../WebAPI";
 import { UserAllArticle } from "../../../components/Article/ArticleStyle";
 import { ArticleInfo } from "../../../components/Article";
-import useParseData from "../../../hooks/useParseData";
 import useScroll from "../../../hooks/useScroll";
 import useLoading from "../../../hooks/useLoading";
 import Loading from "../../../components/Loading/Loading";
 
 function HomePage() {
   const { isLoading, setIsLoading } = useLoading();
-  const { parseResult, setParseResult } = useParseData();
+  const [postsData, setPostsData] = useState([]);
   const scroll = useScroll();
   const [offset, setOffset] = useState(0);
   const [postCounts, setPostCounts] = useState(0);
@@ -34,14 +33,14 @@ function HomePage() {
       setIsLoading(false);
       if (!result) return;
       setPostCounts(result.count);
-      setParseResult(result.rows);
+      setPostsData(result.rows);
     });
   }, []);
 
   useEffect(() => {
     if (offset === 0) return;
     fetchAllPosts(offset).then((result) => {
-      setParseResult(parseResult.concat(result.rows));
+      setPostsData(postsData.concat(result.rows));
       setIsLoading(false);
     });
   }, [offset]);
@@ -57,7 +56,7 @@ function HomePage() {
 
   useEffect(() => {
     setClientHeight(document.body.clientHeight);
-  }, [parseResult]);
+  }, [postsData]);
 
   return (
     <Wrapper>
@@ -72,7 +71,7 @@ function HomePage() {
       </HomeBanner>
       <HomeTitle>最新文章</HomeTitle>
       <UserAllArticle>
-        <ArticleInfo postsData={parseResult} />
+        <ArticleInfo postsData={postsData} />
       </UserAllArticle>
       <LoadMore>沒有食記囉</LoadMore>
     </Wrapper>
