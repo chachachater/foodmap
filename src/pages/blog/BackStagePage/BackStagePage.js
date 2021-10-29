@@ -13,7 +13,6 @@ import BackStageArticle from "./BackStagArticle";
 import { fetchPostsByUserId, fetchDeletePost } from "../../../WebAPI";
 import useGetId from "../../../hooks/useGetId";
 import useScroll from "../../../hooks/useScroll";
-import useParseData from "../../../hooks/useParseData";
 import useLoading from "../../../hooks/useLoading";
 import Loading from "../../../components/Loading/Loading";
 import { checkScrollBottom } from "../../../utils";
@@ -22,7 +21,7 @@ function BackStagePage() {
   const history = useHistory();
   const { isLoading, setIsLoading } = useLoading();
   const { userId } = useGetId();
-  const { parseResult, setParseResult } = useParseData();
+  const [postsData, setPostsData] = useState([]);
   const scroll = useScroll();
   const [unpublished, setUnpublished] = useState("false");
   const [postCounts, setPostCounts] = useState("");
@@ -37,7 +36,7 @@ function BackStagePage() {
       setIsLoading(false);
       if (!result) return console.log(result.message);
       setPostCounts(result.count);
-      setParseResult(result.rows);
+      setPostsData(result.rows);
     });
   }, [userId]);
 
@@ -49,7 +48,7 @@ function BackStagePage() {
       setIsLoading(false);
       if (!result) return console.log(result.message);
       setPostCounts(result.count);
-      setParseResult(result.rows);
+      setPostsData(result.rows);
       setOffset(0);
     });
   }, [unpublished]);
@@ -59,7 +58,7 @@ function BackStagePage() {
     setIsLoading(true);
     fetchPostsByUserId(userId, offset, order, unpublished).then((result) => {
       if (!result) return setIsLoading(false);
-      setParseResult(parseResult.concat(result.rows));
+      setPostsData(postsData.concat(result.rows));
       setIsLoading(false);
     });
   }, [offset]);
@@ -85,7 +84,7 @@ function BackStagePage() {
   const handleDelete = (id) => {
     fetchDeletePost(id).then(() => {
       fetchPostsByUserId(userId, 0, order, unpublished).then((result) => {
-        setParseResult(result.rows);
+        setPostsData(result.rows);
         setOffset(0);
       });
     });
@@ -116,8 +115,8 @@ function BackStagePage() {
             </>
           )}
         </Filter>
-        {parseResult &&
-          parseResult.map((post, index) => (
+        {postsData &&
+          postsData.map((post, index) => (
             <BackStageArticle
               key={index}
               userPost={post}

@@ -24,7 +24,6 @@ import { Article } from "../../../components/Article";
 import { fetchUserData, fetchPostsByUserId } from "../../../WebAPI";
 import useEditUserData from "../../../hooks/useEditUserData";
 import useConfirmUser from "../../../hooks/useConfirmUser";
-import useParseData from "../../../hooks/useParseData";
 import useScroll from "../../../hooks/useScroll";
 import useLoading from "../../../hooks/useLoading";
 import Loading from "../../../components/Loading/Loading";
@@ -48,7 +47,7 @@ function ProfilePage() {
     handleInputChange,
     handleSubmit,
   } = useEditUserData();
-  const { parseResult, setParseResult } = useParseData();
+  const [postsData, setPostsData] = useState([]);
   const scroll = useScroll();
   const [defaultBanner, setDefaultBanner] = useState("");
   const [defaultAvatar, setDefaultAvatar] = useState("");
@@ -72,14 +71,14 @@ function ProfilePage() {
     });
     fetchPostsByUserId(id, offset, filter, unpublished).then((result) => {
       setPostCounts(result.count);
-      setParseResult(result.rows);
+      setPostsData(result.rows);
     });
     setIsLoading(false);
   }, [id]);
 
   useEffect(() => {
     fetchPostsByUserId(id, 0, filter, unpublished).then((result) => {
-      setParseResult(result.rows);
+      setPostsData(result.rows);
       setOffset(0);
     });
   }, [filter]);
@@ -88,7 +87,7 @@ function ProfilePage() {
     if (offset === 0) return;
     setIsLoading(true);
     fetchPostsByUserId(id, offset, filter, unpublished).then((result) => {
-      setParseResult(parseResult.concat(result.rows));
+      setPostsData(postsData.concat(result.rows));
       setIsLoading(false);
     });
   }, [offset]);
@@ -151,7 +150,7 @@ function ProfilePage() {
           <ArticleCounter>共有 {postCounts} 篇食記</ArticleCounter>
         </InfoContainer>
       </ProfileContainer>
-      <Article postsData={parseResult} setFilter={setFilter} />
+      <Article postsData={postsData} setFilter={setFilter} />
     </Wrapper>
   );
 }

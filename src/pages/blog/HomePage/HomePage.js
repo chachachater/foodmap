@@ -13,7 +13,6 @@ import { HomePageSearch } from "../../../components/Search/Search";
 import { fetchAllPosts } from "../../../WebAPI";
 import { UserAllArticle } from "../../../components/Article/ArticleStyle";
 import { ArticleInfo } from "../../../components/Article";
-import useParseData from "../../../hooks/useParseData";
 import useScroll from "../../../hooks/useScroll";
 import useLoading from "../../../hooks/useLoading";
 import Loading from "../../../components/Loading/Loading";
@@ -21,7 +20,7 @@ import { checkScrollBottom } from "../../../utils";
 
 function HomePage() {
   const { isLoading, setIsLoading } = useLoading();
-  const { parseResult, setParseResult } = useParseData();
+  const [postsData, setPostsData] = useState([]);
   const scroll = useScroll();
   const [offset, setOffset] = useState(0);
   const [postCounts, setPostCounts] = useState(0);
@@ -36,12 +35,12 @@ function HomePage() {
       if (result.count <= 5) {
         // 每次都會要 limit = 5 篇文章，這邊處理初始文章數量小於等於 5 的 edge case
         setPostCounts(result.count);
-        setParseResult(result.rows);
+        setPostsData(result.rows);
         setLoadEnd(true);
         return;
       }
       setPostCounts(result.count);
-      setParseResult(result.rows);
+      setPostsData(result.rows);
     });
   }, []);
 
@@ -52,7 +51,7 @@ function HomePage() {
       if (result.rows.length < 5 || postCounts === offset * 5 + 5)
         setLoadEnd(true);
       setIsLoading(false);
-      setParseResult(parseResult.concat(result.rows));
+      setPostsData(postsData.concat(result.rows));
     });
   }, [offset]);
 
@@ -78,7 +77,7 @@ function HomePage() {
       </HomeBanner>
       <HomeTitle>最新文章</HomeTitle>
       <UserAllArticle>
-        <ArticleInfo postsData={parseResult} />
+        <ArticleInfo postsData={postsData} />
       </UserAllArticle>
       {loadEnd && <LoadMore>沒有食記囉</LoadMore>}
     </Wrapper>
