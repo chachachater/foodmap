@@ -16,6 +16,7 @@ import useScroll from "../../../hooks/useScroll";
 import useParseData from "../../../hooks/useParseData";
 import useLoading from "../../../hooks/useLoading";
 import Loading from "../../../components/Loading/Loading";
+import { checkScrollBottom } from "../../../utils";
 
 function BackStagePage() {
   const history = useHistory();
@@ -26,9 +27,6 @@ function BackStagePage() {
   const [unpublished, setUnpublished] = useState("false");
   const [postCounts, setPostCounts] = useState("");
   const [offset, setOffset] = useState(0);
-  const [clientHeight, setClientHeight] = useState(document.body.clientHeight);
-
-  const screenHeight = window.screen.availHeight;
   const order = "createdAt";
 
   useEffect(() => {
@@ -46,7 +44,11 @@ function BackStagePage() {
   useEffect(() => {
     if (isLoading) return;
     if (!userId) return;
+    setIsLoading(true);
     fetchPostsByUserId(userId, 0, order, unpublished).then((result) => {
+      setIsLoading(false);
+      if (!result) return console.log(result.message);
+      setPostCounts(result.count);
       setParseResult(result.rows);
       setOffset(0);
     });
@@ -54,6 +56,7 @@ function BackStagePage() {
 
   useEffect(() => {
     if (offset === 0) return;
+    setIsLoading(true);
     fetchPostsByUserId(userId, offset, order, unpublished).then((result) => {
       if (!result) return setIsLoading(false);
       setParseResult(parseResult.concat(result.rows));
@@ -63,16 +66,11 @@ function BackStagePage() {
 
   useEffect(() => {
     if (isLoading) return;
-    if (clientHeight - scroll.y - screenHeight / 2 >= screenHeight / 2) return;
-    if (postCounts > offset) {
-      setIsLoading(true);
+    if (!checkScrollBottom()) return;
+    if (postCounts > offset * 5 + 5) {
       setOffset(offset + 5);
     }
   }, [scroll]);
-
-  useEffect(() => {
-    setClientHeight(document.body.clientHeight);
-  }, [parseResult]);
 
   const handlePublishValue = () => {
     if (unpublished === "false") return;

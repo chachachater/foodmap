@@ -50,6 +50,7 @@ function EditPage() {
     restaurantName,
     setRestaurantName,
   } = usePost();
+
   useEffect(() => {
     if (!userId) return;
     if (pathname.includes("edit")) {
@@ -69,6 +70,7 @@ function EditPage() {
       });
     }
   }, [userId]);
+
   useLayoutEffect(() => {
     window.scrollTo(0, 0);
   }, [handleSubmit]);
@@ -76,6 +78,7 @@ function EditPage() {
     isPublished.current = false;
     handleSubmit();
   };
+
   const renderImages = () => {
     if (!images) return;
     if (!images.length) return;
@@ -85,6 +88,7 @@ function EditPage() {
       </ImgBox>
     ));
   };
+
   const editorConfiguration = {
     toolbar: {
       items: [
@@ -103,6 +107,7 @@ function EditPage() {
       ],
     },
   };
+
   return (
     <Wrapper>
       <Navbar />
@@ -162,7 +167,7 @@ function EditPage() {
           }}
           onChange={(event, editor) => {
             const data = editor.getData();
-            content.current = data
+            content.current = data;
           }}
         />
         <SubmitButton>
