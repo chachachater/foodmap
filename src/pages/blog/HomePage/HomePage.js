@@ -16,6 +16,7 @@ import { ArticleInfo } from "../../../components/Article";
 import useScroll from "../../../hooks/useScroll";
 import useLoading from "../../../hooks/useLoading";
 import Loading from "../../../components/Loading/Loading";
+import { checkScrollBottom } from "../../../utils";
 
 function HomePage() {
   const { isLoading, setIsLoading } = useLoading();
@@ -24,14 +25,20 @@ function HomePage() {
   const [offset, setOffset] = useState(0);
   const [postCounts, setPostCounts] = useState(0);
   const [inputText, setInputText] = useState("");
-  const [clientHeight, setClientHeight] = useState(document.body.clientHeight);
-  const screenHeight = window.screen.availHeight;
+  const [loadEnd, setLoadEnd] = useState(false);
 
   useEffect(() => {
     setIsLoading(true);
     fetchAllPosts(offset).then((result) => {
       setIsLoading(false);
       if (!result) return;
+      if (result.count <= 5) {
+        // 每次都會要 limit = 5 篇文章，這邊處理初始文章數量小於等於 5 的 edge case
+        setPostCounts(result.count);
+        setPostsData(result.rows);
+        setLoadEnd(true);
+        return;
+      }
       setPostCounts(result.count);
       setPostsData(result.rows);
     });
@@ -39,24 +46,23 @@ function HomePage() {
 
   useEffect(() => {
     if (offset === 0) return;
+    setIsLoading(true);
     fetchAllPosts(offset).then((result) => {
-      setPostsData(postsData.concat(result.rows));
+      if (result.rows.length < 5 || postCounts === offset * 5 + 5)
+        setLoadEnd(true);
       setIsLoading(false);
+      setPostsData(postsData.concat(result.rows));
     });
   }, [offset]);
 
   useEffect(() => {
     if (isLoading) return;
-    if (clientHeight - scroll.y - screenHeight / 2 >= screenHeight / 2) return;
-    if (postCounts > offset) {
-      setIsLoading(true);
+    if (!checkScrollBottom()) return;
+    if (postCounts > offset * 5 + 5) {
+      // 每次都會要 limit = 5 篇文章，加 5 是因為 offset 初始值為 0
       setOffset(offset + 5);
     }
   }, [scroll]);
-
-  useEffect(() => {
-    setClientHeight(document.body.clientHeight);
-  }, [postsData]);
 
   return (
     <Wrapper>
@@ -73,7 +79,7 @@ function HomePage() {
       <UserAllArticle>
         <ArticleInfo postsData={postsData} />
       </UserAllArticle>
-      <LoadMore>沒有食記囉</LoadMore>
+      {loadEnd && <LoadMore>沒有食記囉</LoadMore>}
     </Wrapper>
   );
 }

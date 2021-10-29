@@ -29,6 +29,7 @@ import useLoading from "../../../hooks/useLoading";
 import Loading from "../../../components/Loading/Loading";
 import Error from "../../../components/Error/Error";
 import useError from "../../../hooks/useError";
+import { checkScrollBottom } from "../../../utils";
 
 function ProfilePage() {
   const { id } = useParams();
@@ -53,8 +54,6 @@ function ProfilePage() {
   const [postCounts, setPostCounts] = useState("");
   const [filter, setFilter] = useState("createdAt");
   const [offset, setOffset] = useState(0);
-  const [clientHeight, setClientHeight] = useState(document.body.clientHeight);
-  const screenHeight = window.screen.availHeight;
   const unpublished = "false";
 
   useEffect(() => {
@@ -86,6 +85,7 @@ function ProfilePage() {
 
   useEffect(() => {
     if (offset === 0) return;
+    setIsLoading(true);
     fetchPostsByUserId(id, offset, filter, unpublished).then((result) => {
       setPostsData(postsData.concat(result.rows));
       setIsLoading(false);
@@ -94,16 +94,11 @@ function ProfilePage() {
 
   useEffect(() => {
     if (isLoading) return;
-    if (clientHeight - scroll.y - screenHeight / 2 >= screenHeight / 2) return;
-    if (postCounts > offset) {
-      setIsLoading(true);
+    if (!checkScrollBottom()) return;
+    if (postCounts > offset * 5 + 5) {
       setOffset(offset + 5);
     }
   }, [scroll]);
-
-  useEffect(() => {
-    setClientHeight(document.body.clientHeight);
-  }, [postsData]);
 
   return (
     <Wrapper>
