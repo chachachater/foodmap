@@ -118,10 +118,6 @@ function NearbyPage(props) {
     nearbySearch();
   }, [myPosition]);
 
-  // useEffect(() => {
-  //   if (!focused) setRestaurantList([]);
-  // }, [focused]);
-
   function searchRestaurantById(placeId, name) {
     if (mapApiLoaded) {
       const service = new mapApi.places.PlacesService(mapInstance);
