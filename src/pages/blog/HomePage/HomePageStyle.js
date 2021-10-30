@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { COLOR, FONT } from "../../../constants/style";
+import { COLOR, FONT, MEDIA_QUERY } from "../../../constants/style";
 import homeBanner from "../../../components/pictures/homeBanner.png";
 
 export const HomeBanner = styled.div`
@@ -21,6 +21,10 @@ export const BannerInfo = styled.div`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+
+  ${MEDIA_QUERY.sm} {
+    width: 90%;
+  }
 `;
 
 export const BannerText = styled.h1`
