@@ -40,7 +40,6 @@ function BackStagePage() {
     setPage(0);
     fetchPostsByUserId(userId, 0, order, unpublished).then((result) => {
       if (!result) return console.log(result.message);
-      console.log(result);
       setPostsData(result.rows);
     });
   }, [unpublished]);

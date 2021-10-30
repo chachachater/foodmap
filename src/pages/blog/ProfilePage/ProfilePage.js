@@ -13,7 +13,6 @@ import {
   Name,
   EditingGroup,
   SaveBtn,
-  ArticleCounter,
   FileInput,
   NoBorderLabel,
   Input,
@@ -48,7 +47,6 @@ function ProfilePage() {
   const [postsData, setPostsData] = useState([]);
   const [defaultBanner, setDefaultBanner] = useState("");
   const [defaultAvatar, setDefaultAvatar] = useState("");
-  const [postCounts, setPostCounts] = useState("");
   const [filter, setFilter] = useState("createdAt");
   const unpublished = "false";
   const [page, setPage] = useState(0);
@@ -67,7 +65,6 @@ function ProfilePage() {
       setDefaultAvatar(result.data.picture_url || null);
     });
     fetchPostsByUserId(id, 0, filter, unpublished).then((result) => {
-      setPostCounts(result.count);
       setPostsData(result.rows);
       setIsLoading(false);
     });
@@ -135,7 +132,6 @@ function ProfilePage() {
               <SaveBtn onClick={handleSubmit}>儲存</SaveBtn>
             </EditingGroup>
           )}
-          <ArticleCounter>共有 {postCounts} 篇食記</ArticleCounter>
         </InfoContainer>
       </ProfileContainer>
       <Article
