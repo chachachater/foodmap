@@ -14,13 +14,13 @@ function Filters({ setFilter }) {
       <FilterOption
         active={active === "createdAt" ? true : false}
         onClick={() => {
-          setFilter("createdAt");
+          // setFilter("createdAt");
           setActive("createdAt");
         }}
       >
         最新排序
       </FilterOption>
-      <FilterOption
+      {/* <FilterOption
         active={active === "views" ? true : false}
         onClick={() => {
           setFilter("views");
@@ -28,7 +28,7 @@ function Filters({ setFilter }) {
         }}
       >
         熱門排序
-      </FilterOption>
+      </FilterOption> */}
     </FilterOptionsContainer>
   );
 }

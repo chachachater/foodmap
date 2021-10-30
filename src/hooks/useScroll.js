@@ -1,6 +1,7 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 export default function useScroll() {
+  const test = useRef()
    const [scroll, setScroll] = useState({
     x: window.scrollX,
     y: window.scrollY,
@@ -8,6 +9,7 @@ export default function useScroll() {
   })
 
   const listener = () => {
+    console.log(test.current)
    setScroll(prev => ({
       x: window.scrollX,
       y: window.scrollY,

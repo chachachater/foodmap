@@ -24,12 +24,10 @@ import { Article } from "../../../components/Article";
 import { fetchUserData, fetchPostsByUserId } from "../../../WebAPI";
 import useEditUserData from "../../../hooks/useEditUserData";
 import useConfirmUser from "../../../hooks/useConfirmUser";
-import useScroll from "../../../hooks/useScroll";
 import useLoading from "../../../hooks/useLoading";
 import Loading from "../../../components/Loading/Loading";
 import Error from "../../../components/Error/Error";
 import useError from "../../../hooks/useError";
-import { checkScrollBottom } from "../../../utils";
 
 function ProfilePage() {
   const { id } = useParams();
@@ -48,57 +46,47 @@ function ProfilePage() {
     handleSubmit,
   } = useEditUserData();
   const [postsData, setPostsData] = useState([]);
-  const scroll = useScroll();
   const [defaultBanner, setDefaultBanner] = useState("");
   const [defaultAvatar, setDefaultAvatar] = useState("");
   const [postCounts, setPostCounts] = useState("");
   const [filter, setFilter] = useState("createdAt");
-  const [offset, setOffset] = useState(0);
   const unpublished = "false";
+  const [page, setPage] = useState(0);
 
   useEffect(() => {
     if (isLoading) return;
     setIsLoading(true);
     fetchUserData(id).then((result) => {
       if (!result.data) {
-        setIsLoading(false);
         setIsError(true);
+        setIsLoading(false);
         return;
       }
       setNickname(result.data.nickname);
       setDefaultBanner(result.data.background_pic_url || null);
       setDefaultAvatar(result.data.picture_url || null);
     });
-    fetchPostsByUserId(id, offset, filter, unpublished).then((result) => {
+    fetchPostsByUserId(id, 0, filter, unpublished).then((result) => {
       setPostCounts(result.count);
       setPostsData(result.rows);
-    });
-    setIsLoading(false);
-  }, [id]);
-
-  useEffect(() => {
-    fetchPostsByUserId(id, 0, filter, unpublished).then((result) => {
-      setPostsData(result.rows);
-      setOffset(0);
-    });
-  }, [filter]);
-
-  useEffect(() => {
-    if (offset === 0) return;
-    setIsLoading(true);
-    fetchPostsByUserId(id, offset, filter, unpublished).then((result) => {
-      setPostsData(postsData.concat(result.rows));
       setIsLoading(false);
     });
-  }, [offset]);
+  }, [id]);
+
+  // useEffect(() => {
+  //   setPage(0);
+  //   fetchPostsByUserId(id, 0, filter, unpublished).then((result) => {
+  //     setPostsData(result.rows);
+  //   });
+  // }, [filter]);
 
   useEffect(() => {
-    if (isLoading) return;
-    if (!checkScrollBottom()) return;
-    if (postCounts > offset * 5 + 5) {
-      setOffset(offset + 5);
-    }
-  }, [scroll]);
+    if (page === 0) return;
+    if (page % 5 !== 0) return;
+    fetchPostsByUserId(id, page, filter, unpublished).then((result) => {
+      setPostsData((prev) => [...new Set([...prev, ...result.rows])]);
+    });
+  }, [page]);
 
   return (
     <Wrapper>
@@ -150,7 +138,12 @@ function ProfilePage() {
           <ArticleCounter>共有 {postCounts} 篇食記</ArticleCounter>
         </InfoContainer>
       </ProfileContainer>
-      <Article postsData={postsData} setFilter={setFilter} />
+      <Article
+        setPage={setPage}
+        postsData={postsData}
+        profilePage={true}
+        setFilter={setFilter}
+      />
     </Wrapper>
   );
 }

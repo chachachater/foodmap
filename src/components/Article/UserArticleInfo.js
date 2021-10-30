@@ -8,12 +8,12 @@ import {
 } from "./ArticleStyle";
 import ArticleImage from "./ArticleImage"
 
-function ArticleInfo({ postsData, setPage }) {
+function UserArticleInfo({ postsData, setPage }) {
   return postsData.map((post) => {
     const htmlInput = post.content;
     const reactElement = htmlToReactParser(htmlInput);
     return (
-      <ArticleContainer to={`/posts/${post.id}`} key={post.id}>
+      <ArticleContainer to={`/posts/${post.id}`} key={Math.random()}>
         <ArticleImage imgSrc={post.Pictures[0].food_picture_url} setPage={setPage} />
         <ArticleContent>
           <ArticleTitle>{post.title}</ArticleTitle>
@@ -24,4 +24,4 @@ function ArticleInfo({ postsData, setPage }) {
   });
 }
 
-export default ArticleInfo;
+export default UserArticleInfo;
