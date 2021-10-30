@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import PropTypes from "prop-types";
-import React from "react";
+import React, { useState, useRef } from "react";
 import { COLOR, MEDIA_QUERY } from "../../constants/style";
 import placeBtn from "../pictures/placeBtn.png";
 
@@ -52,6 +52,7 @@ const AutocompleteList = styled.div`
   font-size: 16px;
   position: absolute;
   top: 20px;
+  display: ${(props) => (props.isHidden ? "none" : "block")};
 `;
 export const Input = styled.input`
   font-size: 16px;
@@ -69,30 +70,33 @@ export const SearchBox = ({
   inputText,
   restaurantList,
   handleSearchRestaurant,
-  setFocused,
 }) => {
+  const [isHidden, setIsHidden] = useState(true);
+  const focusRef = useRef(null);
   return (
     <SearchBoxContainer
       tabIndex={1}
       onBlur={(e) => {
         if (!e.currentTarget.contains(e.relatedTarget)) {
-          setFocused(false);
+          setIsHidden(true);
         }
       }}
     >
       <Input
+        autoFocus
         tabIndex="0"
         type="text"
         placeholder={text}
         value={inputText}
+        ref={focusRef}
         onFocus={() => {
-          setFocused(true);
+          setIsHidden(false);
         }}
         onChange={(e) => {
           handleInputChange(e);
         }}
       />
-      <AutocompleteList style={{ position: "absolute", top: "20px" }}>
+      <AutocompleteList isHidden={isHidden}>
         {restaurantList.map((data, index) => (
           <SuggestList
             key={index}
@@ -102,6 +106,7 @@ export const SearchBox = ({
                 data.place_id,
                 data.structured_formatting.main_text
               );
+              focusRef.current.focus();
             }}
           >
             {data.terms[0].value}

@@ -50,7 +50,6 @@ function SearchPage(props) {
   });
   const [isFold, setIsFold] = useState(true);
   const [filter, setFilter] = useState("createdAt");
-  const [focused, setFocused] = useState(false);
   let query = new URLSearchParams(useLocation().search);
   const handleApiLoaded = (map, maps) => {
     setMapInstance(map);
@@ -152,9 +151,6 @@ function SearchPage(props) {
     setInputText(e.target.value);
   }
   useEffect(() => {
-    if (!focused) setRestaurantList([]);
-  }, [focused]);
-  useEffect(() => {
     if (!mapApiLoaded) return;
     setIsLoading(false);
     setInputText(query.get("query"));
@@ -171,7 +167,6 @@ function SearchPage(props) {
             inputText={inputText}
             restaurantList={restaurantList}
             handleSearchRestaurant={handleSearchRestaurant}
-            setFocused={setFocused}
             handleTextSearch={handleTextSearch}
           />
         </SearchBorder>

@@ -36,7 +36,6 @@ function NearbyPage(props) {
     lat: 25.0428937,
     lng: 121.5054199,
   });
-  const [focused, setFocused] = useState(false);
   const [currentCenter, setCurrentCenter] = useState(myPosition);
   const [photos, setPhotos] = useState(null);
   const [isFold, setIsFold] = useState(true);
@@ -118,10 +117,6 @@ function NearbyPage(props) {
     setMarkerIsLoading(true);
     nearbySearch();
   }, [myPosition]);
-
-  useEffect(() => {
-    if (!focused) setRestaurantList([]);
-  }, [focused]);
 
   function searchRestaurantById(placeId, name) {
     if (mapApiLoaded) {
@@ -213,7 +208,6 @@ function NearbyPage(props) {
             inputText={inputText}
             restaurantList={restaurantList}
             handleSearchRestaurant={searchRestaurantById}
-            setFocused={setFocused}
             handleTextSearch={handleTextSearch}
           />
         </SearchBorder>
