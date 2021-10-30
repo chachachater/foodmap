@@ -1,6 +1,11 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import { COLOR, FONT, MEDIA_QUERY } from "../../constants/style";
 import { Link } from "react-router-dom";
+
+const test = keyframes`
+  0% {opacity: 0;}
+  100% {opacity: 1;}
+`
 
 export const ArticleContainer = styled(Link)`
   color: black;
@@ -23,8 +28,12 @@ export const ArticleContainer = styled(Link)`
     margin: 0;
     margin-bottom: 20px;
   }
+  animation: ${test} 2s ease;
 `;
 
+export const ArticleImage = styled.div`
+
+`;
 export const UserAllArticle = styled.div`
   flex-direction: column;
   max-width: 1200px;
@@ -38,20 +47,25 @@ export const UserAllArticle = styled.div`
   }
 `;
 
-export const ArticleImage = styled.div`
+export const ImageContainer = styled.div`
+  background-color: #ccc;
   height: 100%;
   width: 100%;
   max-width: 375px;
-  background: url(${(props) => props.image}) center/cover;
   ${MEDIA_QUERY.md} {
     margin: 0 auto;
     max-width: 300px;
   }
-
   ${MEDIA_QUERY.sm} {
     margin-bottom: 16px;
     max-width: 400px;
   }
+`;
+
+export const Image = styled.img`
+  width: 100%;
+  height: 100%;
+  opacity: 1;
 `;
 
 export const ArticleTitle = styled.div`

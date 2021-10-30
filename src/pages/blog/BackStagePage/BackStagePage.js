@@ -12,33 +12,17 @@ import {
 import BackStageArticle from "./BackStagArticle";
 import { fetchPostsByUserId, fetchDeletePost } from "../../../WebAPI";
 import useGetId from "../../../hooks/useGetId";
-import useScroll from "../../../hooks/useScroll";
 import useLoading from "../../../hooks/useLoading";
 import Loading from "../../../components/Loading/Loading";
-import { checkScrollBottom } from "../../../utils";
 
 function BackStagePage() {
   const history = useHistory();
   const { isLoading, setIsLoading } = useLoading();
   const { userId } = useGetId();
   const [postsData, setPostsData] = useState([]);
-  const scroll = useScroll();
   const [unpublished, setUnpublished] = useState("false");
-  const [postCounts, setPostCounts] = useState("");
-  const [offset, setOffset] = useState(0);
   const order = "createdAt";
-
-  useEffect(() => {
-    if (isLoading) return;
-    if (!userId) return;
-    setIsLoading(true);
-    fetchPostsByUserId(userId, offset, order, unpublished).then((result) => {
-      setIsLoading(false);
-      if (!result) return console.log(result.message);
-      setPostCounts(result.count);
-      setPostsData(result.rows);
-    });
-  }, [userId]);
+  const [page, setPage] = useState(0);
 
   useEffect(() => {
     if (isLoading) return;
@@ -47,29 +31,28 @@ function BackStagePage() {
     fetchPostsByUserId(userId, 0, order, unpublished).then((result) => {
       setIsLoading(false);
       if (!result) return console.log(result.message);
-      setPostCounts(result.count);
       setPostsData(result.rows);
-      setOffset(0);
+    });
+  }, [userId]);
+
+  useEffect(() => {
+    if (!userId) return;
+    setPage(0);
+    fetchPostsByUserId(userId, 0, order, unpublished).then((result) => {
+      if (!result) return console.log(result.message);
+      console.log(result);
+      setPostsData(result.rows);
     });
   }, [unpublished]);
 
   useEffect(() => {
-    if (offset === 0) return;
-    setIsLoading(true);
-    fetchPostsByUserId(userId, offset, order, unpublished).then((result) => {
+    if (page === 0) return;
+    if (page % 5 !== 0) return;
+    fetchPostsByUserId(userId, page, order, unpublished).then((result) => {
       if (!result) return setIsLoading(false);
-      setPostsData(postsData.concat(result.rows));
-      setIsLoading(false);
+      setPostsData((prev) => [...new Set([...prev, ...result.rows])]);
     });
-  }, [offset]);
-
-  useEffect(() => {
-    if (isLoading) return;
-    if (!checkScrollBottom()) return;
-    if (postCounts > offset * 5 + 5) {
-      setOffset(offset + 5);
-    }
-  }, [scroll]);
+  }, [page]);
 
   const handlePublishValue = () => {
     if (unpublished === "false") return;
@@ -85,13 +68,12 @@ function BackStagePage() {
     fetchDeletePost(id).then(() => {
       fetchPostsByUserId(userId, 0, order, unpublished).then((result) => {
         setPostsData(result.rows);
-        setOffset(0);
+        setPage(0);
       });
     });
   };
 
   const toEditPage = (id) => () => history.push(`/edit/${id}`);
-
   return (
     <Wrapper>
       <Navbar />
@@ -116,13 +98,14 @@ function BackStagePage() {
           )}
         </Filter>
         {postsData &&
-          postsData.map((post, index) => (
+          postsData.map((post) => (
             <BackStageArticle
-              key={index}
+              key={post.id}
               userPost={post}
               image={post.Pictures[0].food_picture_url}
               onDelete={handleDelete}
               toEditPage={toEditPage(post.id)}
+              setPage={setPage}
             />
           ))}
       </BackStageWrapper>
