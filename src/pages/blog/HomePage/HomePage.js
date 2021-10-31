@@ -29,7 +29,7 @@ function HomePage() {
       setIsLoading(false);
       if (!result) return;
       if (result.count < 5) {
-        // 每次都會要 limit = 5 篇文章，這邊處理初始文章數量小於等於 5 的 edge case
+        // 每次都會要 limit = 5 篇文章，這邊處理初始文章數量小於 5 的 edge case
         setPostsData(result.rows);
         setLoadEnd(true);
         return;
