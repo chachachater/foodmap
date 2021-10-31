@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 const test = keyframes`
   0% {opacity: 0;}
   100% {opacity: 1;}
-`
+`;
 
 export const ArticleContainer = styled(Link)`
   color: black;
@@ -31,9 +31,7 @@ export const ArticleContainer = styled(Link)`
   animation: ${test} 2s ease;
 `;
 
-export const ArticleImage = styled.div`
-
-`;
+export const ArticleImage = styled.div``;
 export const UserAllArticle = styled.div`
   flex-direction: column;
   max-width: 1200px;
@@ -64,8 +62,9 @@ export const ImageContainer = styled.div`
 
 export const Image = styled.img`
   width: 100%;
-  height: 100%;
   opacity: 1;
+  height: 100%;
+  object-fit: cover;
 `;
 
 export const ArticleTitle = styled.div`
