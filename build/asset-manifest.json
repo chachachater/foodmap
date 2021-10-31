@@ -1,26 +1,26 @@
 {
   "files": {
     "main.css": "/foodmap/static/css/main.6fa4a638.chunk.css",
-    "main.js": "/foodmap/static/js/main.52236ff4.chunk.js",
-    "main.js.map": "/foodmap/static/js/main.52236ff4.chunk.js.map",
-    "runtime-main.js": "/foodmap/static/js/runtime-main.7fd9843b.js",
-    "runtime-main.js.map": "/foodmap/static/js/runtime-main.7fd9843b.js.map",
-    "static/js/2.f4ec27f7.chunk.js": "/foodmap/static/js/2.f4ec27f7.chunk.js",
-    "static/js/2.f4ec27f7.chunk.js.map": "/foodmap/static/js/2.f4ec27f7.chunk.js.map",
-    "static/js/3.5cc6352e.chunk.js": "/foodmap/static/js/3.5cc6352e.chunk.js",
-    "static/js/3.5cc6352e.chunk.js.map": "/foodmap/static/js/3.5cc6352e.chunk.js.map",
+    "main.js": "/foodmap/static/js/main.d926223c.chunk.js",
+    "main.js.map": "/foodmap/static/js/main.d926223c.chunk.js.map",
+    "runtime-main.js": "/foodmap/static/js/runtime-main.41e7ab92.js",
+    "runtime-main.js.map": "/foodmap/static/js/runtime-main.41e7ab92.js.map",
+    "static/js/2.9caa5cd1.chunk.js": "/foodmap/static/js/2.9caa5cd1.chunk.js",
+    "static/js/2.9caa5cd1.chunk.js.map": "/foodmap/static/js/2.9caa5cd1.chunk.js.map",
+    "static/js/3.ddde0000.chunk.js": "/foodmap/static/js/3.ddde0000.chunk.js",
+    "static/js/3.ddde0000.chunk.js.map": "/foodmap/static/js/3.ddde0000.chunk.js.map",
     "index.html": "/foodmap/index.html",
     "static/css/main.6fa4a638.chunk.css.map": "/foodmap/static/css/main.6fa4a638.chunk.css.map",
-    "static/js/2.f4ec27f7.chunk.js.LICENSE.txt": "/foodmap/static/js/2.f4ec27f7.chunk.js.LICENSE.txt",
-    "static/js/main.52236ff4.chunk.js.LICENSE.txt": "/foodmap/static/js/main.52236ff4.chunk.js.LICENSE.txt",
+    "static/js/2.9caa5cd1.chunk.js.LICENSE.txt": "/foodmap/static/js/2.9caa5cd1.chunk.js.LICENSE.txt",
+    "static/js/main.d926223c.chunk.js.LICENSE.txt": "/foodmap/static/js/main.d926223c.chunk.js.LICENSE.txt",
     "static/media/addBtn.700ee69f.svg": "/foodmap/static/media/addBtn.700ee69f.svg",
     "static/media/backtotop.d1626b78.svg": "/foodmap/static/media/backtotop.d1626b78.svg",
     "static/media/homeBanner.46fdefb0.png": "/foodmap/static/media/homeBanner.46fdefb0.png"
   },
   "entrypoints": [
-    "static/js/runtime-main.7fd9843b.js",
-    "static/js/2.f4ec27f7.chunk.js",
+    "static/js/runtime-main.41e7ab92.js",
+    "static/js/2.9caa5cd1.chunk.js",
     "static/css/main.6fa4a638.chunk.css",
-    "static/js/main.52236ff4.chunk.js"
+    "static/js/main.d926223c.chunk.js"
   ]
 }
