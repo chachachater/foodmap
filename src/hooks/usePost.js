@@ -12,7 +12,7 @@ export default function usePost() {
   const [images, setImages] = useState([]);
   const [restaurantId, setRestaurantId] = useState("");
   const [title, setTitle] = useState("");
-  const [content, setContent] = useState("");
+  const content = useRef("");
   const [visitedDate, setVisitedDate] = useState("");
   const isPublished = useRef(true);
   const [postId, setPostId] = useState("");
@@ -52,16 +52,16 @@ export default function usePost() {
   }
   async function handleSubmit() {
     if (isPosting.current) return;
-    isPosting.current = true;
     const { userId } = userState.result.data;
     const checkedList = [restaurantId, title, content, visitedDate, userId];
     if (!isValidDate(visitedDate)) alert("食記的日期不能超過當日");
+    if (!images.length) alert("至少上傳一張圖片");
     if (!checkedList.every((every) => every)) {
       return alert(`請輸入全部欄位`);
     }
+    isPosting.current = true;
     const postData = {};
     const blobArr = [];
-    if (!images.length) return alert("至少上傳一張圖片");
     setIsLoading(true);
     for (let i = 0; i < images.length; i++) {
       let blob = await fetch(images[i]).then((result) => result.blob());
@@ -71,7 +71,7 @@ export default function usePost() {
     postData.user_id = userId;
     postData.restaurant_id = restaurantId;
     postData.title = title;
-    postData.content = content;
+    postData.content = content.current;
     postData.visited_time = visitedDate;
     postData.is_published = isPublished.current;
     if (postId) {
@@ -97,7 +97,6 @@ export default function usePost() {
     title,
     setTitle,
     content,
-    setContent,
     visitedDate,
     setVisitedDate,
     isPublished,

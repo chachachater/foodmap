@@ -24,7 +24,6 @@ import useGetId from "../../../hooks/useGetId";
 import "./ckeditorStyle.css";
 
 function Post({ post, user }) {
-  console.log(post)
   if (!post) return null;
   if (!post.Pictures) return null;
   let arr = [];

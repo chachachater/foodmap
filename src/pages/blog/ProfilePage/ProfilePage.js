@@ -13,7 +13,6 @@ import {
   Name,
   EditingGroup,
   SaveBtn,
-  ArticleCounter,
   FileInput,
   NoBorderLabel,
   Input,
@@ -24,8 +23,6 @@ import { Article } from "../../../components/Article";
 import { fetchUserData, fetchPostsByUserId } from "../../../WebAPI";
 import useEditUserData from "../../../hooks/useEditUserData";
 import useConfirmUser from "../../../hooks/useConfirmUser";
-import useParseData from "../../../hooks/useParseData";
-import useScroll from "../../../hooks/useScroll";
 import useLoading from "../../../hooks/useLoading";
 import Loading from "../../../components/Loading/Loading";
 import Error from "../../../components/Error/Error";
@@ -47,65 +44,46 @@ function ProfilePage() {
     handleInputChange,
     handleSubmit,
   } = useEditUserData();
-  const { parseResult, setParseResult } = useParseData();
-  const scroll = useScroll();
+  const [postsData, setPostsData] = useState([]);
   const [defaultBanner, setDefaultBanner] = useState("");
   const [defaultAvatar, setDefaultAvatar] = useState("");
-  const [postCounts, setPostCounts] = useState("");
   const [filter, setFilter] = useState("createdAt");
-  const [offset, setOffset] = useState(0);
-  const [clientHeight, setClientHeight] = useState(document.body.clientHeight);
-  const screenHeight = window.screen.availHeight;
   const unpublished = "false";
+  const [page, setPage] = useState(0);
 
   useEffect(() => {
     if (isLoading) return;
     setIsLoading(true);
     fetchUserData(id).then((result) => {
-      if (!result.data){
-        setIsLoading(false);
+      if (!result.data) {
         setIsError(true);
+        setIsLoading(false);
         return;
       }
       setNickname(result.data.nickname);
-      if (result.data.background_pic_url)
-        setDefaultBanner(result.data.background_pic_url);
-      if (result.data.picture_url) setDefaultAvatar(result.data.picture_url);
+      setDefaultBanner(result.data.background_pic_url || null);
+      setDefaultAvatar(result.data.picture_url || null);
     });
-    fetchPostsByUserId(id, offset, filter, unpublished).then((result) => {
-      setPostCounts(result.count);
-      setParseResult(result.rows);
-    });
-    setIsLoading(false);
-  }, [id]);
-
-  useEffect(() => {
     fetchPostsByUserId(id, 0, filter, unpublished).then((result) => {
-      setParseResult(result.rows);
-      setOffset(0);
-    });
-  }, [filter]);
-
-  useEffect(() => {
-    if (offset === 0) return;
-    fetchPostsByUserId(id, offset, filter, unpublished).then((result) => {
-      setParseResult(parseResult.concat(result.rows));
+      setPostsData(result.rows);
       setIsLoading(false);
     });
-  }, [offset]);
+  }, [id]);
+
+  // useEffect(() => {
+  //   setPage(0);
+  //   fetchPostsByUserId(id, 0, filter, unpublished).then((result) => {
+  //     setPostsData(result.rows);
+  //   });
+  // }, [filter]);
 
   useEffect(() => {
-    if (isLoading) return;
-    if (clientHeight - scroll.y - screenHeight / 2 >= screenHeight / 2) return;
-    if (postCounts > offset) {
-      setIsLoading(true);
-      setOffset(offset + 5);
-    }
-  }, [scroll]);
-
-  useEffect(() => {
-    setClientHeight(document.body.clientHeight);
-  }, [parseResult]);
+    if (page === 0) return;
+    if (page % 5 !== 0) return;
+    fetchPostsByUserId(id, page, filter, unpublished).then((result) => {
+      setPostsData((prev) => [...new Set([...prev, ...result.rows])]);
+    });
+  }, [page]);
 
   return (
     <Wrapper>
@@ -154,10 +132,14 @@ function ProfilePage() {
               <SaveBtn onClick={handleSubmit}>儲存</SaveBtn>
             </EditingGroup>
           )}
-          <ArticleCounter>共有 {postCounts} 篇食記</ArticleCounter>
         </InfoContainer>
       </ProfileContainer>
-      <Article postsData={parseResult} setFilter={setFilter} />
+      <Article
+        setPage={setPage}
+        postsData={postsData}
+        profilePage={true}
+        setFilter={setFilter}
+      />
     </Wrapper>
   );
 }

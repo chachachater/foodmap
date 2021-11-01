@@ -13,51 +13,39 @@ import { HomePageSearch } from "../../../components/Search/Search";
 import { fetchAllPosts } from "../../../WebAPI";
 import { UserAllArticle } from "../../../components/Article/ArticleStyle";
 import { ArticleInfo } from "../../../components/Article";
-import useParseData from "../../../hooks/useParseData";
-import useScroll from "../../../hooks/useScroll";
 import useLoading from "../../../hooks/useLoading";
 import Loading from "../../../components/Loading/Loading";
 
 function HomePage() {
   const { isLoading, setIsLoading } = useLoading();
-  const { parseResult, setParseResult } = useParseData();
-  const scroll = useScroll();
-  const [offset, setOffset] = useState(0);
-  const [postCounts, setPostCounts] = useState(0);
+  const [postsData, setPostsData] = useState([]);
   const [inputText, setInputText] = useState("");
-  const [clientHeight, setClientHeight] = useState(document.body.clientHeight);
-  const screenHeight = window.screen.availHeight;
+  const [loadEnd, setLoadEnd] = useState(false);
+  const [page, setPage] = useState(0);
 
   useEffect(() => {
     setIsLoading(true);
-    fetchAllPosts(offset).then((result) => {
+    fetchAllPosts(page).then((result) => {
       setIsLoading(false);
       if (!result) return;
-      setPostCounts(result.count);
-      setParseResult(result.rows);
+      if (result.count < 5) {
+        // 每次都會要 limit = 5 篇文章，這邊處理初始文章數量小於 5 的 edge case
+        setPostsData(result.rows);
+        setLoadEnd(true);
+        return;
+      }
+      setPostsData(result.rows);
     });
   }, []);
 
   useEffect(() => {
-    if (offset === 0) return;
-    fetchAllPosts(offset).then((result) => {
-      setParseResult(parseResult.concat(result.rows));
-      setIsLoading(false);
+    if (page === 0) return;
+    if (page % 5 !== 0) return;
+    fetchAllPosts(page).then((result) => {
+      if (result.rows.length < 5) setLoadEnd(true);
+      setPostsData((prev) => [...new Set([...prev, ...result.rows])]);
     });
-  }, [offset]);
-
-  useEffect(() => {
-    if (isLoading) return;
-    if (clientHeight - scroll.y - screenHeight / 2 >= screenHeight / 2) return;
-    if (postCounts > offset) {
-      setIsLoading(true);
-      setOffset(offset + 5);
-    }
-  }, [scroll]);
-
-  useEffect(() => {
-    setClientHeight(document.body.clientHeight);
-  }, [parseResult]);
+  }, [page]);
 
   return (
     <Wrapper>
@@ -72,9 +60,9 @@ function HomePage() {
       </HomeBanner>
       <HomeTitle>最新文章</HomeTitle>
       <UserAllArticle>
-        <ArticleInfo postsData={parseResult} />
+        <ArticleInfo postsData={postsData} setPage={setPage} />
       </UserAllArticle>
-      <LoadMore>沒有食記囉</LoadMore>
+      {loadEnd && <LoadMore>沒有食記囉</LoadMore>}
     </Wrapper>
   );
 }

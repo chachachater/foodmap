@@ -38,7 +38,6 @@ function EditPage() {
     title,
     setTitle,
     content,
-    setContent,
     visitedDate,
     setVisitedDate,
     isPublished,
@@ -51,6 +50,7 @@ function EditPage() {
     restaurantName,
     setRestaurantName,
   } = usePost();
+
   useEffect(() => {
     if (!userId) return;
     if (pathname.includes("edit")) {
@@ -63,13 +63,14 @@ function EditPage() {
           }, [])
         );
         setTitle(result.title);
-        setContent(result.content);
+        content.current = result.content;
         setVisitedDate(result.visited_time);
         isPublished.current = result.is_published;
         setRestaurantId(result.restaurant_id);
       });
     }
   }, [userId]);
+
   useLayoutEffect(() => {
     window.scrollTo(0, 0);
   }, [handleSubmit]);
@@ -77,6 +78,7 @@ function EditPage() {
     isPublished.current = false;
     handleSubmit();
   };
+
   const renderImages = () => {
     if (!images) return;
     if (!images.length) return;
@@ -86,6 +88,7 @@ function EditPage() {
       </ImgBox>
     ));
   };
+
   const editorConfiguration = {
     toolbar: {
       items: [
@@ -104,6 +107,7 @@ function EditPage() {
       ],
     },
   };
+
   return (
     <Wrapper>
       <Navbar />
@@ -151,7 +155,7 @@ function EditPage() {
         <CKEditor
           editor={Editor}
           config={editorConfiguration}
-          data={content ? content : ""}
+          data={content.current ? content.current : ""}
           onReady={(editor) => {
             editor.editing.view.change((writer) => {
               writer.setStyle(
@@ -163,7 +167,7 @@ function EditPage() {
           }}
           onChange={(event, editor) => {
             const data = editor.getData();
-            setContent(data);
+            content.current = data;
           }}
         />
         <SubmitButton>

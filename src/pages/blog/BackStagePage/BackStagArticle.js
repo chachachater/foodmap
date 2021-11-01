@@ -6,22 +6,22 @@ import {
 } from "../../../components/Article/ArticleStyle";
 import {
   BackStageContainer,
-  BackStageImage,
   ArticleBottom,
   ArticleTime,
   BtnContainer,
   EditBtn,
   DeleteBtn,
 } from "./BackStagStyled";
+import ArticleImage from "../../../components/Article/ArticleImage"
 
-function BackStageArticle({ userPost, image, toEditPage, onDelete }) {
+function BackStageArticle({ userPost, image, toEditPage, onDelete, setPage }) {
   const onDeletePost = () => {
     onDelete(userPost.id);
   };
 
   return (
     <BackStageContainer>
-      <BackStageImage $link={image} />
+      <ArticleImage imgSrc={image} setPage={setPage} />
       <ArticleContent>
         <ArticleTitle>{userPost.title}</ArticleTitle>
         <ArticleBottom>
@@ -42,6 +42,7 @@ BackStageArticle.propTypes = {
   image: PropTypes.string,
   toEditPage: PropTypes.func,
   onDelete: PropTypes.func,
+  setPage: PropTypes.func,
 };
 
 export default BackStageArticle;

@@ -17,7 +17,6 @@ function Search({
   inputText,
   restaurantList = [],
   handleSearchRestaurant,
-  setFocused,
   handleTextSearch,
 }) {
   return (
@@ -28,7 +27,6 @@ function Search({
         inputText={inputText}
         restaurantList={restaurantList}
         handleSearchRestaurant={handleSearchRestaurant}
-        setFocused={setFocused}
       />
       <SearchButton onClick={handleTextSearch}>
         <ButtonImg />
@@ -54,7 +52,10 @@ export function HomePageSearch({ inputText, setInputText }) {
           }}
         />
       </SearchBoxContainer>
-      <SearchButton as={Link} to={inputText !== "" && `/search?query=${inputText}`}>
+      <SearchButton
+        as={Link}
+        to={inputText !== "" ? `/search?query=${inputText}` : `/search?query=`}
+      >
         <ButtonImg></ButtonImg>
       </SearchButton>
     </SearchWrapper>
