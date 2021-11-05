@@ -54,7 +54,7 @@ export function HomePageSearch({ inputText, setInputText }) {
       </SearchBoxContainer>
       <SearchButton
         as={Link}
-        to={inputText !== "" && `/search?query=${inputText}`}
+        to={inputText !== "" ? `/search?query=${inputText}` : `/search?query=`}
       >
         <ButtonImg></ButtonImg>
       </SearchButton>
