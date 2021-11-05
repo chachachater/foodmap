@@ -32,6 +32,7 @@ export const ArticleContainer = styled(Link)`
 `;
 
 export const ArticleImage = styled.div``;
+
 export const UserAllArticle = styled.div`
   flex-direction: column;
   max-width: 1200px;
@@ -57,6 +58,7 @@ export const ImageContainer = styled.div`
   ${MEDIA_QUERY.sm} {
     margin-bottom: 16px;
     max-width: 400px;
+    height: 75%;
   }
 `;
 
