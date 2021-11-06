@@ -31,7 +31,6 @@ export const ArticleContainer = styled(Link)`
   animation: ${test} 2s ease;
 `;
 
-
 export const UserAllArticle = styled.div`
   flex-direction: column;
   max-width: 1200px;
