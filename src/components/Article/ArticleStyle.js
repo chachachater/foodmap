@@ -31,7 +31,6 @@ export const ArticleContainer = styled(Link)`
   animation: ${test} 2s ease;
 `;
 
-export const ArticleImage = styled.div``;
 export const UserAllArticle = styled.div`
   flex-direction: column;
   max-width: 1200px;
@@ -45,6 +44,8 @@ export const UserAllArticle = styled.div`
   }
 `;
 
+export const ArticleImage = styled.div``;
+
 export const ImageContainer = styled.div`
   background-color: #ccc;
   height: 100%;
@@ -57,6 +58,7 @@ export const ImageContainer = styled.div`
   ${MEDIA_QUERY.sm} {
     margin-bottom: 16px;
     max-width: 400px;
+    height: 75%;
   }
 `;
 
